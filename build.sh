@@ -1,3 +1,3 @@
 #!/bin/bash
 
-npm --prefix ui-react install; npm --prefix ui-react run build
+cd ui-react && npm install && npm run build
