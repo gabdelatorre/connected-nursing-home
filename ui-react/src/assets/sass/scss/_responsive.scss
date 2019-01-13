@@ -1,0 +1,455 @@
+@media (max-width: 480px){
+
+    body {
+        overflow-x: hidden;
+        width: 100%;
+    }
+
+    .auto-container {
+        padding: 8px !important;
+    }
+
+    .mb-colnopadding {
+        padding: 0px;
+    }
+
+    .landing-section {
+        .about-section {
+
+            .about-icons {
+                height: 50px;
+                width: 50px;
+            }
+        }
+    }
+
+    .header-section {
+
+        .logo-box {
+            width: 170px !important;
+        }
+
+        .avatar {
+            margin-top: 7px !important;
+        }
+
+        .navbar-toggle {
+            margin-top: 16px !important;
+            margin-right: 0px !important;
+        }
+
+        .dropdown {
+            margin-left: 0px !important;
+
+            .dropdown-menu {
+                left: -100px !important;
+            }
+        }
+    }
+
+    .landing-section {
+        .bg-cover {
+            .cta-btn {
+                padding: 30px 40px !important;
+                width: auto !important;
+                font-size: 20px !important;
+            }
+            
+            .card-cover {
+                padding: 150px 0px;
+                height: 500px;
+
+                .l-header {
+                    font-size: 60px !important;
+                }
+            
+                .sub-l-header {
+                    font-size: 14px !important;
+                    margin-left: 16px;
+                }
+            }
+        }
+
+        .about-section {
+            padding: 40px 0px;
+
+            .section-header {
+                font-size: 14px;
+            }
+
+            p {
+                color: #757575;
+                font-size: 12px;
+                text-align: justify;
+            }
+    
+            .about-icons {
+                height: 45px;
+                width: 45px;
+            }
+        }
+
+        .highlighted-lg {
+            font-size: 60px;
+        }
+    }
+
+    .login-section {
+        .logo {
+            width: 100% !important;
+            height: 100% !important;
+            margin-bottom: 20px;
+        }
+
+        .login-container {
+            padding: 0px;
+        }
+
+        .loginform {
+            padding: 24px 0px !important;
+        }
+
+        .login-box {
+            padding: 24px 16px 16px !important;
+        }
+    }
+
+    .card-cover {
+        padding: 40px 0 230px 0;
+        height: 250px;
+
+        h1 {
+            font-size: 30px;
+        }
+
+        h2 {
+            font-size: 20px;
+        }
+    }
+
+    .summary-card {
+        .icon {
+            margin-top: 8px;
+            width: 40px !important;
+            height: 40px !important;
+            float: right;
+        }
+    }
+
+    .mycampaign-card {
+        .mycampaign-section {
+
+            .card-title {
+                font-size: 22px !important;
+            }
+            
+            .action-btn {
+                margin-top: 20px !important;
+            }
+
+            .campaign-about-section {
+                //float: left !important;
+                padding: 8px 0px 32px;
+            }
+        }
+    }
+
+    .modal-title {
+        font-size: 24px;
+    }
+
+    .add-campaign-card {
+
+        .form-section {
+            padding: 16px !important;
+            margin-bottom: 16px;
+        }
+    }
+
+    .notice-empt-card {
+        padding: 24px 8px !important;
+    }
+
+    .donate-section {
+        padding: 80px 20px !important;
+        background-position-y: -300px !important;
+
+        .form-section {
+            padding: 24px 16px !important;
+
+            .form-section-grid {
+                .instructions-donate {
+                    padding: 16px !important;
+                }
+
+                .donate-info {
+                    font-size: 12px;
+                    margin: 0px 0px 0px 8px !important;
+            
+                    .balance-label {
+                        font-size: 12px;
+                        font-weight: 700;
+                        margin-right: 8px;
+                    }
+                }
+        
+                .icon {
+                    width: 20px;
+                    height: 20px;
+                }
+            }
+        }
+
+        .action-btn {
+            margin-top: 16px !important;
+        }
+
+        .logo-section {
+            .logo {
+                width: 60%;
+                height: 60%;
+                margin-bottom: 20px;
+            }
+        }
+    }
+}
+
+@media (max-width: 767px){
+
+    .header-section {
+        .logo {
+            margin-left: -20px !important;
+        }
+
+        .navbar-nav 
+        { 
+            margin-left: -30px;
+
+            .navbtn {
+                padding-top: 8px !important;
+                height: 40px !important;
+                width: 100% !important;
+            }
+
+            .dropdown-menu {
+                margin-top: 60px;
+
+                a {
+                    margin-left: 8px !important;
+                    transition: none !important;
+                }
+
+                a:hover {
+                    background-color: transparent !important;   
+                }
+            }
+        }
+
+        li {
+            margin: 0px !important;
+            padding: 8px 0px !important;
+        }
+
+        li > a {
+            color: #535353 !important;
+            text-decoration: none !important;
+            font-weight: 700;
+            font-size: 12px;
+            text-transform: uppercase;
+            transition: none !important;
+            padding: 0px !important;
+            margin: 0px 0px 0px 24px !important;
+        }
+        
+        li > a:hover {
+            background-color: #ffe543 !important;
+            transition: none !important;
+        }
+
+        li:hover{
+            background-color: #ffe543 !important;
+            color: #fff !important;
+        }
+        
+        li > a:before {
+            width: 0%;
+        }
+
+        li:hover a:before{
+            width: 0% !important;
+        }
+
+        .active-li a:before{
+            width: 0% !important;
+        }
+    }
+
+    .campaign-about-section {
+        .campaign-ci-col {
+            padding: 8px 0px !important;
+        }
+    }
+
+    .notice-card {
+        .headline {
+            font-size: 28px;
+        }
+    }
+
+    .notice-grid {
+        padding: 40px 40px 0px !important;
+    }
+
+    .notice-grid-2 {
+        padding: 0px 40px 40px !important;
+    }
+
+    .notice-grid-3 {
+        padding: 40px !important;
+    }
+
+    .summary-section {
+        padding: 0px 20px !important;
+    }
+
+    .summary-section-expanded {
+        padding: 24px 20px !important;
+
+        .summary-description {
+
+            .sumicon {
+                width: 50px !important;
+                height: 50px !important;
+                margin-bottom: 24px;
+            }
+
+            .rating {
+                margin-left: 16px;
+            }
+        }
+    }
+
+    .notice-empt-card {
+        padding: 40px;
+    }
+
+    .modal-sm {
+        width: auto !important;
+    }
+
+    .modal-dialog {
+        //width: 350px !important;
+        margin: 20px auto;
+    }
+    .modal-body {
+        padding: 16px !important;
+
+        .instructions {
+            height: 150px !important;
+        }
+
+        .icon {
+            width: 25px !important;
+            height: 25px !important;
+        }
+    }
+
+    .request-info-block {
+        width: 200% !important;
+    }
+
+    .request-info-block-clicked {
+        transform: translate(-200px, 0px) !important;
+    }
+
+    .timeline-clickable-ct {
+        height: 120px !important;
+    }
+
+    .timeline-clicked {
+        height: 350px !important;
+    }
+
+    .timeline-clickable {
+        height: 120px;
+    }
+
+    .timeline-don-clickable {
+        height: 190px;
+    }
+
+    .timeline-don-clickable-ct {
+        height: 190px !important;
+    }
+
+    .timeline-don-clicked {
+        height: 350px !important;
+    }
+
+    .donate-section {
+        .form-section {
+            padding: 24px 16px;
+
+            .form-section-grid {
+                .instructions-donate {
+                    padding: 20px;
+                }
+
+                .current-balance {
+                    font-size: 12px;
+                    margin: 0px;
+            
+                    .balance-label {
+                        font-size: 12px;
+                        font-weight: 700;
+                        margin-right: 8px;
+                    }
+                }
+        
+                .icon {
+                    width: 25px;
+                    height: 25px;
+                }
+            }
+        }
+        .action-btn {
+            margin-top: 16px !important;
+        }
+    }
+
+    .landing-section {
+        .process-section {
+            padding: 40px 0px;
+    
+            .section-header {
+                text-align: center;
+                font-size: 14px;
+                text-transform: uppercase;
+                font-weight: 700;
+                letter-spacing: 16px;
+                line-height: 100%;
+                margin-bottom: 40px;
+            }
+    
+            .step-box {
+                height: 200px;
+                width: 100%;
+                margin: 0px 0px 8px;
+                background-color: #fff;
+                border: 1px #eee solid;
+                padding: 24px 40px;
+    
+                .stepnum {
+                    color: #ffc000;
+                    font-weight: 700;
+                    font-size: 48px;
+                }
+
+                .prvalue {
+                    color: #535353;
+                    font-size: 14px;
+                }
+            }
+        }
+    }
+}

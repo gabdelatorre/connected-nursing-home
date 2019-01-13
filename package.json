@@ -1,0 +1,30 @@
+{
+  "name": "connected-nursing-home",
+  "main": "server.js",
+  "description": "Connected Nursing Home Application",
+  "version": "0.1.1",
+  "private": false,
+  "engines": {
+    "node": "8.11.3"
+  },
+  "scripts": {
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git"
+  },
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "cfenv": "^1.0.x",
+    "cloudant": "1.9.x",
+    "cors": "^2.8.4",
+    "dotenv": "^4.0.0",
+    "express": "^4.16.2",
+    "request": "^2.87.0",
+    "simple-oauth2": "^2.2.0",
+    "ws": "^5.2.1"
+  },
+  "devDependencies": {
+    "concurrently": "^3.5.0"
+  }
+}
