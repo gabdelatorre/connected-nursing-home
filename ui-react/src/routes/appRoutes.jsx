@@ -1,10 +1,15 @@
+import Registration from "../views/Registration";
+import Login from "../views/Login";
+import EmployeeDashboard from "../views/EmployeeDashboard";
+import NursingHomeDashboard from "../views/NursingHomeDashboard";
+import RelativeDashboard from "../views/RelativeDashboard";
 
 const appRoutes = [
-    // { path: "/landing", name: "landing", text: "LANDING", glyph: "home", component: Landing },
-    // { path: "/login", name: "login", text: "LOGIN", glyph: "home", component: Login },
-    // { path: "/home", name: "home", text: "HOME", glyph: "home", component: Home },
-    // { path: "/mycampaigns", name: "mycampaigns", text: "MY CAMPAIGNS", glyph: "home", component: MyCampaigns },
-    // { path: "/approvals", name: "approvals", text: "APPROVALS", glyph: "home", component: Approvals },
+    { path: "/login", name: "login", title: "Login", component: Login },
+    { path: "/registration", name: "registration", title: "Registration",  component: Registration },
+    { path: "/edashboard", name: "edashboard", title: "My Dashboard",  component: EmployeeDashboard },
+    { path: "/nhdashboard", name: "nhdashboard", title: "Nursing Home Dashboard",  component: NursingHomeDashboard },
+    { path: "/rdashboard", name: "rdashboard", title: "My Dashboard",  component: RelativeDashboard },
 ]
 
 export default appRoutes;

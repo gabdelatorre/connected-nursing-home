@@ -1,0 +1,93 @@
+.table{
+
+   .radio,
+   .checkbox{
+        position: relative;
+        height: 20px;
+        display: block;
+        width: 20px;
+        padding: 0px 0px;
+        margin: 0px 5px;
+        text-align: center;
+
+        .icons{
+            left: 5px;
+        }
+   }
+   > thead > tr > th,
+   > tbody > tr > th,
+   > tfoot > tr > th,
+   > thead > tr > td,
+   > tbody > tr > td,
+   > tfoot > tr > td{
+       padding: 12px 8px;
+       vertical-align: middle;
+   }
+   
+   > tbody > tr > td{
+       font-size: 13px;
+       width: 25%;
+
+       .glyphicon {
+           font-size: 18px !important;
+           color: #8b8b8b;
+       }
+
+       .glyphicon-approved {
+            color: #46bb75;
+        }
+
+        .glyphicon-forapproval {
+            color: #ffbd2f;
+        }
+
+        .glyphicon-rejected {
+            color: #ee6060;
+        }
+   }
+    > thead > tr > th{
+        border-bottom-width: 1px;
+        font-size: 13px;
+        color: #535353;
+        font-weight: 700;
+        padding-bottom: 5px;
+    }
+
+   .td-actions .btn{
+        @include opacity(0.36);
+
+        &.btn-xs{
+            padding-left: 3px;
+            padding-right: 3px;
+        }
+    }
+    .td-actions{
+        min-width: 90px;
+    }
+
+    > tbody > tr{
+        position: relative;
+
+        &:hover{
+            .td-actions .btn{
+                @include opacity(1);
+            }
+        }
+    }
+    .view-treat-btn {
+        font-size: 25px;
+    }
+}
+
+.table-hover {
+
+    > tbody > tr:hover {
+        background-color: #dcf1ff !important;
+    }
+}
+
+.table-striped{
+    >tbody>tr:nth-of-type(odd) {
+        background-color: #f2faff;
+    }
+}

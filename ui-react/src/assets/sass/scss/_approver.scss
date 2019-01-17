@@ -1,0 +1,45 @@
+.approver-card {
+  margin: 16px 64px;
+  background-color: #fff;
+  border-radius: 4px;
+  padding: 16px;
+  margin-bottom: 16px;
+
+  .btn-toolbar {
+    .btn-group {
+      .btn {
+        background-color: #fff;
+        border: 0;
+        border-top-left-radius: 4px !important;
+        border-top-right-radius: 4px !important;
+        border-bottom-left-radius: 4px !important;
+        border-bottom-right-radius: 4px !important;
+        margin: 16px 8px;
+        color: #757575;
+        font-weight: 700;
+
+      }
+
+      .btn:hover {
+        background-color: #0096ff;
+        color: #fff;
+      }
+
+      .active {
+        background-color: #0096ff;
+        color: #fff !important;
+      }
+    }
+  }
+
+  .approval-table {
+    margin: 16px 8px 8px;
+
+    .treatment-table {
+      .mytrials-card {
+        padding: 0 !important;
+      }
+    }
+
+  }
+}

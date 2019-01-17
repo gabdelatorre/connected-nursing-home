@@ -1,2 +1,39 @@
 // CSS General
-@import 'scss/general';
+@import "scss/variables";
+@import "scss/mixins";
+@import "scss/general";
+
+// Core CSS
+@import "scss/typography";
+@import "scss/misc";
+@import "scss/sidebar-and-main-panel";
+@import "scss/buttons";
+@import "scss/inputs";
+
+@import "scss/alerts";
+@import "scss/tables";
+
+@import "scss/checkbox-radio-switch";
+@import "scss/navbars";
+@import "scss/footers";
+
+@import "scss/login";
+@import "scss/modal";
+@import "scss/treatments";
+@import "scss/feedback";
+@import "scss/notice";
+
+@import "scss/admin";
+@import "scss/search";
+@import "scss/dashboard";
+@import "scss/profile";
+@import "scss/requests";
+@import "scss/mydisease";
+@import "scss/mytreatments";
+@import "scss/approver";
+
+// Fancy Stuff
+@import "scss/dropdown";
+@import "scss/cards";
+@import "scss/chartist";
+@import "scss/responsive";

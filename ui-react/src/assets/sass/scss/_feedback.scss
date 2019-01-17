@@ -1,0 +1,35 @@
+.feedback-card {
+    margin-bottom: 16px;
+    /* ----- animation ----- */
+    animation:
+    drop 0.4s ease-in both,
+    fadeIn 0.4s ease-in both;
+
+    .feedback-block {
+        padding: 16px;
+        background-color: #37be60;
+        color: #fff;
+        font-size: 14px;
+        font-weight: 700;
+        text-align: center;
+        border-radius: 4px;
+    }
+    .feedback-block-loading {
+        padding: 16px;
+        background-color: #999999;
+        color: #fff;
+        font-size: 14px;
+        font-weight: 700;
+        text-align: center;
+        border-radius: 4px;
+    }
+    .feedback-block-failure {
+        padding: 16px;
+        background-color: rgb(255, 95, 103);
+        color: #fff;
+        font-size: 14px;
+        font-weight: 700;
+        text-align: center;
+        border-radius: 4px;
+    }
+}

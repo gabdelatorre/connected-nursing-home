@@ -1,0 +1,117 @@
+.dashboard-card {
+    margin: 16px 59px 0px 59px;
+
+    .analytics-card {
+
+        .col-lg-4, .col-md-4, .col-sm-4, .col-xs-4 {
+            padding-left: 5px;
+            padding-right: 5px;
+        }
+
+        .data-tile {
+            background-color: #fff;
+            border-radius: 4px;
+            padding: 16px;
+            height: 150px;
+            margin-bottom: 8px;
+            -webkit-box-shadow: 0 2px 10px rgba(0, 0, 0, 0.13);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.13);
+
+            .data-icon {
+                color: #757575;
+                position: absolute;
+                top: 20px;
+                left: 30px;
+
+                .request-icon-1 {
+                    position: absolute;
+                    top: 20px;
+                    left: 10px;
+                    font-size: 40px;
+                }
+
+                .request-icon-2 {
+                    position: absolute;
+                    top: 10px;
+                    left: 20px;
+                    font-size: 40px;
+                }
+
+                .share-icon-1 {
+                    position: absolute;
+                    top: 15px;
+                    font-size: 50px;
+                }
+
+                .send-icon-1 {
+                    position: absolute;
+                    top: 15px;
+                    font-size: 50px;
+                }
+            }  
+
+            .tileheader {
+                margin-top: 30px;
+                margin-bottom: 0px;
+                font-size: 14px;
+                font-weight: 700;
+                color: #757575;
+                line-height: 100%;
+            }
+
+            .amount {
+                margin-top: 8px;
+                color: #0096ff;
+            }
+
+            .disease {
+                margin-top: 8px;
+                font-size: 14px;
+                color: #0096ff;
+            }
+        }
+    }
+
+    .dashboard-grid {
+        padding: 11px;
+
+        .col-lg-3, .col-md-3, .col-sm-3, .col-xs-3 {
+            padding: 0px;
+        }
+
+        .col-lg-9, .col-md-9, .col-sm-9, .col-xs-9 {
+            padding: 0px;
+        }
+    }
+
+    hr {
+        margin-bottom: 10px;
+        border-top: 1px #c4c4c4 solid;
+    }
+
+    .newsfeed-card {
+
+        .newsfeed-header {
+            background-color: #0096ff;
+            padding: 16px 32px;
+            border-radius: 4px;
+            color: #fff;
+            font-weight: 700;
+            font-size: 22px;
+            margin: 8px;
+        }
+    
+        .newsfeed-details {
+            background-color: #fff;
+            padding: 32px;
+            margin: 8px;
+            border-radius: 4px;
+            min-height: 453px;
+
+            .details {
+                font-size: 13px;
+                color: #535353;
+            }
+        }
+    }
+}

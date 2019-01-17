@@ -1,0 +1,22 @@
+.notice-card {
+    /* ----- animation ----- */
+    animation:
+    fadeIn 0.4s ease-in both;
+
+    padding: 48px;
+    //background-color: #e3e3e3;
+    background: -webkit-linear-gradient(to bottom, #e3e3e3,  #f3f3f3);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to bottom,  #e3e3e3, #f3f3f3); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */ 
+    border-radius: 4px;
+        .noticesymbol {
+            color: #757575;
+            font-size: 60px;
+        }
+
+        .content {
+            color: #757575;
+            font-weight: 700;
+            margin: 16px 0px 0px;
+        }
+    
+}

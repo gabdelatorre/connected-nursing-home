@@ -1,0 +1,63 @@
+
+
+
+.profile-card {
+    background-color: #fff;
+    padding: 0px;
+    border-radius: 4px;
+    margin: 8px;
+
+    .col-lg-5, .col-md-5, .col-sm-5, .col-xs-5 {
+        padding: 0px;
+    }
+
+    .profile-grid {
+        padding: 0px;
+    }
+
+    .cover-tile {
+        padding: 30px 16px 16px 16px;
+        border-radius: 4px;
+        min-height: 250px;
+        background: -webkit-linear-gradient(to bottom, #acacac,  #777777);  /* Chrome 10-25, Safari 5.1-6 */
+        background: linear-gradient(to bottom,  #acacac, #777777); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */  
+        color: #fff;
+        text-align: center;
+
+        .avatar {
+            margin-bottom: 8px;
+            font-weight: 700;
+            font-family: 'Poppins';
+        }
+        
+        .fullname {
+            font-size: 24px;
+            font-weight: 700;
+            margin: 0px;
+        }
+
+        .username {
+            margin: 0px;
+            font-size: 18px;
+            font-weight: 400;
+        }
+    }
+
+    .info-tile {
+        padding: 32px;
+
+        .infoheader {
+            margin: 0px;
+            font-size: 13px;
+            color: #757575;
+            line-height: 140%;
+        }
+
+        .infodata {
+            margin: 0px;
+            font-size: 13px;
+            color: #535353;
+            line-height: 140%;
+        }
+    }
+}

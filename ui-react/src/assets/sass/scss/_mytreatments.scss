@@ -1,0 +1,91 @@
+.mytreatments-card {
+  margin: 16px 64px;
+  background-color: #fff;
+  border-radius: 4px;
+  padding: 16px;
+
+  .treatment-menu {
+    text-align: right;
+
+    .action-btn {
+      background-color: #757575;
+      border: 0;
+      border-top-left-radius: 4px !important;
+      border-top-right-radius: 4px !important;
+      border-bottom-left-radius: 4px !important;
+      border-bottom-right-radius: 4px !important;
+      margin: 16px 8px;
+      color: #fff;
+      font-weight: 700;
+    }
+
+    .action-btn:hover {
+      background-color: #0096ff;
+      color: #fff;
+    }
+  }
+
+  .treatment-table {
+    margin: 16px 8px 8px;
+  }
+
+  .action-tbl-grp {
+    padding: 5px;
+    margin: 5px;
+    color: #0096ff;
+    border-color: #0096ff;
+    background: transparent;
+    float: left;
+
+    .glyphicon {
+      color: #0096ff;
+    }
+
+    .glyphicon {
+      color: white;
+    }
+  }
+
+  .action-tbl-grp:hover {
+    background: #0096ff;
+  }
+
+  .footer {
+    background-color: $transparent-bg;
+    line-height: 30px;
+    height: 48px;
+    font-size: 13px;
+
+    .legend {
+      padding: 5px 0;
+    }
+
+    hr {
+      margin-top: 5px;
+      margin-bottom: 5px;
+    }
+
+    .stats {
+      padding: 8px 0 8px 16px;
+
+      .glyphicon {
+        font-size: 18px !important;
+        color: #8b8b8b;
+      }
+
+      .glyphicon-approved {
+        color: #46bb75;
+      }
+
+      .glyphicon-forapproval {
+        color: #ffbd2f;
+      }
+
+      .glyphicon-rejected {
+        color: #ee6060;
+      }
+    }
+
+  }
+
+}

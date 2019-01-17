@@ -1,0 +1,157 @@
+.admin-card {
+    margin: 16px 64px 0px 64px;
+
+    .container { margin: 0px };
+    .col-lg-6 {
+        padding: 0px;
+    }
+
+    .admin-grid {
+        padding: 0px;
+    }
+    
+    .management-card {   
+        margin-bottom: 24px;
+
+        .header-section {
+            margin-top: 16px;
+            margin-bottom: 8px;
+            background-color: #0096ff;
+            padding: 16px 16px 16px 28px;
+            border-radius: 4px;
+
+            .cardheader {
+                margin: 0px;
+                font-size: 18px;
+                font-weight: 700;
+                color: #fff;
+            }
+        }
+
+        .form-section {
+            background-color: #fff;
+            border-radius: 4px;
+            padding: 16px 16px 30px 16px;
+
+            .btn-toolbar {
+                .btn-group {
+                    .btn {
+                        background-color: #fff;
+                        border: 0px;
+                        border-top-left-radius: 4px !important;
+                        border-top-right-radius: 4px !important;
+                        border-bottom-left-radius: 4px !important;
+                        border-bottom-right-radius: 4px !important;
+                        margin: 16px 8px;
+                        color: #757575;
+                        font-weight: 700;
+        
+                    }
+        
+                    .btn:hover {
+                        background-color: #0096ff;
+                        color: #fff;
+                    }
+        
+                    .active {
+                        background-color: #0096ff;
+                        color: #fff !important;
+                    }
+                }
+            }
+
+            .form-grid {
+                margin: 0px;
+                padding: 0px;
+            }
+
+            .button-grid {
+                margin: 0px;
+                width: 100%;
+
+                .add-btn {
+                    font-weight: 300;
+                    font-size: 12px;
+                    border: 0px;
+                    border-radius: 4px;
+                    background-color: #757575;
+                    margin: 16px 0px 0px 0px;
+                    color: #fff;  
+                    width: 100px;
+                    padding: 8px;
+                    float:right;
+                }
+            
+                .add-btn:hover {
+                    background-color: #0096ff;
+                    color: #fff;
+                }
+            }
+
+            .formgroup-header {
+                font-size: 13px;
+                font-weight: 700;
+                margin-top: 0px;
+                color: #757575;
+            }
+
+            .form-control-error {
+                border-color: red;
+            }
+
+            .infoheader {
+                font-size: 12px;
+            }
+
+            .criteriaerror {
+                font-size: 10px;
+                color: red;
+                margin-bottom: 15px;
+            }
+
+            textarea {
+                height: 60px !important;
+                resize: none;
+            }
+
+            .form-control {
+                height: 30px;
+                font-size: 10px;
+            }
+
+            .radio-inline {
+                font-size: 12px;
+            }
+
+            .radio-inline input[type=radio] {
+                margin-top: 2px;
+            }
+
+            .Select-control {
+                height: 30px;
+                font-size: 10px;
+            }
+
+            .Select-input {
+                height: 30px;
+            }
+
+            .Select-menu-outer {
+                font-size: 10px;
+            }
+
+            // react-phone-number-input overrides
+            .react-phone-number-input__icon {
+                width: 20px !important;
+                height: 20px !important;
+                border: 0px !important;
+                margin-bottom: 8px;
+            }
+        
+            .react-phone-number-input__input {
+                padding: 16px 8px;
+                margin-bottom: 16px;
+            }
+        }
+    }
+}
