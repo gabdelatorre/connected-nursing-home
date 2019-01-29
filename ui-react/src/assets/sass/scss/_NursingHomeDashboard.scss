@@ -1,0 +1,56 @@
+.NursingHomeDashboard {
+  .formCreation {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: baseline;
+    padding: 0 30px 0 30px;
+  }
+
+  .vitalStatistics {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: baseline;
+    padding: 0 30px 0 30px;
+
+    .formItems {
+      width: 48%;
+      margin: 1%;
+    }
+  }
+
+  .formItems {
+    align-self: auto;
+    flex-basis: auto;
+    width: 100%;
+  }
+
+  .formItems #firstNamePatientCreation {
+    width: 100%;
+  }
+
+  .form {
+    margin: auto;
+    width: 40%;
+  }
+
+  hr.style-one {
+    border: 10px;
+    height: 1px;
+    background: #333;
+    background-image: linear-gradient(to right, #ccc, #333, #ccc);
+    width: 95%;
+    margin: 2%;
+  }
+
+  hr.style14 {
+    height: 10px;
+    border: 0;
+    box-shadow: 0 10px 10px -10px #8c8b8b inset;
+  }
+}

@@ -1,0 +1,144 @@
+// ==============================================================================================================================
+// ====    EmployeeDashboard.jsx
+// ==============================================================================================================================
+
+/* Gradient color1 - color2 - color1 */
+
+.sectionText {
+}
+
+hr.style-one {
+  border: 10px;
+  height: 1px;
+  background: #333;
+  background-image: linear-gradient(to right, #ccc, #333, #ccc);
+  width: 95%;
+  margin: 0 0 2% 0;
+}
+
+.containerSection {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: baseline;
+  padding: 0 30px 0 30px;
+}
+
+.containerSectionSearch {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  padding: 0 40px 0 40px;
+}
+
+.sectionItem {
+  flex-basis: auto;
+}
+
+.patientsProfile {
+  width: 60%;
+}
+
+.patientsProfileBorder {
+  width: 100%;
+  border: 2px solid black;
+  word-wrap: break-word;
+  overflow: hidden;
+}
+
+.patientsProfileBorderName {
+  width: 100%;
+  border: 2px solid black;
+  word-wrap: break-word;
+  overflow: hidden;
+}
+
+hr.style14 {
+  height: 10px;
+  border: 0;
+  box-shadow: 0 10px 10px -10px #8c8b8b inset;
+}
+
+.patientsCardSettings {
+  margin: 5px;
+}
+
+.containerModalPicture {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  padding: 0 40px 0 40px;
+  margin: 2%;
+}
+
+.containerModal {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-content: center;
+  align-items: flex-start;
+  padding: 0 40px 0 40px;
+  margin: 2%;
+}
+
+.itemsModal {
+  flex-basis: auto;
+  margin: 3%;
+}
+
+p .modalBodyText {
+}
+
+.modalResponsive {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-content: center;
+  align-items: flex-start;
+  padding: 0 40px 0 40px;
+  margin: 2%;
+}
+// ==============================================================================================================================
+// ====    PatientCard.jsx
+// ==============================================================================================================================
+
+.containerPatientCard {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-items: baseline;
+  margin: 0.5%;
+}
+
+.itemPatientCard {
+  flex-basis: auto;
+}
+
+// ==============================================================================================================================
+// ====    Media
+// ==============================================================================================================================
+
+@media (max-width: 800px) {
+  .containerPatientCard {
+    //line 18
+    justify-content: center;
+  }
+
+  hr.style-one {
+    height: 1px;
+    background: #333;
+    background-image: linear-gradient(to right, #ccc, #333, #ccc);
+  }
+}

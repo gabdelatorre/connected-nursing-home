@@ -289,7 +289,7 @@ input:focus {
   width: 260px;
   display: block;
   z-index: 1;
-  color: #fff;
+  color: antiquewhite;
   font-weight: 200;
   background-size: cover;
   background-position: center center; }
@@ -344,15 +344,15 @@ input:focus {
       text-align: center;
       padding: 0px; }
     .sidebar .logo h1 {
-      font-family: 'Anton','sans-serif';
+      font-family: "Anton", "sans-serif";
       font-size: 25px;
-      color: #FAF8D4;
+      color: #faf8d4;
       line-height: 80%;
       margin: 0px; }
     .sidebar .logo .main-h1 {
-      font-family: 'Anton','sans-serif';
+      font-family: "Anton", "sans-serif";
       font-size: 25px;
-      color: #FAF8D4;
+      color: #faf8d4;
       line-height: 80%;
       margin: 16px 0px 0px 0px; }
   .sidebar .nav {
@@ -363,7 +363,7 @@ input:focus {
     .sidebar .nav li > a {
       color: #757575;
       margin: 5px 25px;
-      opacity: .86;
+      opacity: 0.86;
       border-radius: 4px; }
     .sidebar .nav li:hover > a,
     .sidebar .nav li.open > a,
@@ -434,12 +434,12 @@ body > .navbar-collapse:before {
 
 .sidebar,
 .main-panel {
-  -webkit-transition-property: top,bottom;
-  transition-property: top,bottom;
-  -webkit-transition-duration: .2s,.2s;
-  transition-duration: .2s,.2s;
-  -webkit-transition-timing-function: linear,linear;
-  transition-timing-function: linear,linear;
+  -webkit-transition-property: top, bottom;
+  transition-property: top, bottom;
+  -webkit-transition-duration: 0.2s, 0.2s;
+  transition-duration: 0.2s, 0.2s;
+  -webkit-transition-timing-function: linear, linear;
+  transition-timing-function: linear, linear;
   -webkit-overflow-scrolling: touch; }
 
 .btn {

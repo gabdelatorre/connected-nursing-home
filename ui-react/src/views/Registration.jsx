@@ -105,7 +105,7 @@ class Registration extends Component {
                                           type="text"
                                           bsClass="form-control"
                                           inputRef={email => this.email = email}
-                                          placeholder="Enter text"
+                                          placeholder=""
                                         />
                                     </Col>
                                 </Row>
@@ -122,7 +122,7 @@ class Registration extends Component {
                                         type="password"
                                         bsClass="form-control"
                                         inputRef={password => this.password = password}
-                                        placeholder="Enter text"
+                                        placeholder="At least 6 characters"
                                       />
                                     </Col>
                                 </Row>
