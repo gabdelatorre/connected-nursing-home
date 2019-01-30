@@ -108,23 +108,6 @@ p .modalBodyText {
   padding: 0 40px 0 40px;
   margin: 2%;
 }
-// ==============================================================================================================================
-// ====    PatientCard.jsx
-// ==============================================================================================================================
-
-.containerPatientCard {
-  display: flex;
-  flex-direction: row;
-  width: 100%;
-  flex-wrap: wrap;
-  justify-content: flex-start;
-  align-items: baseline;
-  margin: 0.5%;
-}
-
-.itemPatientCard {
-  flex-basis: auto;
-}
 
 // ==============================================================================================================================
 // ====    Media
@@ -141,4 +124,22 @@ p .modalBodyText {
     background: #333;
     background-image: linear-gradient(to right, #ccc, #333, #ccc);
   }
+}
+
+// ==============================================================================================================================
+// ====    PatientCard.jsx
+// ==============================================================================================================================
+
+.containerPatientCard {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-items: baseline;
+  margin: 0.5%;
+}
+
+.itemPatientCard {
+  flex-basis: auto;
 }

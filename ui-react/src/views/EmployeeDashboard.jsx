@@ -26,37 +26,23 @@ class EmployeeDashboard extends Component {
         firstName: null,
         lastName: null,
         birthdate: null,
-        id: null
+        id: null,
+        role: null
       },
       listOfRelatives: [],
       data: {
         firstName: null,
         lastName: null,
         birthdate: null,
-        id: null
-      }
+        id: null,
+        role: null
+      },
+      buttonRole: ""
     };
   }
   componentDidMount() {
-    this.fillRelativeList();
     this.onloadAllPatients();
     this.onloadMyPatients();
-  }
-
-  fillRelativeList() {
-    this.props.firebase.db
-      .collection("users")
-      .where("role", "==", "RELATIVE")
-      .get()
-      .then(e => {
-        e.docs.forEach(data => {
-          this.setState({
-            listOfRelatives: this.state.listOfRelatives.concat(data.data())
-          });
-
-          console.log(this.state.listOfRelatives + " SASAS");
-        });
-      });
   }
 
   onloadMyPatients() {
@@ -70,6 +56,9 @@ class EmployeeDashboard extends Component {
       .doc(this.props.authUser.uid)
       .collection("patients")
       .onSnapshot(e => {
+        this.setState({
+          arrOfMyPatients: []
+        });
         e.docs.forEach(data => {
           console.log(data.data());
           this.setState({
@@ -77,7 +66,8 @@ class EmployeeDashboard extends Component {
               firstName: data.data().firstName,
               lastName: data.data().lastName,
               birthdate: data.data().birthdate,
-              id: data.id
+              id: data.id,
+              role: data.data().role
             }
           });
 
@@ -93,14 +83,51 @@ class EmployeeDashboard extends Component {
             firstName: null,
             lastName: null,
             birthdate: null,
-            id: null
+            id: null,
+            role: null
           }
         });
         console.log(this.state.arrOfMyPatients);
       });
   }
 
-  addPatient() {
+  onloadAllPatients() {
+    this.props.firebase.patients().onSnapshot(e => {
+      this.setState({
+        arrOfMyPatients: []
+      });
+      e.docs.forEach(data => {
+        console.log(data.data());
+        this.setState({
+          tempStorage: {
+            firstName: data.data().firstName,
+            lastName: data.data().lastName,
+            birthdate: data.data().birthdate,
+            id: data.id,
+            role: data.data().role
+          }
+        });
+
+        this.setState({
+          arrOfAllPatients: this.state.arrOfAllPatients.concat(
+            this.state.tempStorage
+          )
+        });
+      });
+
+      this.setState({
+        tempStorage: {
+          firstName: null,
+          lastName: null,
+          birthdate: null,
+          id: null,
+          role: null
+        }
+      });
+    });
+  }
+
+  addPatientToMyPatient() {
     var patientAssign = this.state.data.id;
     this.props.firebase.db
       .collection("users")
@@ -114,7 +141,8 @@ class EmployeeDashboard extends Component {
           .doc(this.props.authUser.uid)
           .set({
             firstName: e.data().firstName,
-            lastName: e.data().lastName
+            lastName: e.data().lastName,
+            role: e.data().role
           });
       });
 
@@ -131,64 +159,72 @@ class EmployeeDashboard extends Component {
           .doc(e.id)
           .set({
             firstName: e.data().firstName,
-            lastName: e.data().lastName
+            lastName: e.data().lastName,
+            birthdate: e.data().birthdate,
+            role: e.data().role
           });
       });
 
-    this.setState({
-      arrOfMyPatients: []
-    });
+    this.onCloseModal();
   }
 
-  onOpenModal = (passFirstName, passLastName, passBirthdate, passId) => {
+  onOpenModal = (
+    passFirstName,
+    passLastName,
+    passBirthdate,
+    passId,
+    passRole,
+    patientLocation
+  ) => {
     this.setState({
       open: true,
       data: {
         firstName: passFirstName,
         lastName: passLastName,
         birthdate: passBirthdate,
-        id: passId
+        id: passId,
+        role: passRole
       }
     });
+
+    if (patientLocation == "myPatient") {
+      this.setState({
+        buttonRole: (
+          <p className="modalBodyText">
+            <Button
+              bsStyle="primary"
+              type="submit"
+              id="loginBtn"
+              className="btn-block"
+              onClick={this.removingOfPatient.bind(this)}
+            >
+              Remove this
+            </Button>
+          </p>
+        )
+      });
+    } else {
+      this.setState({
+        buttonRole: (
+          <p className="modalBodyText">
+            <Button
+              bsStyle="primary"
+              type="submit"
+              id="loginBtn"
+              className="btn-block"
+              onClick={this.addPatientToMyPatient.bind(this)}
+            >
+              Add to my Patient
+            </Button>
+          </p>
+        )
+      });
+    }
   };
 
   onCloseModal = () => {
     this.setState({ open: false });
   };
-
-  onloadAllPatients() {
-    this.props.firebase
-      .patients()
-      .get()
-      .then(e => {
-        e.docs.forEach(data => {
-          console.log(data.data());
-          this.setState({
-            tempStorage: {
-              firstName: data.data().firstName,
-              lastName: data.data().lastName,
-              birthdate: data.data().birthdate,
-              id: data.id
-            }
-          });
-
-          this.setState({
-            arrOfAllPatients: this.state.arrOfAllPatients.concat(
-              this.state.tempStorage
-            )
-          });
-        });
-
-        this.setState({
-          tempStorage: {
-            firstName: null,
-            lastName: null,
-            birthdate: null,
-            id: null
-          }
-        });
-      });
-  }
 
   searchMyPatients() {
     var vals = document.getElementById("searchTxtMyPatients").value;
@@ -223,7 +259,8 @@ class EmployeeDashboard extends Component {
               firstName: data.data().firstName,
               lastName: data.data().lastName,
               birthdate: data.data().birthdate,
-              id: data.id
+              id: data.id,
+              role: data.data().role
             }
           });
 
@@ -239,7 +276,8 @@ class EmployeeDashboard extends Component {
             firstName: null,
             lastName: null,
             birthdate: null,
-            id: null
+            id: null,
+            role: null
           }
         });
       });
@@ -277,7 +315,8 @@ class EmployeeDashboard extends Component {
               firstName: data.data().firstName,
               lastName: data.data().lastName,
               birthdate: data.data().birthdate,
-              id: data.id
+              id: data.id,
+              role: data.data().role
             }
           });
 
@@ -293,17 +332,39 @@ class EmployeeDashboard extends Component {
             firstName: null,
             lastName: null,
             birthdate: null,
-            id: null
+            id: null,
+            role: null
           }
         });
       });
   }
 
-  render() {
-    const listOfRelativesUser = this.state.listOfRelatives.map(rel => {
-      return <option>{rel.firstName} </option>;
-    });
+  removingOfPatient() {
+    var patientId = this.state.data.id;
+    var nurseId = this.props.authUser.uid;
+    this.props.firebase.db
+      .collection("patients")
+      .doc(patientId)
+      .collection("nurse_assigned")
+      .doc(nurseId)
+      .delete()
+      .then(e => {
+        console.log("Delete Successful!");
+      });
+    this.props.firebase.db
+      .collection("users")
+      .doc(nurseId)
+      .collection("patients")
+      .doc(patientId)
+      .delete()
+      .then(e => {
+        console.log("Delete Successful!");
+      });
 
+    this.onCloseModal();
+  }
+
+  render() {
     const allPatientsInfo = this.state.arrOfAllPatients.map(pat => {
       return (
         <div className="itemsPatientCard">
@@ -313,7 +374,9 @@ class EmployeeDashboard extends Component {
                 pat.firstName,
                 pat.lastName,
                 pat.birthdate,
-                pat.id
+                pat.id,
+                pat.role,
+                "allPatient"
               )
             }
           >
@@ -322,7 +385,7 @@ class EmployeeDashboard extends Component {
               lastName={pat.lastName}
               birthdate={pat.birthdate}
               id={pat.id}
-              nurseAssigned="SampleText"
+              nurseAssigned={pat.role}
             />
           </ButtonBase>
         </div>
@@ -338,7 +401,9 @@ class EmployeeDashboard extends Component {
                 pat.firstName,
                 pat.lastName,
                 pat.birthdate,
-                pat.id
+                pat.id,
+                pat.role,
+                "myPatient"
               )
             }
           >
@@ -347,7 +412,7 @@ class EmployeeDashboard extends Component {
               lastName={pat.lastName}
               birthdate={pat.birthdate}
               id={pat.id}
-              nurseAssigned="SampleText"
+              nurseAssigned={pat.role}
             />
           </ButtonBase>
         </div>
@@ -355,6 +420,9 @@ class EmployeeDashboard extends Component {
     });
 
     const { open } = this.state;
+
+    const ModalButtons = () => {};
+
     return (
       <div className="EmployeeDashboard">
         <section id="My Patients">
@@ -426,118 +494,81 @@ class EmployeeDashboard extends Component {
         </div>
         <hr className="style-one" />
         <div className="containerPatientCard">{allPatientsInfo}</div>
-        <div className="modalResponsive">
-          <Modal open={open} onClose={this.onCloseModal} center>
+        <Modal
+          className="settingsModal"
+          open={open}
+          onClose={this.onCloseModal}
+          center
+        >
+          <div className="modalResponsive">
             <h2>
               <b>Profile of {this.state.data.firstName}</b>
             </h2>
-            <div className="containerModalPicture">
+            <div className="containerModal">
+              <div className="itemsModal pictureItem">
+                <div className="containerModalPicture">
+                  <div className="itemsModal pictureItem">
+                    <img src="https://placeholdit.imgix.net/~text?txtsize=33&txt=318%C3%97180&w=318&h=180" />
+                  </div>
+                </div>
+              </div>
+
               <div className="itemsModal">
-                <img src="https://placeholdit.imgix.net/~text?txtsize=33&txt=318%C3%97180&w=318&h=180" />
+                <div className="containerModalBody">
+                  <div className="itemsModal">
+                    <p className="modalBodyText">
+                      <b>First Name:</b> {this.state.data.firstName}{" "}
+                    </p>
+                  </div>
+
+                  <div className="itemsModal">
+                    <p className="modalBodyText">
+                      <b>Last name:</b> {this.state.data.lastName}
+                    </p>
+                  </div>
+
+                  <div className="itemsModal">
+                    <p className="modalBodyText">
+                      <b>Birthdate:</b> {this.state.data.birthdate}{" "}
+                    </p>
+                  </div>
+                </div>
               </div>
             </div>
 
-            <div className="containerModal">
+            <div className="containerVitalStatistic">
               <div className="itemsModal">
                 <p className="modalBodyText">
-                  <b>Name:</b>
+                  <b>Height:</b> 53.54
                 </p>
               </div>
+
               <div className="itemsModal">
                 <p className="modalBodyText">
-                  {this.state.data.firstName} {this.state.data.lastName}
+                  <b>Weight:</b> 53.54
                 </p>
               </div>
-            </div>
-            <div className="containerModal">
-              <div className="itemsModal">
-                <p className="modalBodyText">
-                  <b>Birthdate:</b>
-                </p>
-              </div>
-              <div className="itemsModal">
-                <p className="modalBodyText">{this.state.data.birthdate}</p>
-              </div>
 
-              <div className="containerModal">
-                <div className="itemsModal">
-                  <p className="modalBodyText">
-                    <b>Vital Statistics:</b>
-                  </p>
-                </div>
-                <div className="itemsModal">
-                  <p className="modalBodyText" />
-                </div>
-              </div>
-
-              <div className="containerModal">
-                <div className="itemsModal">
-                  <p className="modalBodyText">
-                    <b>Height: </b> 53.54
-                  </p>
-                </div>
-
-                <div className="itemsModal">
-                  <p className="modalBodyText">
-                    <b>Weight:</b> 53.54
-                  </p>
-                </div>
-              </div>
               <div className="itemsModal">
                 <p className="modalBodyText">
                   <b>Blood Pressure:</b> 53.54
                 </p>
               </div>
+
               <div className="itemsModal">
                 <p className="modalBodyText">
-                  <b>Temperature: </b> 53.54
+                  <b>Temperature:</b> 53.54
                 </p>
               </div>
             </div>
 
-            <div className="containerModal">
-              <div className="itemsModal">
-                <p className="modalBodyText">
-                  <Button
-                    bsStyle="primary"
-                    type="submit"
-                    id="loginBtn"
-                    className="btn-block"
-                    onClick={this.addPatient.bind(this)}
-                  >
-                    Add to my Patient
-                  </Button>
-                </p>
-              </div>
-
-              <div className="itemsModal">
-                <p className="modalBodyText">
-                  <Button
-                    bsStyle="primary"
-                    type="submit"
-                    id="loginBtn"
-                    className="btn-block"
-                    onClick={this.addPatient.bind(this)}
-                  >
-                    Add Relative
-                  </Button>
-                </p>
-              </div>
-
-              <div className="itemsModal">
-                <ControlLabel>Relative List</ControlLabel>
-                <FormControl
-                  componentClass="select"
-                  className="relativeList"
-                  id="relativeList"
-                  placeholder="select"
-                >
-                  {listOfRelativesUser}
-                </FormControl>
+            <div className="containerModalButtons">
+              <div className="itemsModal" id="buttonRole">
+                {this.state.buttonRole}
               </div>
             </div>
-          </Modal>
-        </div>
+          </div>
+        </Modal>
       </div>
     );
   }

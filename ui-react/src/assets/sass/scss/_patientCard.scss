@@ -1,0 +1,89 @@
+.containerModal {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-content: center;
+  align-items: flex-start;
+  padding: 0%;
+  margin: 2%;
+}
+
+.containerModalButtons {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-content: center;
+  align-items: flex-start;
+  padding: 0%;
+  margin: 0%;
+}
+
+.containerModalPicture {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding: 0%;
+  margin: 0%;
+}
+
+.containerModalBody {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-content: center;
+  align-items: flex-start;
+  padding: 0 40px 0 40px;
+  margin: 2%;
+}
+
+.containerVitalStatistic {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-content: center;
+  align-items: flex-start;
+  padding: 0 40px 0 40px;
+  margin: 2%;
+}
+
+.settingsModal {
+  width: 100%;
+}
+
+.itemsModal {
+  flex-basis: auto;
+  margin: 3%;
+}
+
+.pictureItem {
+  margin: 0%;
+}
+
+.bodyItem {
+  width: 40%;
+}
+
+p .modalBodyText {
+}
+
+.modalResponsive {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-content: center;
+  align-items: flex-start;
+  padding: 0%;
+  margin: 2%;
+}
