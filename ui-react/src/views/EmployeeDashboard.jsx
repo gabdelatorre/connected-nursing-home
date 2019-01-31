@@ -2,6 +2,9 @@ import React, { Component, optionsState } from "react";
 import { FirebaseContext } from "../firebase";
 import { withFirebase } from "../firebase/context";
 import PatientCard from "./PatientCard";
+
+import { Redirect, withRouter } from "react-router-dom";
+
 import {
   FormGroup,
   InputGroup,
@@ -11,10 +14,11 @@ import {
 } from "react-bootstrap";
 import Modal from "react-responsive-modal";
 import ButtonBase from "@material-ui/core/ButtonBase";
+import PatientDashboard from "../views/PatientDashboard";
 
 class EmployeeDashboard extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       arrOfAllPatients: [],
       isEmptyAllPatients: false,
@@ -41,13 +45,13 @@ class EmployeeDashboard extends Component {
     };
   }
   componentDidMount() {
-    this.onloadAllPatients();
+    // this.onloadAllPatients();
     this.onloadMyPatients();
   }
 
   onloadMyPatients() {
     console.log("GetMyPatients");
-    this.searchAllPatients({
+    this.searchMyPatients({
       arrOfMyPatients: []
     });
 
@@ -364,6 +368,33 @@ class EmployeeDashboard extends Component {
     this.onCloseModal();
   }
 
+  routeDirection = (
+    passFirstName,
+    passLastName,
+    passBirthdate,
+    passId,
+    passRole,
+    patientLocation
+  ) => {
+    this.setState({
+      open: true,
+      data: {
+        firstName: passFirstName,
+        lastName: passLastName,
+        birthdate: passBirthdate,
+        id: passId,
+        role: passRole
+      }
+    });
+
+    this.props.history.push({
+      pathname: "/pdashboard",
+      state: {
+        data: this.state.data
+      }
+    });
+  };
+
   render() {
     const allPatientsInfo = this.state.arrOfAllPatients.map(pat => {
       return (
@@ -395,18 +426,7 @@ class EmployeeDashboard extends Component {
     const myPatientsInfo = this.state.arrOfMyPatients.map(pat => {
       return (
         <div className="itemsPatientCard">
-          <ButtonBase
-            onClick={() =>
-              this.onOpenModal(
-                pat.firstName,
-                pat.lastName,
-                pat.birthdate,
-                pat.id,
-                pat.role,
-                "myPatient"
-              )
-            }
-          >
+          <ButtonBase onClick={() => this.routeDirection()}>
             <PatientCard
               firstName={pat.firstName}
               lastName={pat.lastName}
@@ -461,39 +481,6 @@ class EmployeeDashboard extends Component {
 
         <div className="containerPatientCard">{myPatientsInfo}</div>
 
-        <section id="allPatients">
-          <div className="containerSection">
-            <div className="items">
-              <h3>All Patients</h3>
-            </div>
-          </div>
-        </section>
-        <div className="containerSectionSearch">
-          <div className="items">
-            <FormGroup controlId="formControlsSelect">
-              <FormControl
-                componentClass="select"
-                id="searchDropdownAllPatients"
-              >
-                <option value="firstName">First Name</option>
-                <option value="lastName">Last Name</option>
-              </FormControl>
-            </FormGroup>
-          </div>
-          <div className="items">
-            <FormGroup>
-              <InputGroup>
-                <FormControl
-                  type="text"
-                  id="searchTxtAllPatients"
-                  onChange={this.searchAllPatients.bind(this)}
-                />
-              </InputGroup>
-            </FormGroup>
-          </div>
-        </div>
-        <hr className="style-one" />
-        <div className="containerPatientCard">{allPatientsInfo}</div>
         <Modal
           className="settingsModal"
           open={open}
@@ -574,4 +561,4 @@ class EmployeeDashboard extends Component {
   }
 }
 
-export default withFirebase(EmployeeDashboard);
+export default withRouter(withFirebase(EmployeeDashboard));
