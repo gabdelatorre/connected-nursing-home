@@ -58,7 +58,7 @@ class Registration extends Component {
                                           value={optionsState}
                                           id="role"
                                         >
-                                            <option value="ADMIN">Admin</option>
+                                            <option value="ADMIN">Nursing Home Admin</option>
                                             <option value="EMPLOYEE">Nursing Home Employee</option>
                                             <option value="RELATIVE">Relative</option>
                                         </select>

@@ -55,6 +55,16 @@ option {
   -ms-text-align-last: center;
   -moz-text-align-last: center; }
 
+.breadcrumbs-view {
+  margin-bottom: 32px; }
+  .breadcrumbs-view .breadcrumb {
+    font-family: Roboto !important;
+    text-transform: uppercase;
+    font-size: 10px;
+    font-weight: bold;
+    margin: 0;
+    padding: 0; }
+
 /*           Font Smoothing      */
 body,
 h1, .h1,
@@ -74,7 +84,7 @@ td,
 button.close {
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
-  font-family: "Poppins",sans-serif;
+  font-family: "Lato",sans-serif;
   font-weight: 400; }
 
 h1, .h1, h2, .h2, h3, .h3, h4, .h4 {
@@ -144,7 +154,7 @@ body,
   min-height: 100vh;
   position: relative;
   background-color: white;
-  font-family: 'Poppins','sans-serif'; }
+  font-family: 'Lato','sans-serif'; }
 
 hr {
   width: 100%;
@@ -311,7 +321,7 @@ input:focus {
     background-size: cover;
     background-position: center center; }
   .sidebar .logo {
-    padding: 10px 20px;
+    padding: 40px 20px;
     border-bottom: 1px solid rgba(255, 255, 255, 0.2);
     position: relative;
     z-index: 4; }
@@ -344,17 +354,11 @@ input:focus {
       text-align: center;
       padding: 0px; }
     .sidebar .logo h1 {
-      font-family: "Anton", "sans-serif";
-      font-size: 25px;
-      color: #faf8d4;
+      font-size: 14px;
+      color: #3366ff;
       line-height: 80%;
-      margin: 0px; }
-    .sidebar .logo .main-h1 {
-      font-family: "Anton", "sans-serif";
-      font-size: 25px;
-      color: #faf8d4;
-      line-height: 80%;
-      margin: 16px 0px 0px 0px; }
+      margin: 0px;
+      text-transform: uppercase; }
   .sidebar .nav {
     margin-top: 20px; }
     .sidebar .nav a {
@@ -417,7 +421,7 @@ body > .navbar-collapse:before {
   z-index: 2; }
 
 .main-panel {
-  background-color: #f6f6f6;
+  background-color: #fcfcfc;
   position: relative;
   float: right;
   width: calc(100% - 260px);
@@ -1443,12 +1447,13 @@ body > .navbar-collapse:before {
   border: 0;
   font-size: 16px;
   border-radius: 0;
-  padding: 24px 32px 0px 48px; }
+  padding: 72px 32px 0px 48px; }
   .navbar .navbar-brand {
     font-weight: 700;
     margin: 5px 0px;
     padding: 15px 15px;
-    font-size: 34px; }
+    font-size: 34px;
+    color: #fff !important; }
   .navbar .navbar-nav > li > a {
     padding: 10px 15px;
     margin: 10px 3px;
@@ -1585,9 +1590,9 @@ body > .navbar-collapse:before {
   border-top-color: #FFFFFF; }
 
 .navbar-default {
-  background-color: #f6f6f6; }
+  background-color: #3366ff; }
   .navbar-default .navbar-nav > li > a:not(.btn) {
-    color: #9A9A9A; }
+    color: #fff; }
   .navbar-default .navbar-nav > .active > a,
   .navbar-default .navbar-nav > .active > a:not(.btn):hover,
   .navbar-default .navbar-nav > .active > a:not(.btn):focus,
@@ -1678,13 +1683,13 @@ body > .navbar-collapse:before {
   margin-bottom: 19px;
   border: 0; }
   .navbar-toggle .icon-bar {
-    background-color: #FFFFFF; }
+    background-color: #FFFFFF !important; }
   .navbar-toggle .navbar-collapse,
   .navbar-toggle .navbar-form {
     border-color: transparent; }
   .navbar-toggle.navbar-default .navbar-toggle:hover,
   .navbar-toggle.navbar-default .navbar-toggle:focus {
-    background-color: transparent; }
+    background-color: trans parent; }
 
 .nav-header-link {
   margin-top: 0px;
@@ -2781,524 +2786,88 @@ body > .navbar-collapse:before {
       font-size: 13px;
       color: #535353; }
 
-.profile-card {
-  background-color: #fff;
-  padding: 0px;
-  border-radius: 4px;
-  margin: 8px; }
-  .profile-card .col-lg-5, .profile-card .col-md-5, .profile-card .col-sm-5, .profile-card .col-xs-5 {
-    padding: 0px; }
-  .profile-card .profile-grid {
-    padding: 0px; }
-  .profile-card .cover-tile {
-    padding: 30px 16px 16px 16px;
-    border-radius: 4px;
-    min-height: 250px;
-    background: -webkit-linear-gradient(to bottom, #acacac, #777777);
-    /* Chrome 10-25, Safari 5.1-6 */
-    background: linear-gradient(to bottom, #acacac, #777777);
-    /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-    color: #fff;
-    text-align: center; }
-    .profile-card .cover-tile .avatar {
-      margin-bottom: 8px;
-      font-weight: 700;
-      font-family: 'Poppins'; }
-    .profile-card .cover-tile .fullname {
-      font-size: 24px;
-      font-weight: 700;
-      margin: 0px; }
-    .profile-card .cover-tile .username {
-      margin: 0px;
-      font-size: 18px;
-      font-weight: 400; }
-  .profile-card .info-tile {
-    padding: 32px; }
-    .profile-card .info-tile .infoheader {
-      margin: 0px;
-      font-size: 13px;
-      color: #757575;
-      line-height: 140%; }
-    .profile-card .info-tile .infodata {
-      margin: 0px;
-      font-size: 13px;
-      color: #535353;
-      line-height: 140%; }
-
-.requests-card {
-  margin: 16px 64px 16px 64px;
-  background-color: #fff;
-  border-radius: 4px;
-  padding: 16px;
-  margin-bottom: 16px; }
-  .requests-card .btn-toolbar .btn-group .btn {
+.health-records-view {
+  padding: 64px; }
+  .health-records-view .card-header {
+    padding: 24px;
+    border-bottom: 1px solid #e5e9f2; }
+  .health-records-view .card-content {
+    padding: 24px; }
+  .health-records-view .health-pic-card {
     background-color: #fff;
-    border: 0px;
-    border-top-left-radius: 4px !important;
-    border-top-right-radius: 4px !important;
-    border-bottom-left-radius: 4px !important;
-    border-bottom-right-radius: 4px !important;
-    margin: 16px 8px;
-    color: #757575;
-    font-weight: 700; }
-  .requests-card .btn-toolbar .btn-group .btn:hover {
-    background-color: #0096ff;
-    color: #fff; }
-  .requests-card .btn-toolbar .btn-group .active {
-    background-color: #0096ff;
-    color: #fff !important; }
-  .requests-card .requests-table {
-    margin: 16px 8px 8px 8px; }
-    .requests-card .requests-table .mytrials-card {
-      padding: 0 !important; }
-
-.mydisease-card {
-  margin: 16px 64px 0; }
-
-.diseaseinfo-card .mydisease-grid {
-  padding-left: 8px;
-  padding-right: 8px; }
-
-.diseaseinfo-card .mydisease-header {
-  background-color: #0096ff;
-  padding: 16px 32px;
-  border-radius: 4px;
-  color: #fff;
-  font-weight: 700;
-  font-size: 22px;
-  margin-bottom: 8px; }
-  .diseaseinfo-card .mydisease-header .back-btn {
-    color: #fff;
-    font-size: 18px;
-    font-weight: 700;
-    background-color: #0096ff;
-    border: 0px;
-    float: left;
-    margin-top: -3px;
-    padding-left: 2px; }
-  .diseaseinfo-card .mydisease-header .back-btn:hover {
-    color: #00eeff; }
-
-.diseaseinfo-card hr {
-  border-top: 1px #c4c4c4 solid; }
-
-.diseaseinfo-card .details-card {
-  background-color: #fff;
-  padding: 32px;
-  margin: 8px;
-  border-radius: 4px; }
-  .diseaseinfo-card .details-card .detailsheader {
-    font-size: 16px;
-    font-weight: 700;
-    color: #535353;
-    margin: 0 0 8px; }
-  .diseaseinfo-card .details-card .details {
-    font-size: 13px;
-    color: #757575; }
-
-.diseaseinfo-card .col-lg-6,
-.diseaseinfo-card .col-md-6,
-.diseaseinfo-card .col-sm-6,
-.diseaseinfo-card .col-xs-6 {
-  padding-left: 0;
-  padding-right: 0; }
-
-.diseaseinfo-card .col-lg-12,
-.diseaseinfo-card .col-md-12,
-.diseaseinfo-card .col-sm-12,
-.diseaseinfo-card .col-xs-12 {
-  padding-left: 0;
-  padding-right: 0; }
-
-.mytrials-card {
-  background-color: #fff;
-  padding: 32px;
-  margin: 8px;
-  border-radius: 4px; }
-  .mytrials-card .trialsheader {
-    font-size: 16px;
-    font-weight: 700;
-    color: #0096ff;
-    margin: 0 0 8px; }
-  .mytrials-card .table-col-1 {
-    width: 60%; }
-  .mytrials-card .table-col-2 {
-    width: 20%; }
-  .mytrials-card .table-col-3 {
-    width: 20%; }
-
-.myclinicaldata-card {
-  background-color: #fff;
-  padding: 32px;
-  margin: 8px;
-  border-radius: 4px;
-  min-height: 665px; }
-  .myclinicaldata-card .clinicaldataheader {
-    font-size: 16px;
-    font-weight: 700;
-    color: #0096ff;
-    margin: 0 0 8px; }
-  .myclinicaldata-card .clinical-data .deactivateinput {
-    max-height: 400px !important; }
-  .myclinicaldata-card .clinical-data .message-box {
-    height: 100%;
-    max-height: 400px;
-    overflow-x: hidden;
-    overflow-y: auto; }
-    .myclinicaldata-card .clinical-data .message-box .username {
-      padding: 0px;
-      font-size: 9px;
-      color: #fff;
-      font-weight: 700;
-      text-align: right; }
-    .myclinicaldata-card .clinical-data .message-box .otherusername {
-      padding: 0px;
-      font-size: 9px;
-      font-weight: 700;
-      color: #757575; }
-    .myclinicaldata-card .clinical-data .message-box .usermsgbox {
-      /* ----- animation ----- */
-      animation: fadeIn 0.4s ease-in both;
-      padding: 16px;
-      margin: 8px;
-      border-radius: 4px;
-      background-color: #0096ff;
-      position: relative;
-      width: 100%;
-      max-width: 300px;
-      float: right; }
-      .myclinicaldata-card .clinical-data .message-box .usermsgbox .msg {
-        color: #fff;
-        font-size: 13px;
-        margin: 0px;
-        word-wrap: break-word;
-        text-align: right; }
-      .myclinicaldata-card .clinical-data .message-box .usermsgbox .attachmsg {
-        padding: 16px 8px;
-        background-color: #fff;
-        border: 1px #eee solid;
-        border-radius: 4px;
-        margin-top: 8px;
-        cursor: pointer;
-        overflow: hidden; }
-        .myclinicaldata-card .clinical-data .message-box .usermsgbox .attachmsg .attachicon {
-          height: 20px;
-          width: 20px; }
-        .myclinicaldata-card .clinical-data .message-box .usermsgbox .attachmsg p {
-          word-wrap: break-word;
-          text-align: left;
-          margin: 0px;
-          font-size: 13px; }
-      .myclinicaldata-card .clinical-data .message-box .usermsgbox .attachmsg:hover p {
-        color: #0096ff !important; }
-    .myclinicaldata-card .clinical-data .message-box .otherusermsgbox {
-      /* ----- animation ----- */
-      animation: fadeIn 0.4s ease-in both;
-      padding: 16px;
-      margin: 8px;
-      border-radius: 4px;
-      background-color: #e3e3e3;
-      position: relative;
-      width: 100%;
-      max-width: 300px;
-      float: left; }
-      .myclinicaldata-card .clinical-data .message-box .otherusermsgbox .msg {
-        color: #757575;
-        font-size: 13px;
-        margin: 0px;
-        word-wrap: normal; }
-      .myclinicaldata-card .clinical-data .message-box .otherusermsgbox .attachmsg {
-        padding: 16px 8px;
-        background-color: #fff;
-        border: 1px #eee solid;
-        overflow: hidden;
-        border-radius: 4px;
-        margin-top: 8px;
-        cursor: pointer; }
-        .myclinicaldata-card .clinical-data .message-box .otherusermsgbox .attachmsg .attachicon {
-          height: 20px;
-          width: 20px; }
-        .myclinicaldata-card .clinical-data .message-box .otherusermsgbox .attachmsg p {
-          word-wrap: break-word;
-          text-align: left;
-          margin: 0px; }
-      .myclinicaldata-card .clinical-data .message-box .otherusermsgbox .attachmsg:hover p {
-        color: #0096ff !important; }
-    .myclinicaldata-card .clinical-data .message-box .clear {
-      clear: both; }
-  .myclinicaldata-card .clinical-data .input-box {
-    margin-bottom: 8px;
-    height: 60px; }
-    .myclinicaldata-card .clinical-data .input-box .files-box {
-      width: 11%;
-      float: left;
-      margin-right: 8px; }
-      .myclinicaldata-card .clinical-data .input-box .files-box .fileicon {
-        height: 20px;
-        width: 20px; }
-      .myclinicaldata-card .clinical-data .input-box .files-box .files-dropzone {
-        font-size: 12px;
-        background-color: #f9f9f9;
-        padding: 16px;
-        border-radius: 4px; }
-      .myclinicaldata-card .clinical-data .input-box .files-box .files-dropzone:hover {
-        background-color: #eee; }
-      .myclinicaldata-card .clinical-data .input-box .files-box .fileslist > ul {
-        padding: 8px 0px; }
-      .myclinicaldata-card .clinical-data .input-box .files-box .fileslist > ul > li {
-        padding: 24px 16px;
-        border-radius: 4px;
-        border: 1px #eee solid;
-        list-style-type: none;
-        font-size: 12px;
-        margin-bottom: 8px;
-        text-align: left; }
-    .myclinicaldata-card .clinical-data .input-box .attachedfile {
-      font-size: 12px; }
-  .myclinicaldata-card .clinical-data .attachments-box .files-table {
-    border: 1px #0096ff solid;
-    border-radius: 4px; }
-    .myclinicaldata-card .clinical-data .attachments-box .files-table .header {
-      background-color: #0096ff;
-      color: #fff;
-      font-weight: 700;
-      font-size: 14px;
-      padding: 16px;
-      margin: 0px;
-      text-align: center; }
-  .myclinicaldata-card .clinical-data .preview-section .preview-close {
-    float: right;
-    border: 0px;
-    padding: 8px; }
-    .myclinicaldata-card .clinical-data .preview-section .preview-close .preview-close-icon {
-      font-size: 18px;
-      color: #535353; }
-  .myclinicaldata-card .clinical-data .preview-section .preview-close:hover .preview-close-icon {
-    color: #0096ff; }
-  .myclinicaldata-card .clinical-data .preview-section .preview-download {
-    float: right;
-    border: 0px;
-    padding: 8px; }
-    .myclinicaldata-card .clinical-data .preview-section .preview-download .preview-download-icon {
-      font-size: 18px;
-      color: #535353; }
-  .myclinicaldata-card .clinical-data .preview-section .preview-download:hover .preview-download-icon {
-    color: #0096ff; }
-  .myclinicaldata-card .clinical-data .preview-section .preview-image {
-    padding: 16px; }
-    .myclinicaldata-card .clinical-data .preview-section .preview-image .preview {
-      max-width: 100%;
-      max-height: 100%; }
-  .myclinicaldata-card .clinical-data .locked-content {
-    width: 200px;
-    margin: 32px auto;
-    text-align: center; }
-    .myclinicaldata-card .clinical-data .locked-content .lockimg {
-      width: 100px;
-      height: 100px; }
-    .myclinicaldata-card .clinical-data .locked-content .lockmsg {
-      text-align: center;
-      color: #757575; }
-  .myclinicaldata-card .clinical-data .form-control {
-    font-size: 12px;
-    color: #000;
-    width: 67%;
-    float: left;
-    height: 52px; }
-  .myclinicaldata-card .clinical-data .sendbtn {
-    border: 0px;
-    border-radius: 4px;
-    background-color: #757575;
-    padding: 8px;
-    color: #fff;
-    width: 19%;
-    float: right;
-    height: 52px;
-    font-weight: 700; }
-  .myclinicaldata-card .clinical-data .sendbtn:hover {
-    background-color: #0096ff; }
-  .myclinicaldata-card .files-table {
-    border: 1px #0096ff solid;
-    border-radius: 4px; }
-    .myclinicaldata-card .files-table .header {
-      background-color: #0096ff;
-      color: #fff;
-      font-weight: 700;
-      font-size: 14px;
-      padding: 16px;
-      margin: 0px;
-      text-align: center; }
-    .myclinicaldata-card .files-table .filestable {
-      padding: 16px;
-      height: 100%;
-      max-height: 470px;
-      text-align: center;
-      overflow-y: scroll; }
-      .myclinicaldata-card .files-table .filestable .fileicon {
-        height: 30px;
-        width: 30px; }
-      .myclinicaldata-card .files-table .filestable .files-dropzone {
-        font-size: 12px;
-        background-color: #f9f9f9;
-        padding: 16px;
-        border-radius: 4px; }
-      .myclinicaldata-card .files-table .filestable .files-dropzone:hover {
-        background-color: #eee; }
-      .myclinicaldata-card .files-table .filestable .fileslist > ul {
-        padding: 8px 0px; }
-      .myclinicaldata-card .files-table .filestable .fileslist > ul > li {
-        border-radius: 4px;
-        border: 1px #eee solid;
-        list-style-type: none;
-        font-size: 12px;
-        margin-bottom: 8px;
-        text-align: left;
-        cursor: pointer;
-        padding: 16px; }
-      .myclinicaldata-card .files-table .filestable .fileslist > ul > li:hover {
-        border: 1px #0096ff solid; }
-      .myclinicaldata-card .files-table .filestable .filepreviewicon {
-        width: 80px;
-        height: 80px;
-        margin: 8px; }
-      .myclinicaldata-card .files-table .filestable .filedetails {
-        text-align: left;
-        margin: 8px;
-        font-size: 10px; }
-
-.action-btn {
-  font-weight: 700;
-  font-size: 14px;
-  border: 0px;
-  border-radius: 4px;
-  background-color: #757575;
-  margin: 0px 16px 8px 0px;
-  color: #fff;
-  padding: 12px 16px;
-  width: 100%; }
-  .action-btn .loading {
-    margin-left: auto;
-    margin-right: auto; }
-
-.action-btn:hover {
-  background-color: #0096ff;
-  color: #fff; }
-
-.otherpatients-card {
-  background-color: #fff;
-  padding: 32px;
-  margin: 8px;
-  border-radius: 4px; }
-  .otherpatients-card .otherpatientsheader {
-    font-size: 16px;
-    font-weight: 700;
-    color: #0096ff;
-    margin: 0 0 8px; }
-  .otherpatients-card .otherpatientsblock {
-    overflow: auto;
-    white-space: nowrap; }
-    .otherpatients-card .otherpatientsblock .patienticon {
-      padding: 16px;
-      border-radius: 4px;
-      border: 1px #eee solid;
-      font-size: 12px;
-      text-align: center;
-      width: 130px;
-      height: 137px;
-      margin: 8px;
-      display: inline-block; }
-      .otherpatients-card .otherpatientsblock .patienticon .picon {
-        height: 60px;
-        width: 60px;
-        margin: 8px 0px; }
-    .otherpatients-card .otherpatientsblock .patienticon:hover {
-      border: 1px #0096ff solid; }
-  .otherpatients-card p {
-    font-size: 12px; }
-
-.mytreatments-card {
-  margin: 16px 64px;
-  background-color: #fff;
-  border-radius: 4px;
-  padding: 16px; }
-  .mytreatments-card .treatment-menu {
-    text-align: right; }
-    .mytreatments-card .treatment-menu .action-btn {
-      background-color: #757575;
-      border: 0;
-      border-top-left-radius: 4px !important;
-      border-top-right-radius: 4px !important;
-      border-bottom-left-radius: 4px !important;
-      border-bottom-right-radius: 4px !important;
-      margin: 16px 8px;
-      color: #fff;
-      font-weight: 700; }
-    .mytreatments-card .treatment-menu .action-btn:hover {
-      background-color: #0096ff;
-      color: #fff; }
-  .mytreatments-card .treatment-table {
-    margin: 16px 8px 8px; }
-  .mytreatments-card .action-tbl-grp {
-    padding: 5px;
-    margin: 5px;
-    color: #0096ff;
-    border-color: #0096ff;
-    background: transparent;
-    float: left; }
-    .mytreatments-card .action-tbl-grp .glyphicon {
-      color: #0096ff; }
-    .mytreatments-card .action-tbl-grp .glyphicon {
-      color: white; }
-  .mytreatments-card .action-tbl-grp:hover {
-    background: #0096ff; }
-  .mytreatments-card .footer {
-    background-color: transparent;
-    line-height: 30px;
-    height: 48px;
-    font-size: 13px; }
-    .mytreatments-card .footer .legend {
-      padding: 5px 0; }
-    .mytreatments-card .footer hr {
-      margin-top: 5px;
-      margin-bottom: 5px; }
-    .mytreatments-card .footer .stats {
-      padding: 8px 0 8px 16px; }
-      .mytreatments-card .footer .stats .glyphicon {
-        font-size: 18px !important;
-        color: #8b8b8b; }
-      .mytreatments-card .footer .stats .glyphicon-approved {
-        color: #46bb75; }
-      .mytreatments-card .footer .stats .glyphicon-forapproval {
-        color: #ffbd2f; }
-      .mytreatments-card .footer .stats .glyphicon-rejected {
-        color: #ee6060; }
-
-.approver-card {
-  margin: 16px 64px;
-  background-color: #fff;
-  border-radius: 4px;
-  padding: 16px;
-  margin-bottom: 16px; }
-  .approver-card .btn-toolbar .btn-group .btn {
+    border-radius: 0;
+    margin-bottom: 24px;
+    border: 1px solid #e5e9f2;
+    box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.025);
+    border-radius: .2rem; }
+  .health-records-view .profile-card {
     background-color: #fff;
-    border: 0;
-    border-top-left-radius: 4px !important;
-    border-top-right-radius: 4px !important;
-    border-bottom-left-radius: 4px !important;
-    border-bottom-right-radius: 4px !important;
-    margin: 16px 8px;
-    color: #757575;
-    font-weight: 700; }
-  .approver-card .btn-toolbar .btn-group .btn:hover {
-    background-color: #0096ff;
-    color: #fff; }
-  .approver-card .btn-toolbar .btn-group .active {
-    background-color: #0096ff;
-    color: #fff !important; }
-  .approver-card .approval-table {
-    margin: 16px 8px 8px; }
-    .approver-card .approval-table .treatment-table .mytrials-card {
-      padding: 0 !important; }
+    padding: 32px;
+    border-radius: 0;
+    border: 1px solid #e5e9f2;
+    box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.025);
+    border-radius: .2rem; }
+  .health-records-view .health-profile-card {
+    background-color: #fff;
+    border-radius: 0;
+    margin-bottom: 24px;
+    border: 1px solid #e5e9f2;
+    box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.025);
+    border-radius: .2rem; }
+    .health-records-view .health-profile-card .health-profile-label {
+      font-weight: bold; }
+  .health-records-view .health-records-card {
+    background-color: #fff;
+    border-radius: 0;
+    margin-bottom: 24px;
+    border: 1px solid #e5e9f2;
+    box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.025);
+    border-radius: .2rem; }
+    .health-records-view .health-records-card .health-records-label {
+      font-weight: bold; }
+    .health-records-view .health-records-card .health-records-history-view {
+      background-color: #fff;
+      min-height: 300px; }
+      .health-records-view .health-records-card .health-records-history-view th {
+        font-size: 10px;
+        text-transform: uppercase;
+        padding: 16px 8px; }
+      .health-records-view .health-records-card .health-records-history-view td {
+        font-size: 12px;
+        padding: 16px 8px; }
+  .health-records-view .health-stats-card {
+    background-color: #fff;
+    padding: 32px;
+    border-radius: 0;
+    margin-bottom: 24px;
+    border: 1px solid #e5e9f2;
+    box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.025);
+    border-radius: .2rem; }
+    .health-records-view .health-stats-card .stats-segment-1 {
+      display: inline-block;
+      margin: 0px 8px 0px 0px;
+      vertical-align: bottom; }
+    .health-records-view .health-stats-card .stats-segment-2 {
+      display: inline-block;
+      margin: 0px 8px 4px 0px;
+      vertical-align: bottom; }
+    .health-records-view .health-stats-card .stats-segment-3 {
+      display: inline-block;
+      margin: 0px 8px 22px 0px;
+      vertical-align: bottom; }
+    .health-records-view .health-stats-card .health-stats-label {
+      font-weight: bold; }
+    .health-records-view .health-stats-card .heartrate-bpm {
+      margin: 0px;
+      font-size: 36px; }
+    .health-records-view .health-stats-card .heartrate-bpm-label {
+      margin: 8px 0px 0px;
+      color: red; }
+    .health-records-view .health-stats-card .heart-glyph {
+      color: red; }
+  .health-records-view .profilepic {
+    width: 100%;
+    height: 100%; }
 
 .dropdown-menu {
   visibility: hidden;
@@ -4734,7 +4303,9 @@ body > .navbar-collapse:before {
   .approver-card {
     margin: 16px 32px 0px 32px; }
   .navbar {
-    padding: 24px 16px 0px 16px; } }
+    padding: 72px 16px 0px 16px; }
+    .navbar .navbar-brand {
+      font-size: 24px; } }
 
 @media (max-width: 767px) {
   .login {

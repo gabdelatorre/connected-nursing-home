@@ -30,6 +30,12 @@ class Sidebar extends Component {
             this.setState ({
                 navLinks: [
                     "edashboard",
+                ]
+            })
+        }
+        else if (this.props.userData.role == "ADMIN"){
+            this.setState ({
+                navLinks: [
                     "nhdashboard"
                 ]
             })

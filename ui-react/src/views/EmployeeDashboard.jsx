@@ -11,6 +11,7 @@ import {
 } from "react-bootstrap";
 import Modal from "react-responsive-modal";
 import ButtonBase from "@material-ui/core/ButtonBase";
+import HealthRecordsView from "./HealthRecordsView";
 
 class EmployeeDashboard extends Component {
   constructor() {
@@ -37,7 +38,9 @@ class EmployeeDashboard extends Component {
         id: null,
         role: null
       },
-      buttonRole: ""
+      buttonRole: "",
+      currentView: "DASHBOARD",
+      selectedPatient: {},
     };
   }
   componentDidMount() {
@@ -364,6 +367,13 @@ class EmployeeDashboard extends Component {
     this.onCloseModal();
   }
 
+  goToMedicalRecords (data) {
+    this.setState({
+        currentView:"MEDICAL_RECORDS",
+        selectedPatient:data
+    })
+  }
+
   render() {
     const allPatientsInfo = this.state.arrOfAllPatients.map(pat => {
       return (
@@ -414,6 +424,8 @@ class EmployeeDashboard extends Component {
               id={pat.id}
               nurseAssigned={pat.role}
             />
+            { /* Temporary */ }
+            <Button onClick={this.goToMedicalRecords.bind(this, pat)}> Medical Records </Button>
           </ButtonBase>
         </div>
       );
@@ -423,6 +435,7 @@ class EmployeeDashboard extends Component {
 
     const ModalButtons = () => {};
 
+    if (this.state.currentView === "DASHBOARD"){
     return (
       <div className="EmployeeDashboard">
         <section id="My Patients">
@@ -570,7 +583,16 @@ class EmployeeDashboard extends Component {
           </div>
         </Modal>
       </div>
-    );
+    )
+    }
+    else if(this.state.currentView === "MEDICAL_RECORDS"){
+        return (
+            <HealthRecordsView selectedPatient={this.state.selectedPatient}/>
+        )
+    }
+    else {
+        return null
+    }
   }
 }
 

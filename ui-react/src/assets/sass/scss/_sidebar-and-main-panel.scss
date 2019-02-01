@@ -33,7 +33,7 @@
   }
 
   .logo {
-    padding: 10px 20px;
+    padding: 40px 20px;
     border-bottom: 1px solid rgba(255, 255, 255, 0.2);
     position: relative;
     z-index: 4;
@@ -79,19 +79,11 @@
     }
 
     h1 {
-      font-family: "Anton", "sans-serif";
-      font-size: 25px;
-      color: #faf8d4;
+      font-size: 14px;
+      color: #3366ff;
       line-height: 80%;
       margin: 0px;
-    }
-
-    .main-h1 {
-      font-family: "Anton", "sans-serif";
-      font-size: 25px;
-      color: #faf8d4;
-      line-height: 80%;
-      margin: 16px 0px 0px 0px;
+      text-transform: uppercase;
     }
   }
 
@@ -181,7 +173,7 @@ body > .navbar-collapse {
 }
 
 .main-panel {
-  background-color: #f6f6f6;
+  background-color: #fcfcfc;
   position: relative;
   float: right;
   width: #{$sidebar-width};

@@ -10,13 +10,14 @@
   border: $none;
   font-size: $font-size-navbar;
   border-radius: 0;
-  padding: 24px 32px 0px 48px;
+  padding: 72px 32px 0px 48px;
 
   .navbar-brand {
     font-weight: 700;
     margin: $navbar-margin-brand;
     padding: $navbar-padding-brand;
     font-size: 34px;
+    color: #fff !important;
   }
   .navbar-nav {
     > li > a {
@@ -157,11 +158,11 @@
 }
 
 .navbar-default {
-  background-color: #f6f6f6;
+  background-color: #3366ff;
 
   .navbar-nav {
     > li > a:not(.btn) {
-      color: $dark-gray;
+      color: #fff;
     }
 
     > .active > a,
@@ -274,7 +275,7 @@
   border: $none;
 
   .icon-bar {
-    background-color: $white-color;
+    background-color: $white-color !important;
   }
   .navbar-collapse,
   .navbar-form {
@@ -283,7 +284,7 @@
 
   &.navbar-default .navbar-toggle:hover,
   &.navbar-default .navbar-toggle:focus {
-    background-color: transparent;
+    background-color: trans parent;
   }
 }
 
