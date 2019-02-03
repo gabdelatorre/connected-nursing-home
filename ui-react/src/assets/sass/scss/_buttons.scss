@@ -53,6 +53,26 @@
     color: #3366ff;
 }
 
+.patient-option-menu {
+    border-radius: .2rem !important;
+    left: -120px;
+    font-size: 12px;
+}
+
+.dropdown-menu > li > a {
+    padding: 16px !important;
+}
+
+.dropdown-menu > li:first-child > a {
+    border-top-left-radius: 0px !important;
+    border-top-right-radius: 0px !important;
+}
+
+.dropdown-menu > li:last-child > a {
+    border-bottom-left-radius: 0px !important;
+    border-bottom-right-radius: 0px !important;
+}
+
 .header-option-btn {
     border: 0 !important;
     background: none !important;
@@ -66,4 +86,44 @@
 
 .header-option-btn:hover {
     color: #3366ff;
+}
+
+.modal-action-btn {
+    margin-top: 24px;
+    padding: 16px 12px;
+    background-color: #fff;
+    color: #3366ff;
+    font-size: 10px;
+    border-radius: 0;
+    text-transform: uppercase;
+    font-weight: bold;
+    border: 1px solid #3366ff;
+    width: 120px;
+    margin-bottom: 8px;
+    box-shadow: none !important;
+    float: right;
+}
+
+.modal-action-btn:hover {
+    background-color: #3366ff;
+    color: #fff;
+    border: 1px solid #3366ff;
+}
+
+.modal-action-btn:focus {
+    background-color: #fff;
+    color: #3366ff;
+    border: 1px solid #3366ff;
+    box-shadow: none !important;
+    -webkit-box-shadow: none !important;
+    outline: none !important;
+}
+
+.modal-action-btn:active {
+    background-color: #3366ff !important;
+    color: #fff !important;
+    border: 1px solid #3366ff !important;
+    box-shadow: none !important;
+    -webkit-box-shadow: none !important;
+    outline: none !important;
 }

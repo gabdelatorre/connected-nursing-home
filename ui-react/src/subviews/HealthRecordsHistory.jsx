@@ -24,7 +24,20 @@ class HealthRecordsHistory extends Component {
     componentDidMount() {
     }
 
+    toggleModal (record) {
+        this.props.toggleHealthExaminationRecord(record);
+    }
+
     render() {
+
+        var healthRecords = this.props.healthRecords.map((prop) => {
+            return (
+                <tr onClick={this.toggleModal.bind(this, prop)}>
+                    <td> {prop.timestamps} </td>
+                    <td> {prop.nurseId} </td>
+                </tr>
+            )
+        })
 
         return (
             <div className="health-records-history-view">
@@ -36,14 +49,7 @@ class HealthRecordsHistory extends Component {
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td> 1/22/2019 </td>
-                            <td> John Doe </td>
-                        </tr>
-                        <tr>
-                            <td> 1/31/2019 </td>
-                            <td> Jane Doe </td>
-                        </tr>
+                        {healthRecords}
                     </tbody>
                 </Table>
             </div>

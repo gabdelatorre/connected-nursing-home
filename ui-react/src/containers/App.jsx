@@ -40,7 +40,7 @@ class App extends Component {
               console.log(this.state.userData);
 
               if (this.state.userData.role == "ADMIN") {
-                this.props.history.push("/admin");
+                this.props.history.push("/nhdashboard");
               } else if (this.state.userData.role == "EMPLOYEE") {
                 this.props.history.push("/edashboard");
               } else if (this.state.userData.role == "RELATIVE") {

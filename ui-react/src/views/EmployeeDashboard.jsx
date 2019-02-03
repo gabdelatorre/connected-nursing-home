@@ -1,8 +1,7 @@
-import React, { Component, optionsState } from "react";
+import React, { Component, optionsState} from "react";
 import { FirebaseContext } from "../firebase";
 import { withFirebase } from "../firebase/context";
 import PatientCard from "../subviews/PatientCard";
-
 import { Redirect, withRouter } from "react-router-dom";
 
 import {
@@ -10,7 +9,9 @@ import {
   InputGroup,
   FormControl,
   ControlLabel,
-  Button
+  Button,
+  Dropdown,
+  MenuItem,
 } from "react-bootstrap";
 import Modal from "react-responsive-modal";
 import ButtonBase from "@material-ui/core/ButtonBase";
@@ -226,19 +227,9 @@ class EmployeeDashboard extends Component {
     this.getAllPatientRecord(passId);
     this.setState({
       buttonRole: (
-        <div className="itemsModal" id="buttonRole">
-          <p className="modalBodyText">
-            <Button
-              bsStyle="primary"
-              type="submit"
-              id="loginBtn"
-              className="btn-block"
-              onClick={this.removingOfPatient.bind(this)}
-            >
-              Remove this
-            </Button>
-          </p>
-        </div>
+        <Dropdown.Menu className="patient-option-menu">
+        <MenuItem onClick={this.removingOfPatient.bind(this)}><div className="navbtn">Remove Patient</div></MenuItem>
+        </Dropdown.Menu>
       ),
       openPatientDashboard: true
     });
@@ -305,11 +296,8 @@ class EmployeeDashboard extends Component {
       });
   }
 
-  goToMedicalRecords (data) {
-    this.setState({
-        currentView:"MEDICAL_RECORDS",
-        selectedPatient:data
-    })
+  removePatient() {
+    console.log("removePatient");
   }
 
   closePatientDashboardView () {

@@ -17,11 +17,37 @@ import {
 import Modal from "react-responsive-modal";
 import ButtonBase from "@material-ui/core/ButtonBase";
 import HealthRecordsHistory from "./HealthRecordsHistory";
+import HealthExaminationForm from './HealthExaminationForm';
+import HealthExaminationRecord from './HealthExaminationRecord';
 class HealthRecordsView extends Component {
 
     constructor() {
         super();
         this.state = {
+            selectedHealthStatGraph: "Heart Rate",
+            showHealthExaminationForm: false,
+            showHealthExaminationRecord: false,
+            patientHealthExaminationRecords: [ // HARDCODED
+                {
+                    timestamps: "1/22/2019",
+                    nurseId: "TBD",
+                    temperature: "37.1",
+                    bloodPressure: "122/70",
+                    heartRate: "81",
+                    medications: "Ambroxol",
+                    remarks: "Patient is suffering from Upper Respiratory Tract Infection.",
+                },
+                {
+                    timestamps: "1/29/2019",
+                    nurseId: "TBD",
+                    temperature: "37.8",
+                    bloodPressure: "120/70",
+                    heartRate: "78",
+                    medications: "None",
+                    remarks: "Patient is now healthy.",
+                },
+            ],
+            selectedHealthExaminationRecord: null
         };
     }
 
@@ -62,6 +88,42 @@ class HealthRecordsView extends Component {
         this.props.switchDashboardView("DASHBOARD")
     }
 
+    toggleHealthExaminationForm () {
+
+        if (this.state.showHealthExaminationForm) {
+            this.setState({
+                showHealthExaminationForm: false
+            })
+        }
+        else {
+            this.setState({
+                showHealthExaminationForm: true
+            })
+        }
+    }
+
+    setHealthStatGraph (healthstat) {
+        this.setState({
+            selectedHealthStatGraph: healthstat
+        })
+    }
+
+    toggleHealthExaminationRecord (record) {
+
+        if (this.state.showHealthExaminationRecord) {
+            this.setState({
+                showHealthExaminationRecord: false,
+                selectedHealthExaminationRecord: null,
+            })
+        }
+        else {
+            this.setState({
+                showHealthExaminationRecord: true,
+                selectedHealthExaminationRecord: record,
+            })
+        }
+    }
+
     render() {
 
         return (
@@ -96,7 +158,7 @@ class HealthRecordsView extends Component {
                                     <div>
                                     <div className="health-stats-graph-card">
                                         <div className="card-header">
-                                            <span className="health-stats-graph-label"> Graph</span>
+                                            <span className="health-stats-graph-label"> {this.state.selectedHealthStatGraph + " Graph"}</span>
                                         </div>
                                         <div className="card-content">
                                             <p className=""></p>
@@ -105,7 +167,10 @@ class HealthRecordsView extends Component {
                                     </div>
                                 </Col>
                                 <Col lg={4}>
-                                    <div className="health-stats-card">
+                                    <div 
+                                        className={"health-stats-card clickable-heart-health-stat " + (this.state.selectedHealthStatGraph === "Heart Rate" ? "clickable-heart-health-stat-active" : "")}
+                                        onClick={this.setHealthStatGraph.bind(this, "Heart Rate")}
+                                    >
                                         <span className="health-stats-label">Heart Rate</span><br/>
                                         <div>
                                             <div className="stats-segment-1"><p className="heartrate-bpm">{this.props.selectedPatientVitalStats.HeartRate}</p></div>
@@ -114,11 +179,14 @@ class HealthRecordsView extends Component {
                                                 <Glyphicon glyph="heart" className="heart-glyph" style={this.props.heartAnimation}/>
                                             </div>
                                             <div className="stats-last-update">
-                                                <p className="lastupdate"> <b>Last Update: </b> &nbsp; {moment.unix(this.props.selectedPatientVitalStats.timestamp.seconds).format("lll")} </p>
+                                                <p className="lastupdate"> <b>Last Update: </b> &nbsp; {moment(this.props.selectedPatientVitalStats.timestamp).format("lll")} </p>
                                             </div>
                                         </div>
                                     </div>
-                                    <div className="health-stats-card">
+                                    <div 
+                                        className={"health-stats-card clickable-temp-health-stat " + (this.state.selectedHealthStatGraph === "Temperature" ? "clickable-temp-health-stat-active" : "")}
+                                        onClick={this.setHealthStatGraph.bind(this, "Temperature")}
+                                    >
                                         <span className="health-stats-label">Temperature</span><br/>
                                         <div>
                                             <div className="stats-segment-1"><p className="heartrate-bpm">{this.props.selectedPatientVitalStats.Temperature}</p></div>
@@ -130,7 +198,10 @@ class HealthRecordsView extends Component {
                                             </div>
                                         </div>
                                     </div>
-                                    <div className="health-stats-card">
+                                    <div 
+                                        className={"health-stats-card clickable-bp-health-stat " + (this.state.selectedHealthStatGraph === "Blood Pressure" ? "clickable-bp-health-stat-active" : "")}
+                                        onClick={this.setHealthStatGraph.bind(this, "Blood Pressure")}
+                                    >
                                         <span className="health-stats-label">Blood Pressure</span><br/>
                                         <div>
                                             <div className="stats-segment-1"><p className="heartrate-bpm">{this.props.selectedPatientVitalStats.BloodPressure}</p></div>
@@ -139,7 +210,7 @@ class HealthRecordsView extends Component {
                                                 <Glyphicon glyph="tint" className="bp-glyph"/>
                                             </div>
                                             <div className="stats-last-update">
-                                                <p className="lastupdate"> <b>Last Update: </b> &nbsp; {moment.unix(this.props.selectedPatientVitalStats.timestamp.seconds).format("lll")} </p>
+                                                <p className="lastupdate"> <b>Last Update: </b> &nbsp; {moment(this.props.selectedPatientVitalStats.timestamp).format("lll")} </p>
                                             </div>
                                         </div>
                                     </div>
@@ -153,10 +224,15 @@ class HealthRecordsView extends Component {
                                             <div className="health-records-card">
                                                 <div className="card-header">
                                                     <span className="health-records-label">Examination Records</span>
-                                                    <Button className="header-option-btn"><Glyphicon glyph="plus"/></Button>
+                                                    <Button className="header-option-btn" onClick={this.toggleHealthExaminationForm.bind(this)}><Glyphicon glyph="plus"/></Button>
                                                 </div>
                                                 <div className="card-content">
-                                                    <p className=""><HealthRecordsHistory/></p>
+                                                    <p className="">
+                                                        <HealthRecordsHistory 
+                                                            healthRecords={this.state.patientHealthExaminationRecords}
+                                                            toggleHealthExaminationRecord={this.toggleHealthExaminationRecord.bind(this)}
+                                                        />
+                                                    </p>
                                                 </div>
                                             </div>
                                         </Col>
@@ -165,6 +241,21 @@ class HealthRecordsView extends Component {
                             </Row>
                         </Col>
                     </Row>
+
+                    <HealthExaminationForm
+                        showHealthExaminationForm={this.state.showHealthExaminationForm}
+                        closeHealthExaminationForm={this.toggleHealthExaminationForm.bind(this)}
+                    />
+
+                    {
+                        this.state.selectedHealthExaminationRecord && 
+                        <HealthExaminationRecord
+                            healthRecord={this.state.selectedHealthExaminationRecord}
+                            showHealthExaminationRecord={this.state.showHealthExaminationRecord}
+                            closeHealthExaminationRecord={this.toggleHealthExaminationRecord.bind(this)}
+                        />
+                    }
+
                 </Grid>
             </div>
         );

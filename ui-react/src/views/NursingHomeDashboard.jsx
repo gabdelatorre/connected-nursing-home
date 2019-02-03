@@ -12,7 +12,7 @@ import {
 import Modal from "react-responsive-modal";
 import ButtonBase from "@material-ui/core/ButtonBase";
 import PatientCard from "../subviews/PatientCard";
-import patientDashboard from "../views/PatientDashboard";
+import PatientDashboard from "../views/PatientDashboard";
 
 class NursingHomeDashboard extends Component {
   constructor() {
@@ -764,6 +764,12 @@ ${data.data().lastName}</option>
       });
   }
 
+  closePatientDashboardView () {
+    this.setState({
+        openPatientDashboard: false
+    })
+  }
+
   render() {
     const listOfRelativesUser = this.state.listOfRelatives.map(rel => {
       return <option value={rel.id}>{rel.firstName}</option>;
@@ -803,8 +809,20 @@ ${data.data().lastName}</option>
       return <option value={nurse.id}>{nurse.firstName}</option>;
     });
 
-    if (this.state.open == "open") {
-      return <patientDashboard />;
+    if (this.state.open) {
+      return (
+        <div>
+        {
+            this.state.arePatientVitalStatsLoaded &&
+            <PatientDashboard
+              selectedPatient={this.state.selectedPatient}
+              selectedPatientVitalStats={this.state.selectedPatientVitalStats}
+              buttonRole={this.state.buttonRole}
+              closePatientDashboardView={this.closePatientDashboardView.bind(this)}
+            />
+        }
+        </div>
+    );
     } else {
       return (
         <div className="NursingHomeDashboard">
@@ -1020,7 +1038,7 @@ Create
 
           <div className="containerSectionSearch">
             <div className="items">
-              <FormGroup controlId="formControlsSelect">
+              <FormGroup>
                 <FormControl
                   componentClass="select"
                   id="searchDropdownAllPatients"

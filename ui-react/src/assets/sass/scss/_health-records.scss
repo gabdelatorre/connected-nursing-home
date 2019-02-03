@@ -83,11 +83,78 @@
         }
     }
 
+    .clickable-heart-health-stat, .clickable-temp-health-stat, .clickable-bp-health-stat {
+        cursor: pointer;
+    }
+    
+    .clickable-heart-health-stat-active::after {
+        position: absolute;
+        left: 15px;
+        top: 37px;
+        height: 64px;
+        width: 5px;
+        background-color: red;
+        content: "";
+    }
+
+    .clickable-heart-health-stat:hover::after {
+        position: absolute;
+        left: 15px;
+        top: 37px;
+        height: 64px;
+        width: 5px;
+        background-color: red;
+        content: "";
+    }
+    
+    .clickable-temp-health-stat-active::after {
+        position: absolute;
+        left: 15px;
+        top: 225px;
+        height: 64px;
+        width: 5px;
+        background-color: red;
+        content: "";
+    }
+
+    .clickable-temp-health-stat:hover::after {
+        position: absolute;
+        left: 15px;
+        top: 225px;
+        height: 64px;
+        width: 5px;
+        background-color: red;
+        content: "";
+    }
+    
+    .clickable-bp-health-stat-active::after {
+        position: absolute;
+        left: 15px;
+        top: 415px;
+        height: 64px;
+        width: 5px;
+        background-color: red;
+        content: "";
+    }
+
+    .clickable-bp-health-stat:hover::after {
+        position: absolute;
+        left: 15px;
+        top: 415px;
+        height: 64px;
+        width: 5px;
+        background-color: red;
+        content: "";
+    }
+
     .profilepic {
         width: 100%;
         height: 100%;
     }
     
+}
+
+.health-records-form {
 }
 
 @keyframes anim-heart-beat {
