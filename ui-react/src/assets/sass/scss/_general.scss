@@ -36,15 +36,32 @@ option {
   -moz-text-align-last: center;
 }
 
+.nopads {
+    padding: 0;
+}
+
 .breadcrumbs-view {
     margin-bottom: 32px;
+    padding-left: 16px;
 
-    .breadcrumb {
-        font-family: Roboto !important;
+    .breadcrumbs {
         text-transform: uppercase;
         font-size: 10px;
         font-weight: bold;
         margin: 0;
         padding: 0;
+
+        .bread {
+            color: #000;
+        }
+        
+        .clickable-bread {
+            color: #696969;
+            cursor: pointer;
+        }
+
+        .clickable-bread:hover {
+            color: #3366ff;
+        }
     }
 }

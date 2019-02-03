@@ -34,7 +34,7 @@ class PatientCard extends Component {
           <b>Nurse Assigned:</b> {this.props.nurseAssigned}
         </CardBlock>
         <CardFooter>
-          <input type="text" value={this.props.id} hidden />
+          <input type="text" value={this.props.id} />
         </CardFooter>
       </Card>
     );

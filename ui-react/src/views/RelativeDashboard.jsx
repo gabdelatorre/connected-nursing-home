@@ -2,7 +2,7 @@ import React, { Component } from "react";
 
 import { FirebaseContext } from "../firebase";
 import { withFirebase } from "../firebase/context";
-import PatientCard from "./PatientCard";
+import PatientCard from "../subviews/PatientCard";
 
 import Modal from "react-responsive-modal";
 import ButtonBase from "@material-ui/core/ButtonBase";

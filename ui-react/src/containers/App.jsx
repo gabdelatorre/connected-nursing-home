@@ -10,6 +10,7 @@ import EmployeeDashboard from "../views/EmployeeDashboard";
 import RelativeDashboard from "../views/RelativeDashboard";
 import NursingHomeDashboard from "../views/NursingHomeDashboard";
 import Sidebar from "./../components/Sidebar";
+import PatientDashboard from "../views/PatientDashboard";
 
 class App extends Component {
   constructor(props) {
@@ -113,6 +114,13 @@ class App extends Component {
                 )}
               />
             </Switch>
+
+            <Route
+              path="/pdashboard"
+              exact
+              strict
+              render={() => <PatientDashboard authUser={this.state.authUser} />}
+            />
           </div>
         </div>
       );

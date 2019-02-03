@@ -1,32 +1,37 @@
-import React, {Component} from 'react';
-import { NavLink } from 'react-router-dom';
-import { NavItem, Nav, NavDropdown, MenuItem } from 'react-bootstrap';
+import React, { Component } from "react";
+import { NavLink } from "react-router-dom";
+import { NavItem, Nav, NavDropdown, MenuItem } from "react-bootstrap";
+import { withFirebase } from "./../firebase/context";
 
+class HeaderLinks extends Component {
+  initiateLogout() {
+    //this.props.logout();
+    this.props.firebase.doSignOut();
+  }
 
-class HeaderLinks extends Component{
-
-    initiateLogout () {
-        //this.props.logout();
-    }
-
-    render(){
-        const notification = (
-            <div>
-                <i className="fa fa-globe"></i>
-                <b className="caret"></b>
-                <span className="notification">5</span>
-                <p className="hidden-lg hidden-md">Notification</p>
-            </div>
-        );
-        return (
-            <div>
-                <Nav pullRight className="nav-header-link">
-                    <NavItem eventKey={1} href="#">Logged in as {this.props.userData.firstName} </NavItem>
-                    <NavItem eventKey={3}> Log out </NavItem>
-                </Nav>
-            </div>
-        );
-    }
+  render() {
+    const notification = (
+      <div>
+        <i className="fa fa-globe" />
+        <b className="caret" />
+        <span className="notification">5</span>
+        <p className="hidden-lg hidden-md">Notification</p>
+      </div>
+    );
+    return (
+      <div>
+        <Nav pullRight className="nav-header-link">
+          <NavItem eventKey={1} href="#">
+            Logged in as {this.props.userData.firstName}{" "}
+          </NavItem>
+          <NavItem eventKey={3} onClick={this.initiateLogout.bind(this)}>
+            {" "}
+            Log out{" "}
+          </NavItem>
+        </Nav>
+      </div>
+    );
+  }
 }
 
-export default HeaderLinks;
+export default withFirebase(HeaderLinks);
