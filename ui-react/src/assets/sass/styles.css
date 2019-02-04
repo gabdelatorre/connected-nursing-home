@@ -1556,7 +1556,7 @@ body > .navbar-collapse:before {
       color: #fff; }
     .login .login-form .alert-block {
       /* ----- animation ----- */
-      animation: drop 0.4s ease-in both, fadeIn 0.4s ease-in both;
+      animation: drop 0.4s ease-in both, fadeIn 0.4s ease-in both;
       padding: 16px;
       width: 250px;
       margin: 8px auto;
@@ -1633,7 +1633,7 @@ body > .navbar-collapse:before {
 .feedback-card {
   margin-bottom: 16px;
   /* ----- animation ----- */
-  animation: drop 0.4s ease-in both, fadeIn 0.4s ease-in both; }
+  animation: drop 0.4s ease-in both, fadeIn 0.4s ease-in both; }
   .feedback-card .feedback-block {
     padding: 16px;
     background-color: #37be60;
@@ -1982,7 +1982,7 @@ body > .navbar-collapse:before {
           background-color: #16a9c8; }
     .search-card .search-list .diseaseinfo-card {
       /* ----- animation ----- */
-      animation: moveUp 0.4s ease-in both, fadeIn 0.4s ease-in both; }
+      animation: moveUp 0.4s ease-in both, fadeIn 0.4s ease-in both; }
 
 .dashboard-card {
   margin: 16px 59px 0px 59px; }
@@ -2324,6 +2324,145 @@ body > .navbar-collapse:before {
     .activity-feed .activity-feed-item .activitytime {
       font-size: 10px;
       float: right; }
+
+@keyframes anim-heart-beat {
+  0% {
+    transform: scale(1);
+    -webkit-transform: scale(1); }
+  50% {
+    transform: scale(0.5);
+    -webkit-transform: scale(0.7); }
+  100% {
+    transform: scale(1);
+    -webkit-transform: scale(1); } }
+
+.nurse-assigned-view .health-records-categories {
+  margin: 0px 0px 24px;
+  font-size: 16px;
+  font-weight: bold; }
+
+.nurse-assigned-view .health-pic-card {
+  background-color: #fff;
+  border-radius: 0;
+  margin-bottom: 24px;
+  border: 1px solid #e5e9f2;
+  box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.025);
+  border-radius: 0.2rem;
+  padding: 8px; }
+
+.nurse-assigned-view .list-of-nurses-card {
+  background-color: #fff;
+  border-radius: 0;
+  border: 1px solid #e5e9f2;
+  box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.025);
+  border-radius: 0.2rem;
+  margin-bottom: 32px; }
+  .nurse-assigned-view .list-of-nurses-card .listOfAvailableNurses {
+    height: 150px; }
+
+.nurse-assigned-view .health-profile-card {
+  background-color: #fff;
+  border-radius: 0;
+  margin-bottom: 32px;
+  border: 1px solid #e5e9f2;
+  box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.025);
+  border-radius: 0.2rem; }
+  .nurse-assigned-view .health-profile-card .health-profile-label {
+    font-weight: bold; }
+
+.nurse-assigned-view .health-stats-graph-card {
+  background-color: #fff;
+  border-radius: 0;
+  margin-bottom: 24px;
+  border: 1px solid #e5e9f2;
+  box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.025);
+  border-radius: 0.2rem;
+  min-height: 546px; }
+  .nurse-assigned-view .health-stats-graph-card .health-stats-graph-label {
+    font-weight: bold; }
+
+.nurse-assigned-view .health-records-card {
+  background-color: #fff;
+  border-radius: 0;
+  margin-bottom: 24px;
+  border: 1px solid #e5e9f2;
+  box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.025);
+  border-radius: 0.2rem; }
+  .nurse-assigned-view .health-records-card .health-records-label {
+    font-weight: bold; }
+  .nurse-assigned-view .health-records-card .health-records-history-view {
+    background-color: #fff;
+    min-height: 300px; }
+    .nurse-assigned-view .health-records-card .health-records-history-view th {
+      font-size: 10px;
+      text-transform: uppercase;
+      padding: 16px 8px; }
+    .nurse-assigned-view .health-records-card .health-records-history-view td {
+      font-size: 12px;
+      padding: 16px 8px; }
+
+.nurse-assigned-view .clickable-heart-health-stat,
+.nurse-assigned-view .clickable-temp-health-stat,
+.nurse-assigned-view .clickable-bp-health-stat {
+  cursor: pointer; }
+
+.nurse-assigned-view .clickable-heart-health-stat-active::after {
+  position: absolute;
+  left: 15px;
+  top: 37px;
+  height: 64px;
+  width: 5px;
+  background-color: red;
+  content: ""; }
+
+.nurse-assigned-view .clickable-heart-health-stat:hover::after {
+  position: absolute;
+  left: 15px;
+  top: 37px;
+  height: 64px;
+  width: 5px;
+  background-color: red;
+  content: ""; }
+
+.nurse-assigned-view .clickable-temp-health-stat-active::after {
+  position: absolute;
+  left: 15px;
+  top: 225px;
+  height: 64px;
+  width: 5px;
+  background-color: red;
+  content: ""; }
+
+.nurse-assigned-view .clickable-temp-health-stat:hover::after {
+  position: absolute;
+  left: 15px;
+  top: 225px;
+  height: 64px;
+  width: 5px;
+  background-color: red;
+  content: ""; }
+
+.nurse-assigned-view .clickable-bp-health-stat-active::after {
+  position: absolute;
+  left: 15px;
+  top: 415px;
+  height: 64px;
+  width: 5px;
+  background-color: red;
+  content: ""; }
+
+.nurse-assigned-view .clickable-bp-health-stat:hover::after {
+  position: absolute;
+  left: 15px;
+  top: 415px;
+  height: 64px;
+  width: 5px;
+  background-color: red;
+  content: ""; }
+
+.nurse-assigned-view .profilepic {
+  width: 100%;
+  height: 100%; }
 
 @keyframes anim-heart-beat {
   0% {

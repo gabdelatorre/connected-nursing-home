@@ -12,6 +12,7 @@ import {
 import Modal from "react-responsive-modal";
 import ButtonBase from "@material-ui/core/ButtonBase";
 import PatientCard from "../subviews/PatientCard";
+import { Redirect, withRouter } from "react-router-dom";
 import PatientDashboard from "../views/PatientDashboard";
 
 class NursingHomeDashboard extends Component {
@@ -30,6 +31,7 @@ class NursingHomeDashboard extends Component {
         birthdate: null,
         id: null
       },
+      openPatientDashboard: null,
       listOfRelatives: [],
       data: {
         firstName: null,
@@ -50,20 +52,21 @@ class NursingHomeDashboard extends Component {
         temperature: null,
         heartRate: null
       },
-      buttonRole: null
+      buttonRole: null,
+
+      arePatientVitalStatsLoaded: false
     };
   }
 
   componentDidMount() {
-    this.fillNurseList();
+    //  this.fillNurseList();
     this.fillRelativeList();
     this.onloadAllPatients();
     this.fillNurseListPop();
   }
 
-  onOpenModal = (passFirstName, passLastName, passBirthdate, passId) => {
+  openPatientProfile = (passFirstName, passLastName, passBirthdate, passId) => {
     this.setState({
-      open: true,
       selectedPatient: {
         firstName: passFirstName,
         lastName: passLastName,
@@ -187,11 +190,8 @@ class NursingHomeDashboard extends Component {
     this.setState({
       tempStorage: {
         firstName: null,
-
         lastName: null,
-
         birthdate: null,
-
         id: null
       }
     });
@@ -201,23 +201,16 @@ class NursingHomeDashboard extends Component {
     this.setState({
       data: {
         firstName: null,
-
         lastName: null,
-
         birthdate: null,
-
         id: null
       }
     });
 
     let html = "";
-
     const dropDown = document.querySelector(".nurseId");
-
     this.props.firebase.db
-
       .collection("users")
-
       .where("role", "==", "EMPLOYEE")
       .get()
       .then(e => {
@@ -225,11 +218,8 @@ class NursingHomeDashboard extends Component {
           this.setState({
             data: {
               firstName: data.data().firstName,
-
               lastName: data.data().lastName,
-
               birthdate: data.data().birthdate,
-
               id: data.id
             }
           });
@@ -243,135 +233,90 @@ class NursingHomeDashboard extends Component {
     this.setState({
       data: {
         firstName: null,
-
         lastName: null,
-
         birthdate: null,
-
         id: null
       }
     });
   }
 
-  fillNurseList() {
-    let html = "";
-
-    const dropDown = document.querySelector(".nurseId");
-
-    this.props.firebase.db
-
-      .collection("users")
-      .where("role", "==", "EMPLOYEE")
-      .get()
-      .then(e => {
-        html += <option value="empty"> N/A</option>;
-
-        e.docs.forEach(data => {
-          const list = `
-
-<option value="${data.id}">${data.data().firstName}
-${data.data().lastName}</option>
-
-`;
-
-          html += list;
-        });
-
-        dropDown.innerHTML = html;
-      });
-  }
+  //   fillNurseList() {
+  //     let html = "";
+  //     const dropDown = document.querySelector(".nurseId");
+  //     this.props.firebase.db
+  //       .collection("users")
+  //       .where("role", "==", "EMPLOYEE")
+  //       .get()
+  //       .then(e => {
+  //         html += <option value="empty"> N/A</option>;
+  //         e.docs.forEach(data => {
+  //           const list = `
+  // <option value="${data.id}">${data.data().firstName}
+  // ${data.data().lastName}</option>
+  // `;
+  //           html += list;
+  //         });
+  //         dropDown.innerHTML = html;
+  //       });
+  //   }
 
   patientRegistration() {
     var firstNames = document.getElementById("firstName").value;
-
     var lastNames = document.getElementById("lastName").value;
-
     var birthdate = document.getElementById("birthdate").value;
-
     var nurseAssign = document.getElementById("nurseChoice").value;
-
     var role = "Patient";
-
     var docs = "x";
-
     if (nurseAssign == "empty") {
       this.props.firebase.db
-
         .collection("patients")
-
         .add({
           birthdate: birthdate,
-
           firstName: firstNames,
-
           lastName: lastNames,
-
           role: role
         })
-
         .then(docRef => {});
     } else {
       this.props.firebase.db
-
         .collection("patients")
-
         .add({
           birthdate: birthdate,
-
           firstName: firstNames,
-
           lastName: lastNames,
-
           role: role
         })
 
         .then(docRef => {
           this.props.firebase.db
-
             .collection("users")
-
             .doc(nurseAssign)
             .get()
             .then(e => {
               this.props.firebase.db
-
                 .collection("patients")
-
                 .doc("" + docRef.id)
-
                 .collection("nurse_Assigned")
-
                 .doc(nurseAssign)
-
                 .set({
                   firstName: e.data().lastName,
-
                   lastName: e.data().firstName,
-
                   role: e.data().role
                 })
-
                 .then(e => {
                   console.log("Successful");
                 });
 
               this.props.firebase.db
-
                 .collection("users")
-
                 .doc("" + nurseAssign)
-
                 .collection("patients")
-
                 .doc(docRef.id)
 
                 .set({
                   birthdate: birthdate,
-
                   firstName: firstNames,
-
                   lastName: lastNames,
-
                   role: role
                 })
 
@@ -471,11 +416,8 @@ ${data.data().lastName}</option>
         this.setState({
           tempStorage: {
             firstName: data.data().firstName,
-
             lastName: data.data().lastName,
-
             birthdate: data.data().birthdate,
-
             id: data.id
           }
         });
@@ -490,11 +432,8 @@ ${data.data().lastName}</option>
       this.setState({
         tempStorage: {
           firstName: null,
-
           lastName: null,
-
           birthdate: null,
-
           id: null
         }
       });
@@ -524,25 +463,16 @@ ${data.data().lastName}</option>
     }
 
     this.props.firebase
-
       .patients()
-
       .where(dropDownSearch, "==", vals)
-
       .get()
-
       .then(e => {
         e.docs.forEach(data => {
-          console.log(data.id);
-
           this.setState({
             tempStorage: {
               firstName: data.data().firstName,
-
               lastName: data.data().lastName,
-
               birthdate: data.data().birthdate,
-
               id: data.id
             }
           });
@@ -557,11 +487,8 @@ ${data.data().lastName}</option>
         this.setState({
           tempStorage: {
             firstName: null,
-
             lastName: null,
-
             birthdate: null,
-
             id: null
           }
         });
@@ -570,61 +497,37 @@ ${data.data().lastName}</option>
 
   addPatientToRelative() {
     var relativeId = document.getElementById("relativeList").value;
-
     var patientId = this.state.data.id;
-
     this.props.firebase.db
-
       .collection("patients")
-
       .doc(patientId)
-
       .get()
-
       .then(e => {
         this.props.firebase.db
-
           .collection("users")
-
           .doc(relativeId)
-
           .collection("relatives")
-
           .doc(patientId)
-
           .set({
             firstName: e.data().firstName,
-
             lastName: e.data().lastName,
-
             birthdate: e.data().birthdate
           });
       });
 
     this.props.firebase.db
-
       .collection("users")
-
       .doc(relativeId)
-
       .get()
-
       .then(e => {
         alert("Connecting Patient and Relative successfully");
-
         this.props.firebase.db
-
           .collection("patients")
-
           .doc(patientId)
-
           .collection("relatives")
-
           .doc(relativeId)
-
           .set({
             firstName: e.data().firstName,
-
             lastName: e.data().lastName
           });
       });
@@ -680,15 +583,10 @@ ${data.data().lastName}</option>
 
   removePatientAccount() {
     var patientId = this.state.data.id;
-
     this.props.firebase.db
-
       .collection("patients")
-
       .doc(patientId)
-
       .delete()
-
       .then(e => {
         console.log("Delete Successful!");
       });
@@ -696,78 +594,150 @@ ${data.data().lastName}</option>
 
   addPatient() {
     var patientAssign = this.state.data.id;
-
     var nurseIds = document.getElementById("showNurses").value;
-
     this.props.firebase.db
-
       .collection("users")
-
       .doc(nurseIds)
-
       .get()
-
       .then(e => {
-        console.log(e.data().firstName + " ASASA");
-
         this.props.firebase.db
-
           .collection("patients")
-
           .doc(patientAssign)
-
           .collection("nurse_Assigned")
-
           .doc(nurseIds)
-
           .set({
             firstName: e.data().firstName,
-
             lastName: e.data().lastName,
-
             role: e.data().role
           });
       });
-
     console.log(patientAssign + " ASASA");
-
     this.props.firebase.db
-
       .collection("patients")
-
       .doc(patientAssign)
-
       .get()
-
       .then(e => {
         console.log(e.data());
-
         this.props.firebase.db
-
           .collection("users")
-
           .doc(nurseIds)
-
           .collection("patients")
-
           .doc(e.id)
-
           .set({
             firstName: e.data().firstName,
-
             lastName: e.data().lastName,
-
             birthdate: e.data().birthdate,
-
             role: e.data().role
           });
       });
   }
 
-  closePatientDashboardView () {
+  routeDirection = (
+    passFirstName,
+    passLastName,
+    passBirthdate,
+    passId,
+    passRole,
+    patientLocation
+  ) => {
     this.setState({
-        openPatientDashboard: false
-    })
+      selectedPatient: {
+        firstName: passFirstName,
+        lastName: passLastName,
+        birthdate: passBirthdate,
+        id: passId,
+        role: passRole
+      }
+    });
+    this.getAllPatientRecord(passId);
+    this.setState({
+      buttonRole: (
+        <div className="itemsModal" id="buttonRole">
+          <p className="modalBodyText">
+            <Button
+              bsStyle="primary"
+              type="submit"
+              id="loginBtn"
+              className="btn-block"
+              onClick={this.removingOfPatient.bind(this)}
+            >
+              Remove this
+            </Button>
+          </p>
+        </div>
+      ),
+      openPatientDashboard: true
+    });
+  };
+
+  getAllPatientRecord(passedId) {
+    var patientId = passedId;
+
+    this.setState({ arePatientVitalStatsLoaded: false });
+
+    this.props.firebase.db
+      .collection("patients")
+      .doc(patientId)
+      .collection("vital_statistics")
+      .onSnapshot(e => {
+        e.docs.forEach(e => {
+          this.setState({
+            selectedPatientVitalStats: {
+              weight: e.data().weight,
+              height: e.data().height
+            }
+          });
+        });
+      });
+    this.props.firebase.db
+      .collection("patients")
+      .doc(patientId)
+      .collection("wearable")
+      .onSnapshot(e => {
+        e.docs.forEach(e => {
+          this.setState({
+            selectedPatientVitalStats: e.data().latest.state.reported,
+            heartUpdate: true,
+            arePatientVitalStatsLoaded: true
+          });
+        });
+      });
+  }
+
+  removingOfPatient() {
+    var patientId = this.state.data.id;
+    var nurseId = this.props.authUser.uid;
+    this.props.firebase.db
+      .collection("patients")
+      .doc(patientId)
+      .collection("nurse_assigned")
+      .doc(nurseId)
+      .delete()
+      .then(e => {
+        console.log("Delete Successful!");
+      });
+    this.props.firebase.db
+      .collection("users")
+      .doc(nurseId)
+      .collection("patients")
+      .doc(patientId)
+      .delete()
+      .then(e => {
+        console.log("Delete Successful!");
+      });
+  }
+
+  goToMedicalRecords(data) {
+    this.setState({
+      currentView: "MEDICAL_RECORDS",
+      selectedPatient: data
+    });
+  }
+
+  closePatientDashboardView() {
+    this.setState({
+      openPatientDashboard: false
+    });
   }
 
   render() {
@@ -775,21 +745,23 @@ ${data.data().lastName}</option>
       return <option value={rel.id}>{rel.firstName}</option>;
     });
 
-    const { open } = this.state;
+    // const listOfNurseUser = this.state.listOfNurse.map(nurse => {
+    //   return <option value={nurse.id}>{nurse.firstName}</option>;
+    // });
 
+    const { openPatientDashboard } = this.state;
     const allPatientsInfo = this.state.arrOfAllPatients.map(pat => {
       return (
         <div className="itemsPatientCard">
           <ButtonBase
             onClick={() =>
-              this.onOpenModal(
+              this.routeDirection(
                 pat.firstName,
-
                 pat.lastName,
-
                 pat.birthdate,
-
-                pat.id
+                pat.id,
+                pat.role,
+                "myPatient"
               )
             }
           >
@@ -809,225 +781,24 @@ ${data.data().lastName}</option>
       return <option value={nurse.id}>{nurse.firstName}</option>;
     });
 
-    if (this.state.open) {
+    if (this.state.openPatientDashboard == true) {
       return (
         <div>
-        {
-            this.state.arePatientVitalStatsLoaded &&
+          {this.state.arePatientVitalStatsLoaded && (
             <PatientDashboard
               selectedPatient={this.state.selectedPatient}
               selectedPatientVitalStats={this.state.selectedPatientVitalStats}
-              buttonRole={this.state.buttonRole}
-              closePatientDashboardView={this.closePatientDashboardView.bind(this)}
+              userRole="Admin"
+              closePatientDashboardView={this.closePatientDashboardView.bind(
+                this
+              )}
             />
-        }
+          )}
         </div>
-    );
+      );
     } else {
       return (
         <div className="NursingHomeDashboard">
-          <div className="form">
-            <div className="formCreation">
-              <div className="formItems">
-                <h4>Patient Registration</h4>
-              </div>
-
-              <div className="formItems">
-                <ControlLabel>First Name</ControlLabel>
-
-                <FormControl
-                  className="inputTextField"
-                  id="firstName"
-                  type="text"
-                  bsClass="form-control"
-                />
-              </div>
-
-              <div className="formItems">
-                <ControlLabel>Last Name</ControlLabel>
-
-                <FormControl
-                  className="inputTextField"
-                  id="lastName"
-                  type="text"
-                  bsClass="form-control"
-                />
-              </div>
-
-              <div className="formItems">
-                <ControlLabel>Birthdate</ControlLabel>
-
-                <FormControl
-                  className="inputTextField"
-                  id="birthdate"
-                  type="date"
-                  bsClass="form-control"
-                />
-              </div>
-
-              <div className="formItems">
-                <ControlLabel>Nurse List</ControlLabel>
-
-                <FormControl
-                  componentClass="select"
-                  className="nurseId"
-                  id="nurseChoice"
-                  placeholder="select"
-                >
-                  <option value="">N/A</option>
-                </FormControl>
-              </div>
-
-              <div className="formItems">
-                <Button
-                  bsStyle="primary"
-                  type="submit"
-                  id="loginBtn"
-                  className="btn-block"
-                  onClick={this.patientRegistration.bind(this)}
-                >
-                  Create
-                </Button>
-              </div>
-            </div>
-          </div>
-
-          <br />
-
-          <br />
-
-          {/* 
-
-<div className="form">
-
-<div className="formCreation">
-
-<div className="formItems">
-
-<h4>Relative Registration</h4>
-
-</div>
-
-<div className="formItems">
-
-<ControlLabel>First Name</ControlLabel>
-
-<FormControl
-
-className="inputTextField"
-
-id="firstNameRelative"
-
-type="text"
-
-bsClass="form-control"
-
-/>
-
-</div>
-
-<div className="formItems">
-
-<ControlLabel>Last Name</ControlLabel>
-
-<FormControl
-
-className="inputTextField"
-
-id="lastNameRelative"
-
-type="text"
-
-bsClass="form-control"
-
-/>
-
-</div>
-
-<div className="formItems">
-
-<ControlLabel>Birthdate</ControlLabel>
-
-<FormControl
-
-className="inputTextField"
-
-id="birthdateRelative"
-
-type="date"
-
-bsClass="form-control"
-
-/>
-
-</div>
-
-<div className="formItems">
-
-<ControlLabel>Email</ControlLabel>
-
-<FormControl
-
-className="inputTextField"
-
-id="emailRelative"
-
-type="text"
-
-bsClass="form-control"
-
-/>
-
-</div>
-
-
-
-<div className="formItems">
-
-<ControlLabel>Password</ControlLabel>
-
-<FormControl
-
-className="inputTextField"
-
-id="passwordRelative"
-
-type="password"
-
-bsClass="form-control"
-
-/>
-
-</div>
-
-<div className="formItems">
-
-<Button
-
-bsStyle="primary"
-
-type="submit"
-
-id="loginBtn"
-
-className="btn-block"
-
-onClick={this.relativeRegister.bind(this)}
-
->
-
-Create
-
-</Button>
-
-</div>
-
-</div>
-
-</div> */}
-
-          <hr className="style-one" />
-
           <section id="allPatients">
             <div className="containerSection">
               <div className="items">
@@ -1038,7 +809,18 @@ Create
 
           <div className="containerSectionSearch">
             <div className="items">
-              <FormGroup>
+              <Button
+                bsStyle="primary"
+                type="submit"
+                id="signUpBtn"
+                className="btn-block"
+              >
+                Create Patient
+              </Button>
+            </div>
+
+            <div className="items">
+              <FormGroup controlId="formControlsSelect">
                 <FormControl
                   componentClass="select"
                   id="searchDropdownAllPatients"
@@ -1066,92 +848,92 @@ Create
           <hr className="style-one" />
 
           <div className="containerPatientCard">{allPatientsInfo}</div>
-          {/* 
-          <div className="modalResponsive">
-            <Modal
-              className="settingsModal"
-              open={open}
-              onClose={this.onCloseModal}
-              center
-            >
-              <div className="modalResponsive">
-                <h2>
-                  <b>
-                    Profile of
-                    {this.state.data.firstName}
-                  </b>
-                </h2>
 
-                <div className="containerModal">
-                  <div className="itemsModal pictureItem">
-                    <div className="containerModalPicture">
-                      <div className="itemsModal pictureItem">
-                        <img src="https://placeholdit.imgix.net/~text?txtsize=33&txt=318%C3%97180&w=318&h=180" />
-                      </div>
+          {/* <Modal
+            className="settingsModal"
+            open={open}
+            onClose={this.onCloseModal}
+            center
+          >
+            <div className="modalResponsive">
+              <h2>
+                <b>Patient Creation</b>
+              </h2>
+
+              <div className="containerModal">
+                <div className="form">
+                  <div className="formCreation">
+                    <div className="formItems">
+                      <h4>Patient Registration</h4>
                     </div>
-                  </div>
 
-                  <div className="itemsModal">
-                    <div className="containerModalBody">
-                      <div className="itemsModal">
-                        <p className="modalBodyText">
-                          <b>First Name:</b>
-                          {this.state.data.firstName}{" "}
-                        </p>
-                      </div>
+                    <div className="formItems">
+                      <ControlLabel>First Name</ControlLabel>
 
-                      <div className="itemsModal">
-                        <p className="modalBodyText">
-                          <b>Last name:</b>
-                          {this.state.data.lastName}
-                        </p>
-                      </div>
+                      <FormControl
+                        className="inputTextField"
+                        id="firstName"
+                        type="text"
+                        bsClass="form-control"
+                      />
+                    </div>
 
-                      <div className="itemsModal">
-                        <p className="modalBodyText">
-                          <b>Birthdate:</b>
-                          {this.state.data.birthdate}{" "}
-                        </p>
-                      </div>
+                    <div className="formItems">
+                      <ControlLabel>Last Name</ControlLabel>
+
+                      <FormControl
+                        className="inputTextField"
+                        id="lastName"
+                        type="text"
+                        bsClass="form-control"
+                      />
+                    </div>
+
+                    <div className="formItems">
+                      <ControlLabel>Birthdate</ControlLabel>
+
+                      <FormControl
+                        className="inputTextField"
+                        id="birthdate"
+                        type="date"
+                        bsClass="form-control"
+                      />
+                    </div>
+
+                    <div className="formItems">
+                      <ControlLabel>Nurse List</ControlLabel>
+
+                      <FormControl
+                        componentClass="select"
+                        className="nurseId"
+                        id="nurseChoice"
+                        placeholder="select"
+                      >
+                        <option value="">N/A</option>
+                      </FormControl>
+                    </div>
+
+                    <div className="formItems">
+                      <Button
+                        bsStyle="primary"
+                        type="submit"
+                        id="loginBtn"
+                        className="btn-block"
+                        onClick={this.patientRegistration.bind(this)}
+                      >
+                        Create
+                      </Button>
                     </div>
                   </div>
                 </div>
-
-                <div className="containerVitalStatistic">
-                  <div className="itemsModal">
-                    <p className="modalBodyText">
-                      <b>Height:</b> 53.54
-                    </p>
-                  </div>
-
-                  <div className="itemsModal">
-                    <p className="modalBodyText">
-                      <b>Weight:</b> 53.54
-                    </p>
-                  </div>
-
-                  <div className="itemsModal">
-                    <p className="modalBodyText">
-                      <b>Blood Pressure:</b> 53.54
-                    </p>
-                  </div>
-
-                  <div className="itemsModal">
-                    <p className="modalBodyText">
-                      <b>Temperature:</b> 53.54
-                    </p>
-                  </div>
-                </div>
-
-                <div className="containerModalButtons">
-                  
               </div>
-            </Modal> 
-           </div> */}
+              <div className="containerModalButtons" />
+            </div>
+          </Modal> */}
         </div>
       );
     }
   }
 }
 
-export default withFirebase(NursingHomeDashboard);
+export default withRouter(withFirebase(NursingHomeDashboard));

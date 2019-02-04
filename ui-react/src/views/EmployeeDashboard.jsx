@@ -1,7 +1,8 @@
-import React, { Component, optionsState} from "react";
+import React, { Component, optionsState } from "react";
 import { FirebaseContext } from "../firebase";
 import { withFirebase } from "../firebase/context";
 import PatientCard from "../subviews/PatientCard";
+
 import { Redirect, withRouter } from "react-router-dom";
 
 import {
@@ -9,9 +10,7 @@ import {
   InputGroup,
   FormControl,
   ControlLabel,
-  Button,
-  Dropdown,
-  MenuItem,
+  Button
 } from "react-bootstrap";
 import Modal from "react-responsive-modal";
 import ButtonBase from "@material-ui/core/ButtonBase";
@@ -56,7 +55,7 @@ class EmployeeDashboard extends Component {
         heartRate: null
       },
       heartUpdate: false,
-      arePatientVitalStatsLoaded: false,
+      arePatientVitalStatsLoaded: false
     };
   }
   componentDidMount() {
@@ -108,47 +107,6 @@ class EmployeeDashboard extends Component {
         console.log(this.state.arrOfMyPatients);
       });
   }
-
-  // addPatientToMyPatient() {
-  //   var patientAssign = this.state.data.id;
-  //   this.props.firebase.db
-  //     .collection("users")
-  //     .doc(this.props.authUser.uid)
-  //     .get()
-  //     .then(e => {
-  //       this.props.firebase.db
-  //         .collection("patients")
-  //         .doc(patientAssign)
-  //         .collection("nurse_Assigned")
-  //         .doc(this.props.authUser.uid)
-  //         .set({
-  //           firstName: e.data().firstName,
-  //           lastName: e.data().lastName,
-  //           role: e.data().role
-  //         });
-  //     });
-
-  //   this.props.firebase.db
-  //     .collection("patients")
-  //     .doc(patientAssign)
-  //     .get()
-  //     .then(e => {
-  //       console.log(e.data());
-  //       this.props.firebase.db
-  //         .collection("users")
-  //         .doc(this.props.authUser.uid)
-  //         .collection("patients")
-  //         .doc(e.id)
-  //         .set({
-  //           firstName: e.data().firstName,
-  //           lastName: e.data().lastName,
-  //           birthdate: e.data().birthdate,
-  //           role: e.data().role
-  //         });
-  //     });
-
-  //   this.onCloseModal();
-  // }
 
   searchMyPatients() {
     var vals = document.getElementById("searchTxtMyPatients").value;
@@ -227,9 +185,19 @@ class EmployeeDashboard extends Component {
     this.getAllPatientRecord(passId);
     this.setState({
       buttonRole: (
-        <Dropdown.Menu className="patient-option-menu">
-        <MenuItem onClick={this.removingOfPatient.bind(this)}><div className="navbtn">Remove Patient</div></MenuItem>
-        </Dropdown.Menu>
+        <div className="itemsModal" id="buttonRole">
+          <p className="modalBodyText">
+            <Button
+              bsStyle="primary"
+              type="submit"
+              id="loginBtn"
+              className="btn-block"
+              onClick={this.removingOfPatient.bind(this)}
+            >
+              Remove this
+            </Button>
+          </p>
+        </div>
       ),
       openPatientDashboard: true
     });
@@ -240,7 +208,6 @@ class EmployeeDashboard extends Component {
   // ============================================================================================================
   getAllPatientRecord(passedId) {
     var patientId = passedId;
-    alert(patientId);
 
     this.setState({ arePatientVitalStatsLoaded: false });
 
@@ -267,7 +234,7 @@ class EmployeeDashboard extends Component {
           this.setState({
             selectedPatientVitalStats: e.data().latest.state.reported,
             heartUpdate: true,
-            arePatientVitalStatsLoaded: true,
+            arePatientVitalStatsLoaded: true
           });
         });
       });
@@ -296,14 +263,17 @@ class EmployeeDashboard extends Component {
       });
   }
 
-  removePatient() {
-    console.log("removePatient");
+  goToMedicalRecords(data) {
+    this.setState({
+      currentView: "MEDICAL_RECORDS",
+      selectedPatient: data
+    });
   }
 
-  closePatientDashboardView () {
+  closePatientDashboardView() {
     this.setState({
-        openPatientDashboard: false
-    })
+      openPatientDashboard: false
+    });
   }
 
   render() {
@@ -340,18 +310,18 @@ class EmployeeDashboard extends Component {
 
     if (this.state.openPatientDashboard == true) {
       return (
-          <div>
-          {
-              this.state.arePatientVitalStatsLoaded &&
-              <PatientDashboard
-                selectedPatient={this.state.selectedPatient}
-                selectedPatientVitalStats={this.state.selectedPatientVitalStats}
-                buttonRole={this.state.buttonRole}
-                heartUpdate={this.state.heartUpdate}
-                closePatientDashboardView={this.closePatientDashboardView.bind(this)}
-              />
-          }
-          </div>
+        <div>
+          {this.state.arePatientVitalStatsLoaded && (
+            <PatientDashboard
+              selectedPatient={this.state.selectedPatient}
+              selectedPatientVitalStats={this.state.selectedPatientVitalStats}
+              userRole="Employee"
+              closePatientDashboardView={this.closePatientDashboardView.bind(
+                this
+              )}
+            />
+          )}
+        </div>
       );
     } else {
       return (
@@ -391,79 +361,6 @@ class EmployeeDashboard extends Component {
           <hr className="style-one" />
 
           <div className="containerPatientCard">{myPatientsInfo}</div>
-
-          {/* <Modal
-            className="settingsModal"
-            openPatientDashboard={openPatientDashboard}
-            onClose={this.onCloseModal}
-            center
-          >
-            <div className="modalResponsive">
-              <h2>
-                <b>Profile of {this.state.data.firstName}</b>
-              </h2>
-              <div className="containerModal">
-                <div className="itemsModal pictureItem">
-                  <div className="containerModalPicture">
-                    <div className="itemsModal pictureItem">
-                      <img src="https://placeholdit.imgix.net/~text?txtsize=33&txt=318%C3%97180&w=318&h=180" />
-                    </div>
-                  </div>
-                </div>
-
-                <div className="itemsModal">
-                  <div className="containerModalBody">
-                    <div className="itemsModal">
-                      <p className="modalBodyText">
-                        <b>First Name:</b> {this.state.data.firstName}{" "}
-                      </p>
-                    </div>
-
-                    <div className="itemsModal">
-                      <p className="modalBodyText">
-                        <b>Last name:</b> {this.state.data.lastName}
-                      </p>
-                    </div>
-
-                    <div className="itemsModal">
-                      <p className="modalBodyText">
-                        <b>Birthdate:</b> {this.state.data.birthdate}{" "}
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div className="containerVitalStatistic">
-                <div className="itemsModal">
-                  <p className="modalBodyText">
-                    <b>Height:</b> 53.54
-                  </p>
-                </div>
-
-                <div className="itemsModal">
-                  <p className="modalBodyText">
-                    <b>Weight:</b> 53.54
-                  </p>
-                </div>
-
-                <div className="itemsModal">
-                  <p className="modalBodyText">
-                    <b>Blood Pressure:</b> 53.54
-                  </p>
-                </div>
-
-                <div className="itemsModal">
-                  <p className="modalBodyText">
-                    <b>Temperature:</b> 53.54
-                  </p>
-                </div>
-              </div>
-
-            
-              </div>
-            </div>
-          </Modal> */}
         </div>
       );
     }

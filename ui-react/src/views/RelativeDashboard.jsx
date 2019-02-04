@@ -4,6 +4,9 @@ import { FirebaseContext } from "../firebase";
 import { withFirebase } from "../firebase/context";
 import PatientCard from "../subviews/PatientCard";
 
+import { Redirect, withRouter } from "react-router-dom";
+import PatientDashboard from "../views/PatientDashboard";
+
 import Modal from "react-responsive-modal";
 import ButtonBase from "@material-ui/core/ButtonBase";
 import {
@@ -19,7 +22,21 @@ class RelativeDashboard extends Component {
     super();
     this.state = {
       arrOfMyRelative: [],
-      open: false,
+      openPatientDashboard: false,
+      selectedPatient: {
+        firstName: null,
+        lastName: null,
+        birthdate: null,
+        id: null,
+        role: null
+      },
+      selectedPatientVitalStats: {
+        weight: null,
+        height: null,
+        bloodPressure: null,
+        temperature: null,
+        heartRate: null
+      },
       tempStorage: {
         firstName: null,
         lastName: null,
@@ -36,6 +53,63 @@ class RelativeDashboard extends Component {
     this.setState({
       arrOfMyRelative: []
     });
+  }
+
+  routeDirection = (
+    passFirstName,
+    passLastName,
+    passBirthdate,
+    passId,
+    passRole,
+    patientLocation
+  ) => {
+    this.setState({
+      selectedPatient: {
+        firstName: passFirstName,
+        lastName: passLastName,
+        birthdate: passBirthdate,
+        id: passId,
+        role: passRole
+      }
+    });
+    this.getAllPatientRecord(passId);
+    this.setState({
+      openPatientDashboard: true
+    });
+  };
+
+  getAllPatientRecord(passedId) {
+    var patientId = passedId;
+
+    this.setState({ arePatientVitalStatsLoaded: false });
+
+    this.props.firebase.db
+      .collection("patients")
+      .doc(patientId)
+      .collection("vital_statistics")
+      .onSnapshot(e => {
+        e.docs.forEach(e => {
+          this.setState({
+            selectedPatientVitalStats: {
+              weight: e.data().weight,
+              height: e.data().height
+            }
+          });
+        });
+      });
+    this.props.firebase.db
+      .collection("patients")
+      .doc(patientId)
+      .collection("wearable")
+      .onSnapshot(e => {
+        e.docs.forEach(e => {
+          this.setState({
+            selectedPatientVitalStats: e.data().latest.state.reported,
+            heartUpdate: true,
+            arePatientVitalStatsLoaded: true
+          });
+        });
+      });
   }
 
   onOpenModal = (passFirstName, passLastName, passBirthdate, passId) => {
@@ -98,17 +172,32 @@ class RelativeDashboard extends Component {
       });
   }
 
+  goToMedicalRecords(data) {
+    this.setState({
+      currentView: "MEDICAL_RECORDS",
+      selectedPatient: data
+    });
+  }
+
+  closePatientDashboardView() {
+    this.setState({
+      openPatientDashboard: false
+    });
+  }
+
   render() {
     const myPatientsInfo = this.state.arrOfMyRelative.map(pat => {
       return (
         <div className="itemsPatientCard">
           <ButtonBase
             onClick={() =>
-              this.onOpenModal(
+              this.routeDirection(
                 pat.firstName,
                 pat.lastName,
                 pat.birthdate,
-                pat.id
+                pat.id,
+                pat.role,
+                "myPatient"
               )
             }
           >
@@ -117,98 +206,43 @@ class RelativeDashboard extends Component {
               lastName={pat.lastName}
               birthdate={pat.birthdate}
               id={pat.id}
-              nurseAssigned="SampleText"
+              nurseAssigned={pat.role}
             />
           </ButtonBase>
         </div>
       );
     });
 
-    const { open } = this.state;
-    return (
-      <div className="containerRelativeDashboard">
-        <div className="containerSectionTitle">
-          <h3>My Relatives</h3>
+    const { openPatientDashboard } = this.state;
+
+    if (this.state.openPatientDashboard == true) {
+      return (
+        <div>
+          {this.state.arePatientVitalStatsLoaded && (
+            <PatientDashboard
+              selectedPatient={this.state.selectedPatient}
+              selectedPatientVitalStats={this.state.selectedPatientVitalStats}
+              userRole="Employee"
+              closePatientDashboardView={this.closePatientDashboardView.bind(
+                this
+              )}
+            />
+          )}
         </div>
+      );
+    } else {
+      return (
+        <div className="containerRelativeDashboard">
+          <div className="containerSectionTitle">
+            <h3>My Relatives</h3>
+          </div>
 
-        <hr className="style-one" />
+          <hr className="style-one" />
 
-        <div className="containerPatientCard">{myPatientsInfo}</div>
-
-        <div className="modalResponsive">
-          <Modal
-            className="settingsModal"
-            open={open}
-            onClose={this.onCloseModal}
-            center
-          >
-            <div className="modalResponsive">
-              <h2>
-                <b>Profile of {this.state.data.firstName}</b>
-              </h2>
-              <div className="containerModal">
-                <div className="itemsModal pictureItem">
-                  <div className="containerModalPicture">
-                    <div className="itemsModal pictureItem">
-                      <img src="https://placeholdit.imgix.net/~text?txtsize=33&txt=318%C3%97180&w=318&h=180" />
-                    </div>
-                  </div>
-                </div>
-
-                <div className="itemsModal">
-                  <div className="containerModalBody">
-                    <div className="itemsModal">
-                      <p className="modalBodyText">
-                        <b>First Name:</b> {this.state.data.firstName}{" "}
-                      </p>
-                    </div>
-
-                    <div className="itemsModal">
-                      <p className="modalBodyText">
-                        <b>Last name:</b> {this.state.data.lastName}
-                      </p>
-                    </div>
-
-                    <div className="itemsModal">
-                      <p className="modalBodyText">
-                        <b>Birthdate:</b> {this.state.data.birthdate}{" "}
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div className="containerVitalStatistic">
-                <div className="itemsModal">
-                  <p className="modalBodyText">
-                    <b>Height:</b> 53.54
-                  </p>
-                </div>
-
-                <div className="itemsModal">
-                  <p className="modalBodyText">
-                    <b>Weight:</b> 53.54
-                  </p>
-                </div>
-
-                <div className="itemsModal">
-                  <p className="modalBodyText">
-                    <b>Blood Pressure:</b> 53.54
-                  </p>
-                </div>
-
-                <div className="itemsModal">
-                  <p className="modalBodyText">
-                    <b>Temperature:</b> 53.54
-                  </p>
-                </div>
-              </div>
-            </div>
-          </Modal>
+          <div className="containerPatientCard">{myPatientsInfo}</div>
         </div>
-      </div>
-    );
+      );
+    }
   }
 }
-
-export default withFirebase(RelativeDashboard);
+export default withRouter(withFirebase(RelativeDashboard));

@@ -25,16 +25,14 @@ class PatientCard extends Component {
             alt="Card image cap"
           />
           <CardTitle>
-            <b>
+            <b className="nurseCardTitle">
               {this.props.lastName}, {this.props.firstName}
             </b>
           </CardTitle>
-          <b>Birthdate:</b> {this.props.birthdate}
-          <br />
-          <b>Nurse Assigned:</b> {this.props.nurseAssigned}
+          <b className="nurseCardBody">Birthdate:</b> {this.props.birthdate}
         </CardBlock>
         <CardFooter>
-          <input type="text" value={this.props.id} hidden/>
+          <input type="text" value={this.props.id} hidden />
         </CardFooter>
       </Card>
     );
