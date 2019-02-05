@@ -20,6 +20,7 @@ import HealthRecordsHistory from "../subviews/HealthRecordsHistory";
 import moment from "moment";
 import ActivityFeedItem from "../subviews/ActivityFeedItem";
 import NurseAssignedListOfAvailable from "../subviews/NurseAssignedListOfAvailable";
+import ActivityView from "../subviews/ActivityView";
 import RelativeView from "../subviews/RelativeView";
 
 const Ball = posed.div({
@@ -435,15 +436,21 @@ class PatientDashboard extends Component {
         );
       } else if (this.state.currentView === "HEALTH_RECORDS") {
         return (
-          <Col lg={9}>
-            <HealthRecordsView
-              {...employeeDashboardProps}
-              heartAnimation={heartAnimation}
-            />
-          </Col>
+            <Col lg={9}>
+                <HealthRecordsView
+                  {...employeeDashboardProps}
+                  heartAnimation={heartAnimation}
+                />
+            </Col>
         );
       } else if (this.state.currentView === "ACTIVITY") {
-        return null;
+        return (
+            <Col lg={9}>
+                <ActivityView
+                  {...employeeDashboardProps}
+                />
+            </Col>
+        );
       } else if (this.state.currentView === "LIST_OF_NURSE_ASSIGNED") {
         return (
           <Col lg={9}>

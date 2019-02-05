@@ -3978,62 +3978,11 @@ body > .navbar-collapse:before {
     .navbar .navbar-brand {
       font-size: 24px; } }
 
-@media (max-width: 767px) {
-  .login {
-    max-width: 320px; }
-    .login .login-section {
-      padding: 80px 8px !important; }
-    .login .login-img {
-      width: 220px !important;
-      height: 220px !important; }
-    .login .login-divider {
-      border-left: 0px !important;
-      width: 0px !important;
-      height: 100% !important;
-      position: absolute !important;
-      left: 0px !important;
-      top: 0 !important;
-      margin: 0px !important; }
-    .login .login-f {
-      margin: 0px !important; }
-    .login .form-control {
-      width: 200px !important; }
-  .dashboard-card .analytics-card .data-tile .data-icon {
-    color: #757575;
-    position: absolute;
-    top: 20px;
-    left: 15px; }
-    .dashboard-card .analytics-card .data-tile .data-icon .request-icon-1 {
-      position: absolute;
-      top: 20px;
-      font-size: 30px; }
-    .dashboard-card .analytics-card .data-tile .data-icon .request-icon-2 {
-      position: absolute;
-      top: 10px;
-      left: 15px;
-      font-size: 30px; }
-    .dashboard-card .analytics-card .data-tile .data-icon .share-icon-1 {
-      position: absolute;
-      top: 15px;
-      left: 5px;
-      font-size: 30px; }
-    .dashboard-card .analytics-card .data-tile .data-icon .send-icon-1 {
-      position: absolute;
-      top: 15px;
-      left: 5px;
-      font-size: 30px; }
-  .modal-cont .clinical-data .input-box .files-box {
-    width: 21% !important;
-    margin-bottom: 8px; }
-  .modal-cont .clinical-data .form-control {
-    width: 75% !important;
-    margin-bottom: 8px; }
-  .modal-cont .clinical-data .sendbtn {
-    width: 100% !important;
-    margin-bottom: 8px; }
-  .modal-cont .files-table .filestable .filepreviewicon {
-    width: 50px !important;
-    height: 50px !important; } }
+/* Device: iPad */
+/* Device: Smartphones e.g. iPhone, Galaxy, Pixel */
+@media (max-width: 415px) {
+  .patient-data-dashboard-view {
+    padding: 16px 4px; } }
 
 @media (min-width: 992px) {
   .dashboard-card .analytics-card .data-tile .data-icon {

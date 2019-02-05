@@ -19,6 +19,7 @@ import ButtonBase from "@material-ui/core/ButtonBase";
 import HealthRecordsHistory from "./HealthRecordsHistory";
 import HealthExaminationForm from './HealthExaminationForm';
 import HealthExaminationRecord from './HealthExaminationRecord';
+
 class HealthRecordsView extends Component {
 
     constructor() {
@@ -167,6 +168,7 @@ class HealthRecordsView extends Component {
                                     </div>
                                 </Col>
                                 <Col lg={4}>
+                                    <Col lg={12} md={12} sm={4} xs={4}>
                                     <div 
                                         className={"health-stats-card clickable-heart-health-stat " + (this.state.selectedHealthStatGraph === "Heart Rate" ? "clickable-heart-health-stat-active" : "")}
                                         onClick={this.setHealthStatGraph.bind(this, "Heart Rate")}
@@ -183,6 +185,8 @@ class HealthRecordsView extends Component {
                                             </div>
                                         </div>
                                     </div>
+                                    </Col>
+                                    <Col lg={12} md={12} sm={4} xs={4}>
                                     <div 
                                         className={"health-stats-card clickable-temp-health-stat " + (this.state.selectedHealthStatGraph === "Temperature" ? "clickable-temp-health-stat-active" : "")}
                                         onClick={this.setHealthStatGraph.bind(this, "Temperature")}
@@ -198,6 +202,8 @@ class HealthRecordsView extends Component {
                                             </div>
                                         </div>
                                     </div>
+                                    </Col>
+                                    <Col lg={12} md={12} sm={4} xs={4}>
                                     <div 
                                         className={"health-stats-card clickable-bp-health-stat " + (this.state.selectedHealthStatGraph === "Blood Pressure" ? "clickable-bp-health-stat-active" : "")}
                                         onClick={this.setHealthStatGraph.bind(this, "Blood Pressure")}
@@ -214,6 +220,7 @@ class HealthRecordsView extends Component {
                                             </div>
                                         </div>
                                     </div>
+                                    </Col>
                                 </Col>
                             </Row>
                             
@@ -259,6 +266,21 @@ class HealthRecordsView extends Component {
                 </Grid>
             </div>
         );
+    }
+}
+
+class HealthRecordsMobileView extends Component {
+    constructor () {
+        super();
+        this.state ={
+
+        }
+    }
+    
+    render() {
+        return (
+            <div></div>
+        )
     }
 }
 
