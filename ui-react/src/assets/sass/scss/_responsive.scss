@@ -478,109 +478,21 @@
     }
 }
 
-@media (max-width: 767px){
+/* Device: iPad */
+@media (max-width: 768px){
 
-    .login {
-        max-width: 320px;
-
-        .login-section {
-            padding: 80px 8px !important;
-        }
-
-        .login-img {
-            width: 220px !important;
-            height: 220px !important; 
-        }
-
-        .login-divider {
-            border-left: 0px !important;
-            width: 0px !important;
-            height: 100% !important;
-            position: absolute !important;
-            left: 0px !important;
-            top: 0 !important;
-            margin: 0px !important;
-        }
-
-        .login-f {
-            margin: 0px !important;
-        }
-
-        .form-control {
-            width: 200px !important;
-        }
-    }
-
-    .dashboard-card {
-        .analytics-card {
-            .data-tile {
-                .data-icon {
-                    color: #757575;
-                    position: absolute;
-                    top: 20px;
-                    left: 15px;
-                
-                    .request-icon-1 {
-                        position: absolute;
-                        top: 20px;
-                        font-size: 30px;
-                    }
-                
-                    .request-icon-2 {
-                        position: absolute;
-                        top: 10px;
-                        left: 15px;
-                        font-size: 30px;
-                    }
-                
-                    .share-icon-1 {
-                        position: absolute;
-                        top: 15px;
-                        left: 5px;
-                        font-size: 30px;
-                    }
-                
-                    .send-icon-1 {
-                        position: absolute;
-                        top: 15px;
-                        left: 5px;
-                        font-size: 30px;
-                    }
-                }  
-            }
-        }
-    }
-
-    .modal-cont {
-        .clinical-data {
-            .input-box {
-                .files-box {
-                    width: 21% !important;
-                    margin-bottom: 8px;
-                }
-            }
-
-            .form-control {
-                width: 75% !important;
-                margin-bottom: 8px;
-            }
-
-            .sendbtn {
-                width: 100% !important;
-                margin-bottom: 8px;
-            }
-        }
-
-        .files-table {
-            .filestable {
-                .filepreviewicon {
-                width: 50px !important;
-                height: 50px !important;
-                }
-            }
-        }
-    }
+    
 }
+
+/* Device: Smartphones e.g. iPhone, Galaxy, Pixel */
+@media (max-width: 415px){
+
+    .patient-data-dashboard-view {
+        padding: 16px 4px;
+    }
+    
+}
+
 
 @media (min-width: 992px){
     .dashboard-card {
