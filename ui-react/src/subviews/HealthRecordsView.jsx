@@ -66,7 +66,7 @@ class HealthRecordsView extends Component {
 
         this.props.firebase.db.collection("patients").doc(patientId).collection("vital_statistics").where("timestamps", "==", finalDate).get().then( data =>{
             data.docs.forEach(data=>{
-                this.setVal("bloodPressure", data.data().blood_pressure);
+                this.setVal("bloodPressure", data.data().bloodPressure);
                 this.setVal("height", data.data().height);
                 this.setVal("weight", data.data().weight);
                 this.setVal("temperature", data.data().temperature);
@@ -142,10 +142,10 @@ class HealthRecordsView extends Component {
                                         <div className="card-content">
                                                 <Row>
                                                     <Col lg={6}>
-                                                        <h4 className="card-content-title">Findings</h4> The patient has great vital statistics. He is currently tagged as very healthy. <br/><br/>
+                                                        <h4 className="card-content-title">Findings</h4> {this.props.selectedPatientVitalStats.remarks} <br/><br/>
                                                     </Col>
                                                     <Col lg={6}>
-                                                        <h4 className="card-content-title">Medications</h4> Biogesic <br/><br/>
+                                                        <h4 className="card-content-title">Medications</h4> {this.props.selectedPatientVitalStats.medications} <br/><br/>
                                                     </Col>
                                                 </Row>
                                         </div>
@@ -175,13 +175,13 @@ class HealthRecordsView extends Component {
                                     >
                                         <span className="health-stats-label">Heart Rate</span><br/>
                                         <div>
-                                            <div className="stats-segment-1"><p className="heartrate-bpm">{this.props.selectedPatientVitalStats.HeartRate}</p></div>
+                                            <div className="stats-segment-1"><p className="heartrate-bpm">{this.props.selectedPatientVitalStats.heartRate}</p></div>
                                             <div className="stats-segment-2">
                                                 <p className="heartrate-bpm-label">BPM</p>
                                                 <Glyphicon glyph="heart" className="heart-glyph" style={this.props.heartAnimation}/>
                                             </div>
                                             <div className="stats-last-update">
-                                                <p className="lastupdate"> <b>Last Update: </b> &nbsp; {moment(this.props.selectedPatientVitalStats.timestamp).format("lll")} </p>
+                                                <p className="lastupdate"> <b>Last Update: </b> &nbsp; {moment(this.props.selectedPatientVitalStats.timestamp.seconds).format("lll")} </p>
                                             </div>
                                         </div>
                                     </div>
@@ -193,7 +193,7 @@ class HealthRecordsView extends Component {
                                     >
                                         <span className="health-stats-label">Temperature</span><br/>
                                         <div>
-                                            <div className="stats-segment-1"><p className="heartrate-bpm">{this.props.selectedPatientVitalStats.Temperature}</p></div>
+                                            <div className="stats-segment-1"><p className="heartrate-bpm">{this.props.selectedPatientVitalStats.temperature}</p></div>
                                             <div className="stats-segment-3">
                                                 <p className="heartrate-bpm-label">°C</p>
                                             </div>
@@ -210,13 +210,13 @@ class HealthRecordsView extends Component {
                                     >
                                         <span className="health-stats-label">Blood Pressure</span><br/>
                                         <div>
-                                            <div className="stats-segment-1"><p className="heartrate-bpm">{this.props.selectedPatientVitalStats.BloodPressure}</p></div>
+                                            <div className="stats-segment-1"><p className="heartrate-bpm">{this.props.selectedPatientVitalStats.bloodPressure}</p></div>
                                             <div className="stats-segment-2">
                                                 <p className="heartrate-bpm-label">mmHg</p>
                                                 <Glyphicon glyph="tint" className="bp-glyph"/>
                                             </div>
                                             <div className="stats-last-update">
-                                                <p className="lastupdate"> <b>Last Update: </b> &nbsp; {moment(this.props.selectedPatientVitalStats.timestamp).format("lll")} </p>
+                                                <p className="lastupdate"> <b>Last Update: </b> &nbsp; {moment(this.props.selectedPatientVitalStats.timestamp.seconds).format("lll")} </p>
                                             </div>
                                         </div>
                                     </div>

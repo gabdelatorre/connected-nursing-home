@@ -237,7 +237,7 @@
     }
 
     .navbar-header .navbar-toggle {
-        margin: 10px 15px 10px 0;
+        margin: 10px 0 10px 0;
         width: 40px;
         height: 40px;
     }
@@ -487,10 +487,28 @@
 /* Device: Smartphones e.g. iPhone, Galaxy, Pixel */
 @media (max-width: 415px){
 
-    .patient-data-dashboard-view {
-        padding: 16px 4px;
+    .navbar {
+        .navbar-brand {
+            font-size: 18px;
+            padding: 14px 0px 0px;
+        }
     }
-    
+    .patient-data-dashboard-view, .nursing-home-dashboard-view, .employee-dashboard-view {
+        padding: 16px 4px !important;
+
+        .header-section {
+            padding: 8px 24px;
+        }
+
+        .items-patient-card {
+          margin: auto;
+        }
+
+        .patient-card {
+            width: 350px;
+        }
+    }
+
 }
 
 

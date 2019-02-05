@@ -108,14 +108,7 @@ class ActivityView extends Component {
                                             <span className="card-label"> Schedule for Today </span>
                                         </div>
                                         <div className="card-content">
-                                                <Row>
-                                                    <Col lg={6}>
-                                                        <h4 className="card-content-title">Findings</h4> The patient has great vital statistics. He is currently tagged as very healthy. <br/><br/>
-                                                    </Col>
-                                                    <Col lg={6}>
-                                                        <h4 className="card-content-title">Medications</h4> Biogesic <br/><br/>
-                                                    </Col>
-                                                </Row>
+                                            ???
                                         </div>
                                     </div>
                                     </div>

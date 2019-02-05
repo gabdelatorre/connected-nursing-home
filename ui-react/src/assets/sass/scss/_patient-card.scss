@@ -10,6 +10,61 @@
   margin: 2%;
 }
 
+.patient-card {
+  background-color: #fff;
+  border-radius: 0;
+  border: 1px solid #e5e9f2;
+  box-shadow: 0 0.25rem 0.5rem rgba(0,0,0,.025);
+  border-radius: .2rem;
+  padding: 24px;
+  margin: 5px;
+  width: 320px;
+
+  .patient-pic-section {
+    margin: 24px 32px;
+
+    .profilepic {
+        border-radius: 50% !important;
+        height: 100%;
+        width: 100%;
+    }
+  }
+
+  .profile-section {
+    font-size: 14px;
+    padding: 0px 16px 16px;
+  }
+
+  .vital-stats-section {
+    padding: 24px 0px;
+
+    .vital-stat {
+      font-size: 12px;
+      height: 22px;
+    }
+
+    .vital-stat-right {
+      font-size: 12px;
+      border-right: 1px solid #eee;
+      height: 22px;
+    }
+
+    .vital-stats-heart, .vital-stats-bp{
+      font-size: 12px;
+      color: red;
+      margin-right: 4px;
+    }
+
+    .vital-stats-temp {
+      width: 18px;
+      height: 18px;
+      margin: 0px 4px 4px 0px;
+    }
+  }
+}
+
+
+
 .containerModalButtons {
   display: flex;
   flex-direction: row;

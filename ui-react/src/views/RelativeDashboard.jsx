@@ -239,7 +239,7 @@ class RelativeDashboard extends Component {
 
           <hr className="style-one" />
 
-          <div className="containerPatientCard">{myPatientsInfo}</div>
+          <div className="container-patient-card">{myPatientsInfo}</div>
         </div>
       );
     }

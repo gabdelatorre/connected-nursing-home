@@ -53,7 +53,7 @@ class NursingHomeDashboard extends Component {
         heartRate: null
       },
       buttonRole: null,
-
+      areAllPatientsLoaded: false,
       arePatientVitalStatsLoaded: false
     };
   }
@@ -410,33 +410,61 @@ class NursingHomeDashboard extends Component {
         arrOfAllPatients: []
       });
 
+      var tempStorage = {};
+
       e.docs.forEach(data => {
         console.log(data.data());
 
-        this.setState({
-          tempStorage: {
-            firstName: data.data().firstName,
-            lastName: data.data().lastName,
-            birthdate: data.data().birthdate,
-            id: data.id
-          }
-        });
-
-        this.setState({
-          arrOfAllPatients: this.state.arrOfAllPatients.concat(
-            this.state.tempStorage
-          )
-        });
-      });
-
-      this.setState({
-        tempStorage: {
-          firstName: null,
-          lastName: null,
-          birthdate: null,
-          id: null
+        tempStorage = data.data()
+        tempStorage = {
+          ...tempStorage,
+          id: data.id,
         }
+
+        this.setState({
+          arrOfAllPatients: this.state.arrOfAllPatients.concat(tempStorage)
+        });
       });
+
+      this.onloadAllWearables();
+    });
+
+    // this.props.firebase.db
+    //   .collection("patients")
+    //   .doc(patientId)
+    //   .collection("wearable")
+    //   .onSnapshot(e => {
+    //     e.docs.forEach(e => {
+    //       this.setState({
+    //         selectedPatientVitalStats: e.data().latest.state.reported,
+    //         heartUpdate: true,
+    //         arePatientVitalStatsLoaded: true
+    //       });
+    //     });
+    //   });
+  }
+
+  onloadAllWearables () {
+    console.log("onloadAllWearables");
+    var tempState = this.state.arrOfAllPatients.slice();
+
+    tempState.forEach((patient) => {
+      this.props.firebase.db
+        .collection("patients")
+        .doc(patient.id)
+        .collection("wearable")
+        .onSnapshot(e => {
+          e.docs.forEach(e => {
+
+            patient.latestStats = {
+              heartRate:e.data().latest.state.reported.HeartRate,
+              bloodPressure:e.data().latest.state.reported.BloodPressure,
+              timestamp:e.data().latest.state.reported.timestamp,
+            }
+
+            this.setState({ arrOfAllPatients:tempState })
+          });
+        });
     });
   }
 
@@ -632,24 +660,11 @@ class NursingHomeDashboard extends Component {
       });
   }
 
-  routeDirection = (
-    passFirstName,
-    passLastName,
-    passBirthdate,
-    passId,
-    passRole,
-    patientLocation
-  ) => {
+  routeDirection = (patient) => {
     this.setState({
-      selectedPatient: {
-        firstName: passFirstName,
-        lastName: passLastName,
-        birthdate: passBirthdate,
-        id: passId,
-        role: passRole
-      }
+      selectedPatient: patient
     });
-    this.getAllPatientRecord(passId);
+
     this.setState({
       buttonRole: (
         <div className="itemsModal" id="buttonRole">
@@ -669,40 +684,6 @@ class NursingHomeDashboard extends Component {
       openPatientDashboard: true
     });
   };
-
-  getAllPatientRecord(passedId) {
-    var patientId = passedId;
-
-    this.setState({ arePatientVitalStatsLoaded: false });
-
-    this.props.firebase.db
-      .collection("patients")
-      .doc(patientId)
-      .collection("vital_statistics")
-      .onSnapshot(e => {
-        e.docs.forEach(e => {
-          this.setState({
-            selectedPatientVitalStats: {
-              weight: e.data().weight,
-              height: e.data().height
-            }
-          });
-        });
-      });
-    this.props.firebase.db
-      .collection("patients")
-      .doc(patientId)
-      .collection("wearable")
-      .onSnapshot(e => {
-        e.docs.forEach(e => {
-          this.setState({
-            selectedPatientVitalStats: e.data().latest.state.reported,
-            heartUpdate: true,
-            arePatientVitalStatsLoaded: true
-          });
-        });
-      });
-  }
 
   removingOfPatient() {
     var patientId = this.state.data.id;
@@ -750,32 +731,32 @@ class NursingHomeDashboard extends Component {
     // });
 
     const { openPatientDashboard } = this.state;
-    const allPatientsInfo = this.state.arrOfAllPatients.map(pat => {
-      return (
-        <div className="itemsPatientCard">
-          <ButtonBase
-            onClick={() =>
-              this.routeDirection(
-                pat.firstName,
-                pat.lastName,
-                pat.birthdate,
-                pat.id,
-                pat.role,
-                "myPatient"
-              )
-            }
-          >
-            <PatientCard
-              firstName={pat.firstName}
-              lastName={pat.lastName}
-              birthdate={pat.birthdate}
-              id={pat.id}
-              nurseAssigned="SampleText"
-            />
-          </ButtonBase>
-        </div>
-      );
-    });
+
+    var allPatientsInfo = [];
+    
+    // if (this.state.areAllPatientsLoaded) {
+      allPatientsInfo = this.state.arrOfAllPatients.map(pat => {
+        console.log(pat)
+        return (
+          <div className="items-patient-card">
+            <ButtonBase
+              onClick={() =>
+                this.routeDirection(pat)
+              }
+            >
+              <PatientCard
+                firstName={pat.firstName}
+                lastName={pat.lastName}
+                birthdate={pat.birthdate}
+                id={pat.id}
+                latestStats={pat.latestStats}
+                nurseAssigned="SampleText"
+              />
+            </ButtonBase>
+          </div>
+        );
+      });
+    // }
 
     const nurseListPop = this.state.arrOfNurses.map(nurse => {
       return <option value={nurse.id}>{nurse.firstName}</option>;
@@ -784,43 +765,33 @@ class NursingHomeDashboard extends Component {
     if (this.state.openPatientDashboard == true) {
       return (
         <div>
-          {this.state.arePatientVitalStatsLoaded && (
             <PatientDashboard
               selectedPatient={this.state.selectedPatient}
-              selectedPatientVitalStats={this.state.selectedPatientVitalStats}
+              selectedPatientVitalStats={this.state.selectedPatient.latestStats}
               userRole="Admin"
               closePatientDashboardView={this.closePatientDashboardView.bind(
                 this
               )}
             />
-          )}
         </div>
       );
     } else {
       return (
-        <div className="NursingHomeDashboard">
-          <section id="allPatients">
-            <div className="containerSection">
-              <div className="items">
-                <h3>All Patients</h3>
-              </div>
-            </div>
-          </section>
+        <div className="nursing-home-dashboard-view">
+          <div className="header-section">
+            <h3>Nursing Home Dashboard</h3>
+          </div>
 
-          <div className="containerSectionSearch">
-            <div className="items">
-              <Button
-                bsStyle="primary"
-                type="submit"
-                id="signUpBtn"
-                className="btn-block"
-              >
-                Create Patient
-              </Button>
-            </div>
+          <div className="dashboard-card">
+            hi
+          </div>
 
-            <div className="items">
-              <FormGroup controlId="formControlsSelect">
+          <div className="header-section">
+            <h3>Nursing Home Patients</h3>
+          </div>
+
+          <div className="search-bar-section">
+            <div className="bar-dropdown">
                 <FormControl
                   componentClass="select"
                   id="searchDropdownAllPatients"
@@ -829,25 +800,28 @@ class NursingHomeDashboard extends Component {
 
                   <option value="lastName">Last Name</option>
                 </FormControl>
-              </FormGroup>
             </div>
 
-            <div className="items">
-              <FormGroup>
-                <InputGroup>
+            <div className="bar-search">
                   <FormControl
                     type="text"
                     id="searchTxtAllPatients"
                     onChange={this.searchAllPatients.bind(this)}
                   />
-                </InputGroup>
-              </FormGroup>
+            </div>
+
+            <div className="bar-btns">
+              <Button
+                bsStyle="primary"
+                type="submit"
+                id="signUpBtn"
+                className="bar-action-btn"
+              >
+                Create Patient
+              </Button>
             </div>
           </div>
-
-          <hr className="style-one" />
-
-          <div className="containerPatientCard">{allPatientsInfo}</div>
+          <div className="container-patient-card">{allPatientsInfo}</div>
 
           {/* <Modal
             className="settingsModal"

@@ -25,14 +25,16 @@
 
 @import "scss/admin";
 @import "scss/search";
-@import "scss/dashboard";
 @import "scss/health-records";
+@import "scss/nursing-home-dashboard";
+@import "scss/employee-dashboard";
+@import "scss/relative-dashboard";
 @import "scss/patient-data-dashboard";
 @import "scss/nurse-assigned";
 @import "scss/nurse-card";
+@import "scss/patient-card";
 
 // Fancy Stuff
 @import "scss/dropdown";
 @import "scss/cards";
-@import "scss/chartist";
 @import "scss/responsive";

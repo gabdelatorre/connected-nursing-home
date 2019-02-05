@@ -1,0 +1,120 @@
+.nursing-home-dashboard-view {
+  padding: 64px;
+
+  .formCreation {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: baseline;
+    padding: 0 30px 0 30px;
+  }
+
+  .vitalStatistics {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: baseline;
+    padding: 0 30px 0 30px;
+
+    .formItems {
+      width: 48%;
+      margin: 1%;
+    }
+  }
+
+  .formItems {
+    align-self: auto;
+    flex-basis: auto;
+    width: 100%;
+  }
+
+  .formItems #firstNamePatientCreation {
+    width: 100%;
+  }
+
+  .form {
+    margin: auto;
+    width: 40%;
+  }
+
+  hr.style-one {
+    border: 10px;
+    height: 1px;
+    background: #333;
+    background-image: linear-gradient(to right, #ccc, #333, #ccc);
+    width: 95%;
+    margin: 2%;
+  }
+
+  hr.style14 {
+    height: 10px;
+    border: 0;
+    box-shadow: 0 10px 10px -10px #8c8b8b inset;
+  }
+
+  .dashboard-card {
+    background-color: #fff;
+    padding: 0;
+    border-radius: 0;
+    margin: 8px 16px 40px;
+    border: 1px solid #e5e9f2;
+    box-shadow: 0 0.25rem 0.5rem rgba(0,0,0,.025);
+    border-radius: .2rem;
+    min-height: 300px;
+  }
+
+  .search-bar-section {
+    background-color: #fff;
+    padding: 16px;
+    border-radius: 0;
+    margin: 8px 16px 40px;
+    border: 1px solid #e5e9f2;
+    box-shadow: 0 0.25rem 0.5rem rgba(0,0,0,.025);
+    border-radius: .2rem;
+
+    .bar-dropdown {
+      display: inline-block;
+      vertical-align: bottom;
+      margin-right: 8px;
+      width: 100px;
+
+      .form-group {
+        margin: 0;
+      }
+      
+      select.form-control {
+      border: 1px solid #eee;
+      border-radius: 4px;
+      font-size: 12px;
+      padding: 8px 16px;
+      }
+    }
+
+    .bar-search {
+      display: inline-block;
+      vertical-align: bottom;
+      width: 100%;
+      max-width: 800px;
+
+      .form-group {
+        margin: 0;
+      }
+      .input-group, .form-control {
+        width: 100%;
+      }
+
+      .form-control {
+        border: 1px solid #eee;
+        border-radius: 4px;
+      }
+    }
+
+    .bar-btns {
+      float: right;
+    }
+  }
+}

@@ -4,6 +4,10 @@
 
 /* Gradient color1 - color2 - color1 */
 
+.employee-dashboard-view {
+  padding: 64px;
+}
+
 .sectionText {
 }
 
@@ -63,10 +67,6 @@ hr.style14 {
   box-shadow: 0 10px 10px -10px #8c8b8b inset;
 }
 
-.patientsCardSettings {
-  margin: 5px;
-}
-
 .containerModalPicture {
   display: flex;
   flex-direction: row;
@@ -114,9 +114,10 @@ p .modalBodyText {
 // ==============================================================================================================================
 
 @media (max-width: 800px) {
-  .containerPatientCard {
+  .container-patient-card {
     //line 18
     justify-content: center;
+    margin: 0px;
   }
 
   hr.style-one {
@@ -130,14 +131,14 @@ p .modalBodyText {
 // ====    PatientCard.jsx
 // ==============================================================================================================================
 
-.containerPatientCard {
+.container-patient-card {
   display: flex;
   flex-direction: row;
   width: 100%;
   flex-wrap: wrap;
   justify-content: flex-start;
   align-items: baseline;
-  margin: 0.5%;
+  margin: 10px;
 }
 
 .itemPatientCard {

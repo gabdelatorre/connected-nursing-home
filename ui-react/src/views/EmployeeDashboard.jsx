@@ -73,39 +73,55 @@ class EmployeeDashboard extends Component {
       .doc(this.props.authUser.uid)
       .collection("patients")
       .onSnapshot(e => {
+
         this.setState({
           arrOfMyPatients: []
         });
+
+        var tempStorage = {};
+
         e.docs.forEach(data => {
           console.log(data.data());
-          this.setState({
-            tempStorage: {
-              firstName: data.data().firstName,
-              lastName: data.data().lastName,
-              birthdate: data.data().birthdate,
-              id: data.id,
-              role: data.data().role
-            }
-          });
 
-          this.setState({
-            arrOfMyPatients: this.state.arrOfMyPatients.concat(
-              this.state.tempStorage
-            )
-          });
-        });
-
-        this.setState({
-          tempStorage: {
-            firstName: null,
-            lastName: null,
-            birthdate: null,
-            id: null,
-            role: null
+          tempStorage = data.data()
+          tempStorage = {
+            ...tempStorage,
+            id: data.id,
           }
+
+          this.setState({
+            arrOfMyPatients: this.state.arrOfMyPatients.concat(tempStorage)
+          });
         });
+
+        this.onloadMyPatientsWearables();
+
         console.log(this.state.arrOfMyPatients);
       });
+  }
+
+  onloadMyPatientsWearables () {
+    console.log("onloadMyPatientsWearables");
+    var tempState = this.state.arrOfMyPatients.slice();
+
+    tempState.forEach((patient) => {
+      this.props.firebase.db
+        .collection("patients")
+        .doc(patient.id)
+        .collection("wearable")
+        .onSnapshot(e => {
+          e.docs.forEach(e => {
+
+            patient.latestStats = {
+              heartRate:e.data().latest.state.reported.HeartRate,
+              bloodPressure:e.data().latest.state.reported.BloodPressure,
+              timestamp:e.data().latest.state.reported.timestamp,
+            }
+
+            this.setState({ arrOfMyPatients:tempState })
+          });
+        });
+    });
   }
 
   searchMyPatients() {
@@ -165,24 +181,11 @@ class EmployeeDashboard extends Component {
       });
   }
 
-  routeDirection = (
-    passFirstName,
-    passLastName,
-    passBirthdate,
-    passId,
-    passRole,
-    patientLocation
-  ) => {
+  routeDirection = (patient) => {
     this.setState({
-      selectedPatient: {
-        firstName: passFirstName,
-        lastName: passLastName,
-        birthdate: passBirthdate,
-        id: passId,
-        role: passRole
-      }
+      selectedPatient: patient
     });
-    this.getAllPatientRecord(passId);
+    
     this.setState({
       buttonRole: (
         <div className="itemsModal" id="buttonRole">
@@ -278,18 +281,13 @@ class EmployeeDashboard extends Component {
 
   render() {
     const myPatientsInfo = this.state.arrOfMyPatients.map(pat => {
+      console.log("hu:");
+      console.log(pat)
       return (
         <div className="itemsPatientCard">
           <ButtonBase
             onClick={() =>
-              this.routeDirection(
-                pat.firstName,
-                pat.lastName,
-                pat.birthdate,
-                pat.id,
-                pat.role,
-                "myPatient"
-              )
+              this.routeDirection(pat)
             }
           >
             <PatientCard
@@ -297,6 +295,7 @@ class EmployeeDashboard extends Component {
               lastName={pat.lastName}
               birthdate={pat.birthdate}
               id={pat.id}
+              latestStats={pat.latestStats}
               nurseAssigned={pat.role}
             />
           </ButtonBase>
@@ -311,21 +310,19 @@ class EmployeeDashboard extends Component {
     if (this.state.openPatientDashboard == true) {
       return (
         <div>
-          {this.state.arePatientVitalStatsLoaded && (
             <PatientDashboard
               selectedPatient={this.state.selectedPatient}
-              selectedPatientVitalStats={this.state.selectedPatientVitalStats}
+              selectedPatientVitalStats={this.state.selectedPatient.latestStats}
               userRole="Employee"
               closePatientDashboardView={this.closePatientDashboardView.bind(
                 this
               )}
             />
-          )}
         </div>
       );
     } else {
       return (
-        <div className="EmployeeDashboard">
+        <div className="employee-dashboard-view">
           <section id="My Patients">
             <div className="containerSection">
               <div className="items">
@@ -336,7 +333,7 @@ class EmployeeDashboard extends Component {
 
           <div className="containerSectionSearch">
             <div className="items">
-              <FormGroup controlId="formControlsSelect">
+              <FormGroup>
                 <FormControl
                   componentClass="select"
                   id="searchDropdownMyPatients"
@@ -360,7 +357,7 @@ class EmployeeDashboard extends Component {
           </div>
           <hr className="style-one" />
 
-          <div className="containerPatientCard">{myPatientsInfo}</div>
+          <div className="container-patient-card">{myPatientsInfo}</div>
         </div>
       );
     }

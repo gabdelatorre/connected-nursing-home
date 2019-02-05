@@ -10,31 +10,31 @@ const appRoutes = [
   {
     path: "/registration",
     name: "registration",
-    title: "Registration",
+    title: "Connected Nursing Home",
     component: Registration
   },
   {
     path: "/edashboard",
     name: "edashboard",
-    title: "My Dashboard",
+    title: "Connected Nursing Home",
     component: EmployeeDashboard
   },
   {
     path: "/nhdashboard",
     name: "nhdashboard",
-    title: "Nursing Home Dashboard",
+    title: "Connected Nursing Home",
     component: NursingHomeDashboard
   },
   {
     path: "/rdashboard",
     name: "rdashboard",
-    title: "My Dashboard",
+    title: "Connected Nursing Home",
     component: RelativeDashboard
   },
   {
     path: "/pdashboard",
     name: "pdashboard",
-    title: "Patient Dashboard",
+    title: "Connected Nursing Home",
     component: PatientDashboard
   }
 ];

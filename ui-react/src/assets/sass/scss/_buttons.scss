@@ -1,27 +1,27 @@
 .profile-action-btn {
     padding: 16px 12px;
     background-color: #fff;
-    color: #3366ff;
+    color: #4BB3FD;
     font-size: 10px;
     border-radius: 0;
     text-transform: uppercase;
     font-weight: bold;
-    border: 1px solid #3366ff;
+    border: 1px solid #4BB3FD;
     width: 150px;
     margin-bottom: 8px;
     box-shadow: none !important;
 }
 
 .profile-action-btn:hover {
-    background-color: #3366ff;
+    background-color: #4BB3FD;
     color: #fff;
-    border: 1px solid #3366ff;
+    border: 1px solid #4BB3FD;
 }
 
 .profile-action-btn-active {
-    background-color: #3366ff !important;
+    background-color: #4BB3FD !important;
     color: #fff !important;
-    border: 1px solid #3366ff !important;
+    border: 1px solid #4BB3FD !important;
 }
 
 .profile-action-btn:focus {
@@ -31,9 +31,9 @@
 }
 
 .profile-action-btn:active {
-    background-color: #3366ff !important;
+    background-color: #4BB3FD !important;
     color: #fff !important;
-    border: 1px solid #3366ff !important;
+    border: 1px solid #4BB3FD !important;
     box-shadow: none !important;
     -webkit-box-shadow: none !important;
     outline: none !important;
@@ -50,7 +50,7 @@
 }
 
 .patient-option-btn:hover {
-    color: #3366ff;
+    color: #4BB3FD;
 }
 
 .patient-option-menu {
@@ -85,19 +85,19 @@
 }
 
 .header-option-btn:hover {
-    color: #3366ff;
+    color: #4BB3FD;
 }
 
 .modal-action-btn {
     margin-top: 24px;
     padding: 16px 12px;
     background-color: #fff;
-    color: #3366ff;
+    color: #4BB3FD;
     font-size: 10px;
     border-radius: 0;
     text-transform: uppercase;
     font-weight: bold;
-    border: 1px solid #3366ff;
+    border: 1px solid #4BB3FD;
     width: 120px;
     margin-bottom: 8px;
     box-shadow: none !important;
@@ -105,24 +105,64 @@
 }
 
 .modal-action-btn:hover {
-    background-color: #3366ff;
+    background-color: #4BB3FD;
     color: #fff;
-    border: 1px solid #3366ff;
+    border: 1px solid #4BB3FD;
 }
 
 .modal-action-btn:focus {
     background-color: #fff;
-    color: #3366ff;
-    border: 1px solid #3366ff;
+    color: #4BB3FD;
+    border: 1px solid #4BB3FD;
     box-shadow: none !important;
     -webkit-box-shadow: none !important;
     outline: none !important;
 }
 
 .modal-action-btn:active {
-    background-color: #3366ff !important;
+    background-color: #4BB3FD !important;
     color: #fff !important;
-    border: 1px solid #3366ff !important;
+    border: 1px solid #4BB3FD !important;
+    box-shadow: none !important;
+    -webkit-box-shadow: none !important;
+    outline: none !important;
+}
+
+.bar-action-btn {
+    padding: 12px 12px;
+    background-color: #fff;
+    color: #4BB3FD;
+    font-size: 10px;
+    border-radius: 4px;
+    text-transform: uppercase;
+    font-weight: bold;
+    border: 1px solid #4BB3FD;
+    width: 150px;
+    box-shadow: none !important;
+}
+
+.bar-action-btn:hover {
+    background-color: #4BB3FD;
+    color: #fff;
+    border: 1px solid #4BB3FD;
+}
+
+.bar-action-btn-active {
+    background-color: #4BB3FD !important;
+    color: #fff !important;
+    border: 1px solid #4BB3FD !important;
+}
+
+.bar-action-btn:focus {
+    box-shadow: none !important;
+    -webkit-box-shadow: none !important;
+    outline: none !important;
+}
+
+.bar-action-btn:active {
+    background-color: #4BB3FD !important;
+    color: #fff !important;
+    border: 1px solid #4BB3FD !important;
     box-shadow: none !important;
     -webkit-box-shadow: none !important;
     outline: none !important;

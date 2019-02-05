@@ -283,10 +283,12 @@ class PatientDashboard extends Component {
       userRole: this.props.userRole
     };
 
+    console.log(this.props.selectedPatientVitalStats);
+    
     var heartAnimation = {
       animation:
         "anim-heart-beat " +
-        60 / parseFloat(this.props.selectedPatientVitalStats.HeartRate) +
+        60 / parseFloat(this.props.selectedPatientVitalStats.heartRate) +
         "s infinite"
     };
 
@@ -303,7 +305,7 @@ class PatientDashboard extends Component {
                   <div>
                     <div className="stats-segment-1">
                       <p className="heartrate-bpm">
-                        {this.props.selectedPatientVitalStats.HeartRate}
+                        {this.props.selectedPatientVitalStats.heartRate}
                       </p>
                     </div>
                     <div className="stats-segment-2">
@@ -358,7 +360,7 @@ class PatientDashboard extends Component {
                   <div>
                     <div className="stats-segment-1">
                       <p className="heartrate-bpm">
-                        {this.props.selectedPatientVitalStats.BloodPressure}
+                        {this.props.selectedPatientVitalStats.bloodPressure}
                       </p>
                     </div>
                     <div className="stats-segment-2">
@@ -470,6 +472,9 @@ class PatientDashboard extends Component {
 
     return (
       <div className="patient-data-dashboard-view">
+        <div className="header-section">
+          <h3>Patient's Dashboard</h3>  
+        </div>
         <div className="breadcrumbs-view">
           <h3 className="breadcrumbs">
             <span
@@ -477,9 +482,9 @@ class PatientDashboard extends Component {
               onClick={this.goBack.bind(this, "EMPLOYEE_DASHBOARD")}
             >
               {" "}
-              My Dashboard{" "}
+              Home{" "}
             </span>{" "}
-            &nbsp; > &nbsp; Patient{" "}
+            &nbsp; > &nbsp; <b>Patient</b>{" "}
           </h3>
         </div>
         <Grid fluid>

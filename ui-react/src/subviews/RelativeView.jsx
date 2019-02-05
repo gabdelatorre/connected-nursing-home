@@ -48,7 +48,7 @@ class RelativeView extends Component {
       .get()
       .then(data => {
         data.docs.forEach(data => {
-          this.setVal("bloodPressure", data.data().blood_pressure);
+          this.setVal("bloodPressure", data.data().bloodPressure);
           this.setVal("height", data.data().height);
           this.setVal("weight", data.data().weight);
           this.setVal("temperature", data.data().temperature);

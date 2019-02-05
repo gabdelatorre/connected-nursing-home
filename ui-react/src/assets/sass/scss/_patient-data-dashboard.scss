@@ -1,7 +1,6 @@
 .patient-data-dashboard-view {
     padding: 64px;
 
-
     .card-header {
         padding: 24px;
         border-bottom: 1px solid #e5e9f2;
@@ -156,6 +155,8 @@
 
         .profilepic {
             border-radius: 50% !important;
+            height: 100%;
+            width: 100%;
         }
     }
 
