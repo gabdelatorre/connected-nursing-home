@@ -126,6 +126,7 @@ class PatientDashboard extends Component {
               {" "}
               Activities{" "}
             </Button>
+            <br />
             <Button
               className={
                 "profile-action-btn " +
@@ -139,8 +140,9 @@ class PatientDashboard extends Component {
               )}
             >
               {" "}
-              Nurse Assigned{" "}
+              Nurses{" "}
             </Button>
+            <br />
             <Button
               className={
                 "profile-action-btn " +
@@ -151,7 +153,7 @@ class PatientDashboard extends Component {
               onClick={this.switchDashboardView.bind(this, "LIST_OF_RELATIVES")}
             >
               {" "}
-              List of Relatives{" "}
+              Relatives{" "}
             </Button>
           </div>
         );
@@ -196,6 +198,7 @@ class PatientDashboard extends Component {
               {" "}
               Activities{" "}
             </Button>
+            <br />
             <Button
               className={
                 "profile-action-btn " +
@@ -206,7 +209,7 @@ class PatientDashboard extends Component {
               onClick={this.switchDashboardView.bind(this, "LIST_OF_RELATIVES")}
             >
               {" "}
-              List of Relatives{" "}
+              Relatives{" "}
             </Button>
           </div>
         );
@@ -251,6 +254,7 @@ class PatientDashboard extends Component {
               {" "}
               Activities{" "}
             </Button>
+            <br />
             <Button
               className={
                 "profile-action-btn " +
@@ -264,7 +268,7 @@ class PatientDashboard extends Component {
               )} 
             >
               {" "}
-              Nurse Assigned{" "}
+              Nurses{" "}
             </Button> 
           </div>
         );

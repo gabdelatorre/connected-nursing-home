@@ -176,7 +176,8 @@ body > .navbar-collapse {
   background-color: #fcfcfc;
   position: relative;
   float: right;
-  width: #{$sidebar-width};
+  // width: #{$sidebar-width};
+  width: 100%;
   overflow: auto;
   min-height: 100vh;
   height: auto;

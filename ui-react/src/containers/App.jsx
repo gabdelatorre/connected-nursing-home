@@ -85,7 +85,7 @@ class App extends Component {
     else {
       return (
         <div className="wrapper">
-          <Sidebar userData={this.state.userData} />
+          {/* <Sidebar userData={this.state.userData} /> */}
           <div id="main-panel" className="main-panel">
             <Header userData={this.state.userData} />
             <Switch>

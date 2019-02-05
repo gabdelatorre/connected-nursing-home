@@ -434,7 +434,7 @@ body > .navbar-collapse:before {
   background-color: #fcfcfc;
   position: relative;
   float: right;
-  width: calc(100% - 260px);
+  width: 100%;
   overflow: auto;
   min-height: 100vh;
   height: auto; }
@@ -465,7 +465,7 @@ body > .navbar-collapse:before {
   text-transform: uppercase;
   font-weight: bold;
   border: 1px solid #3366ff;
-  width: 120px;
+  width: 150px;
   margin-bottom: 8px;
   box-shadow: none !important; }
 
@@ -1556,7 +1556,7 @@ body > .navbar-collapse:before {
       color: #fff; }
     .login .login-form .alert-block {
       /* ----- animation ----- */
-      animation: drop 0.4s ease-in both, fadeIn 0.4s ease-in both;
+      animation: drop 0.4s ease-in both, fadeIn 0.4s ease-in both;
       padding: 16px;
       width: 250px;
       margin: 8px auto;
@@ -1633,7 +1633,7 @@ body > .navbar-collapse:before {
 .feedback-card {
   margin-bottom: 16px;
   /* ----- animation ----- */
-  animation: drop 0.4s ease-in both, fadeIn 0.4s ease-in both; }
+  animation: drop 0.4s ease-in both, fadeIn 0.4s ease-in both; }
   .feedback-card .feedback-block {
     padding: 16px;
     background-color: #37be60;
@@ -1982,7 +1982,7 @@ body > .navbar-collapse:before {
           background-color: #16a9c8; }
     .search-card .search-list .diseaseinfo-card {
       /* ----- animation ----- */
-      animation: moveUp 0.4s ease-in both, fadeIn 0.4s ease-in both; }
+      animation: moveUp 0.4s ease-in both, fadeIn 0.4s ease-in both; }
 
 .dashboard-card {
   margin: 16px 59px 0px 59px; }
