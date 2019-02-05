@@ -20,6 +20,7 @@ import HealthRecordsHistory from "../subviews/HealthRecordsHistory";
 import moment from "moment";
 import ActivityFeedItem from "../subviews/ActivityFeedItem";
 import NurseAssignedListOfAvailable from "../subviews/NurseAssignedListOfAvailable";
+import RelativeView from "../subviews/RelativeView";
 
 const Ball = posed.div({
   visible: { opcaity: 1 },
@@ -50,6 +51,7 @@ class PatientDashboard extends Component {
     this.state = {
       currentView: "PROFILE"
     };
+    alert(this.props.userRole);
   }
 
   goBack(view) {
@@ -194,6 +196,18 @@ class PatientDashboard extends Component {
               {" "}
               Activities{" "}
             </Button>
+            <Button
+              className={
+                "profile-action-btn " +
+                (this.state.currentView === "LIST_OF_RELATIVES"
+                  ? "profile-action-btn-active"
+                  : "")
+              }
+              onClick={this.switchDashboardView.bind(this, "LIST_OF_RELATIVES")}
+            >
+              {" "}
+              List of Relatives{" "}
+            </Button>
           </div>
         );
       } else if (userRole == "Relative") {
@@ -237,6 +251,21 @@ class PatientDashboard extends Component {
               {" "}
               Activities{" "}
             </Button>
+            <Button
+              className={
+                "profile-action-btn " +
+                (this.state.currentView === "LIST_OF_NURSE_ASSIGNED"
+                  ? "profile-action-btn-active"
+                  : "")
+              }
+              onClick={this.switchDashboardView.bind(
+                this,
+                "LIST_OF_NURSE_ASSIGNED",
+              )} 
+            >
+              {" "}
+              Nurse Assigned{" "}
+            </Button> 
           </div>
         );
       }
@@ -245,7 +274,8 @@ class PatientDashboard extends Component {
     const employeeDashboardProps = {
       selectedPatient: this.props.selectedPatient,
       selectedPatientVitalStats: this.props.selectedPatientVitalStats,
-      switchDashboardView: this.switchDashboardView.bind(this)
+      switchDashboardView: this.switchDashboardView.bind(this),
+      userRole: this.props.userRole
     };
 
     var heartAnimation = {
@@ -413,11 +443,15 @@ class PatientDashboard extends Component {
       } else if (this.state.currentView === "LIST_OF_NURSE_ASSIGNED") {
         return (
           <Col lg={9}>
-            <NurseAssignedListOfAvailable />
+            <NurseAssignedListOfAvailable selectedPatient={this.props.selectedPatient} userRole={this.props.userRole}/>
           </Col>
         );
       } else if (this.state.currentView === "LIST_OF_RELATIVES") {
-        return null;
+        return (
+          <Col lg={9}>
+            <RelativeView selectedPatient={this.props.selectedPatient} userRole={this.props.userRole}/>
+          </Col>
+        );
       } else {
         return null;
       }

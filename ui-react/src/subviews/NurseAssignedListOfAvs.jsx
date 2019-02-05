@@ -14,73 +14,78 @@ import Modal from "react-responsive-modal";
 import ButtonBase from "@material-ui/core/ButtonBase";
 
 class NurseAssignedListOfAvs extends Component {
-  constructor() {
-    super();
-    this.state = {
-      tempStorageOfData: {
-        firstName: null,
-        lastName: null,
-        id: null
-      },
-      arrayOfNurses: []
-    };
+  constructor(props) {
+    super(props); 
+    this.state ={
+      arrayOfNurses:[]
+    }
+    this.setState  ({
+      arrayOfNurses: this.props.arrayOfNursesAvailable
+    })
   }
 
-  componentDidMount() {
-    this.getNursesFromDatabase();
-  }
+componentDidMount() {
+  
 
-  getNursesFromDatabase() {
-    this.props.firebase.db
-      .collection("users")
-      .where("role", "==", "EMPLOYEE")
-      .get()
-      .then(e => {
-        e.docs.forEach(data => {
-          this.setState({
-            tempStorageOfData: {
-              firstName: data.data().firstName,
-              lastName: data.data().lastName,
-              id: data.id
-            },
-            arrayOfNurses: this.state.arrayOfNurses.concat(
-              this.state.tempStorageOfData
-            )
-          });
 
-          console.log(data.data());
+}
+
+addNurseToPatient(nurseFirstName, nurseLastName, nurseId) {
+  var patientAssign = this.props.selectedPatient.id;
+  var nurseIds = nurseId;
+  this.props.firebase.db
+    .collection("users")
+    .doc(nurseIds)
+    .get()
+    .then(e => {
+      this.props.firebase.db
+        .collection("patients")
+        .doc(patientAssign)
+        .collection("nurse_Assigned")
+        .doc(nurseIds)
+        .set({
+          firstName: e.data().firstName,
+          lastName: e.data().lastName,
         });
-      });
-
-    this.setState({
-      tempStorageOfData: {
-        firstName: null,
-        lastName: null,
-        id: null
-      }
     });
-  }
-
+  console.log(patientAssign + " ASASA");
+  this.props.firebase.db
+    .collection("patients")
+    .doc(patientAssign)
+    .get()
+    .then(e => {
+      console.log(e.data());
+      this.props.firebase.db
+        .collection("users")
+        .doc(nurseIds)
+        .collection("patients")
+        .doc(e.id)
+        .set({
+          firstName: e.data().firstName,
+          lastName: e.data().lastName,
+        });
+    });
+}
   render() {
-    const listOfNurse = this.state.arrayOfNurses.map(Nurses => {
+    
+    const listOfNurse = this.props.arrayOfNursesAvailable.map(Nurses => {
       return (
         <div className="itemsPatientCard">
-          {/* <ButtonBase
+          <ButtonBase
             onClick={() =>
-              this.routeDirection(
+              this.addNurseToPatient(
                 Nurses.firstName,
                 Nurses.lastName,
-                Nurses.birthdate,
                 Nurses.id
               )
             }
-          > */}
+          >
           <NurseCard
             firstName={Nurses.firstName}
             lastName={Nurses.lastName}
             id={Nurses.id}
           />
-          {/* </ButtonBase> */}
+          </ButtonBase>
         </div>
       );
     });

@@ -222,7 +222,7 @@ class RelativeDashboard extends Component {
             <PatientDashboard
               selectedPatient={this.state.selectedPatient}
               selectedPatientVitalStats={this.state.selectedPatientVitalStats}
-              userRole="Employee"
+              userRole="Relative"
               closePatientDashboardView={this.closePatientDashboardView.bind(
                 this
               )}

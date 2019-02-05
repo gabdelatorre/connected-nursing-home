@@ -2475,6 +2475,69 @@ body > .navbar-collapse:before {
     transform: scale(1);
     -webkit-transform: scale(1); } }
 
+.my-nurses-card {
+  background-color: #fff;
+  border-radius: 0;
+  border: 1px solid #e5e9f2;
+  box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.025);
+  border-radius: 0.2rem;
+  margin-bottom: 32px;
+  height: 480px; }
+  .my-nurses-card .nurseCardTitle {
+    margin: 2%;
+    font-size: 16px;
+    margin: 5px; }
+  .my-nurses-card .nurseCardBody {
+    margin: 2%; }
+  .my-nurses-card .blockTitle {
+    text-align: center;
+    word-wrap: break-word;
+    margin: 0;
+    height: 65px; }
+  .my-nurses-card .list-of-nurses-card {
+    height: 500px; }
+  .my-nurses-card .containerListOfNurses {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: baseline;
+    margin: 0.5%;
+    overflow-y: scroll; }
+  .my-nurses-card .nurse-assigned-view .card-content {
+    padding: 10px; }
+
+.list-of-nurses-card .nurseCardTitle {
+  margin: 2%;
+  font-size: 16px;
+  margin: 5px; }
+
+.list-of-nurses-card .nurseCardBody {
+  margin: 2%; }
+
+.list-of-nurses-card .blockTitle {
+  text-align: center;
+  word-wrap: break-word;
+  margin: 0;
+  height: 65px; }
+
+.list-of-nurses-card .list-of-nurses-card {
+  height: 280px; }
+
+.list-of-nurses-card .containerListOfNurses {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+  align-items: baseline;
+  margin: 0.5%;
+  overflow-x: scroll; }
+
+.list-of-nurses-card .nurse-assigned-view .card-content {
+  padding: 10px; }
+
 .dropdown-menu {
   visibility: hidden;
   margin: 0;
