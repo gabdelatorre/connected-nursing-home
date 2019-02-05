@@ -3,20 +3,10 @@ import React, { Component, optionsState } from "react";
 import { FirebaseContext } from "../firebase";
 import { withFirebase } from "../firebase/context";
 import { Grid, Row, Col, Glyphicon } from "react-bootstrap";
-import samplepic from "../assets/images/sample-patient.jpg";
-import NurseAssignedListOfAvs from "./NurseAssignedListOfAvs";
-import NurseAssignedListOfMyNurse from "./NurseAssignedListOfMyNurse";
-import PatientCard from "./PatientCard";
-import {
-  FormGroup,
-  InputGroup,
-  FormControl,
-  ControlLabel,
-  Button
-} from "react-bootstrap";
-import Modal from "react-responsive-modal";
-import ButtonBase from "@material-ui/core/ButtonBase";
-class NurseAssignedListOfAvailable extends Component {
+import RelativeMyList from "./RelativeMyList";
+import RelativeAllList from "./RelativeAllList";
+
+class RelativeView extends Component {
   constructor(props) {
     super(props);
 
@@ -26,10 +16,10 @@ class NurseAssignedListOfAvailable extends Component {
         lastName: null,
         id: null
       },
-      arrayOfNursesAvailable: [],
-      arrayOfNursesTaken: []
+      arrayOfAllRelative: [],
+      arrayOfPatientRelative: []
     };
-    this.toggleNurses();
+    this.toggleRelative();
   }
 
   componentWillMount() {
@@ -121,17 +111,17 @@ class NurseAssignedListOfAvailable extends Component {
 
 
 
-  toggleNurses(){
+  toggleRelative(){
     
     var patientId = this.props.selectedPatient.id;
-    this.props.firebase.db.collection("patients").doc(patientId).collection("nurse_Assigned").onSnapshot(e =>{
+    this.props.firebase.db.collection("patients").doc(patientId).collection("relatives").onSnapshot(e =>{
       this.setState({
         tempStorageOfData: {
           firstName: null,
           lastName: null,
           id: null
         },
-        arrayOfNursesTaken: []
+        arrayOfPatientRelative: []
       });
         e.docs.forEach(e =>{
           this.setState({
@@ -143,7 +133,7 @@ class NurseAssignedListOfAvailable extends Component {
           });
           
           this.setState ({
-            arrayOfNursesTaken: this.state.arrayOfNursesTaken.concat(
+            arrayOfPatientRelative: this.state.arrayOfPatientRelative.concat(
               this.state.tempStorageOfData
             )
           })
@@ -159,14 +149,14 @@ class NurseAssignedListOfAvailable extends Component {
     });
    
 
-this.splitTakenAndAvailableNurse();
+this.splitAllRelativeAndMyRelative();
 }
 
-splitTakenAndAvailableNurse() {
+splitAllRelativeAndMyRelative() {
  
   this.props.firebase.db
   .collection("users")
-  .where("role", "==", "EMPLOYEE")
+  .where("role", "==", "RELATIVE")
   .get()
   .then(e => {
     e.docs.forEach(data => {
@@ -178,7 +168,7 @@ splitTakenAndAvailableNurse() {
         },
       });
 
-      if (this.state.arrayOfNursesTaken.includes(this.state.tempStorageOfData)) {
+      if (this.state.arrayOfPatientRelative.includes(this.state.tempStorageOfData)) {
        
         this.setState({
           tempStorageOfData: {
@@ -190,7 +180,7 @@ splitTakenAndAvailableNurse() {
       } else {
         
       this.setState ({
-        arrayOfNursesAvailable: this.state.arrayOfNursesAvailable.concat(
+        arrayOfAllRelative: this.state.arrayOfAllRelative.concat(
           this.state.tempStorageOfData
         )
       });
@@ -220,13 +210,13 @@ splitTakenAndAvailableNurse() {
                       <div className="card-header">
                         <span className="card-label">
                           {" "}
-                          Nurses Assigned{" "}
+                          Relatives Assigned{" "}
                         </span>
                       </div>
                       <div className="card-content">
                         <Row>
                           <Col lg={12}>
-                            <NurseAssignedListOfMyNurse view="Nurse-Assigned" selectedPatient={this.props.selectedPatient} arrayOfNursesTaken={this.state.arrayOfNursesTaken} userRole={this.props.userRole} />
+                            <RelativeMyList view="My-Relative" selectedPatient={this.props.selectedPatient} arrayOfPatientRelative={this.state.arrayOfPatientRelative}/>
                           </Col>
                         </Row>
                       </div>
@@ -247,13 +237,13 @@ splitTakenAndAvailableNurse() {
                       <div className="card-header">
                         <span className="card-label">
                           {" "}
-                          List of Available Nurses{" "}
+                          List of Relatives{" "}
                         </span>
                       </div>
                       <div className="card-content">
                         <Row>
                           <Col lg={12}>
-                            <NurseAssignedListOfAvs view="Nurse-Available" selectedPatient={this.props.selectedPatient} arrayOfNursesAvailable={this.state.arrayOfNursesAvailable} userRole={this.props.userRole} />
+                            <RelativeAllList view="All-Relative" selectedPatient={this.props.selectedPatient} arrayOfAllRelative={this.state.arrayOfAllRelative}/>
                           </Col>
                         </Row>
                       </div>
@@ -279,13 +269,13 @@ splitTakenAndAvailableNurse() {
                       <div className="card-header">
                         <span className="card-label">
                           {" "}
-                          Nurses Assigned{" "}
+                          Relatives Assigned{" "}
                         </span>
                       </div>
                       <div className="card-content">
                         <Row>
                           <Col lg={12}>
-                            <NurseAssignedListOfMyNurse view="Nurse-Assigned" selectedPatient={this.props.selectedPatient} arrayOfNursesTaken={this.state.arrayOfNursesTaken} userRole={this.props.userRole} />
+                            <RelativeMyList view="My-Relative" selectedPatient={this.props.selectedPatient} arrayOfPatientRelative={this.state.arrayOfPatientRelative}/>
                           </Col>
                         </Row>
                       </div>
@@ -296,10 +286,10 @@ splitTakenAndAvailableNurse() {
             </Col>
           </Row>
         </Grid>
-        </div>
-          );
+      </div>
+    );
+  }
   }
 }
-}
 
-export default withFirebase(NurseAssignedListOfAvailable);
+export default withFirebase(RelativeView);

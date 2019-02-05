@@ -9,7 +9,7 @@ import {
   CardImg
 } from "react-bootstrap-card";
 
-class NurseCard extends Component {
+class RelativeCard extends Component {
   constructor(props) {
     super(props);
   }
@@ -40,4 +40,4 @@ class NurseCard extends Component {
   }
 }
 
-export default withFirebase(NurseCard);
+export default withFirebase(RelativeCard);
