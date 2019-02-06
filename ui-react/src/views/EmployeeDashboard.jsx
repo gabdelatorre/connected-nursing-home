@@ -55,7 +55,15 @@ class EmployeeDashboard extends Component {
         heartRate: null
       },
       heartUpdate: false,
-      arePatientVitalStatsLoaded: false
+      arePatientVitalStatsLoaded: false,
+      arrOfIdsOfMyPatients: {
+        firstName: null,
+        lastName: null,
+        birthdate: null,
+        id: null,
+        role: null
+      },
+      idOfPatient: null
     };
   }
   componentDidMount() {
@@ -64,40 +72,60 @@ class EmployeeDashboard extends Component {
 
   onloadMyPatients() {
     console.log("GetMyPatients");
-    this.searchMyPatients({
-      arrOfMyPatients: []
-    });
+    // this.searchMyPatients({
+    //   arrOfMyPatients: []
+    // });
 
     this.props.firebase.db
       .collection("users")
       .doc(this.props.authUser.uid)
       .collection("patients")
       .onSnapshot(e => {
-
         this.setState({
+          arrOfIdsOfMyPatients : [],
           arrOfMyPatients: []
         });
 
         var tempStorage = {};
 
         e.docs.forEach(data => {
-          console.log(data.data());
+    
+      
+          this.getPatientInfoFromPatientCollection(data.id);
 
-          tempStorage = data.data()
-          tempStorage = {
-            ...tempStorage,
-            id: data.id,
-          }
+        
+        });
+// console.log(this.state.arrOfIdsOfMyPatients);
+        // Object.keys(this.state.arrOfIdsOfMyPatients).map(ids => {
 
-          this.setState({
-            arrOfMyPatients: this.state.arrOfMyPatients.concat(tempStorage)
-          });
+        //   this.getPatientInfoFromPatientCollection(ids);
+        // });
+      });
+
+  }
+
+  getPatientInfoFromPatientCollection(id) {
+    this.props.firebase.db.collection("patients").doc(id).onSnapshot(data => {
+ 
+
+      var tempStorage = {};
+      console.log(data.data());
+
+        tempStorage = data.data();
+        tempStorage = {
+          ...tempStorage,
+          id: data.id,
+        }
+
+        this.setState({
+          arrOfMyPatients: this.state.arrOfMyPatients.concat(tempStorage)
         });
 
-        this.onloadMyPatientsWearables();
-
         console.log(this.state.arrOfMyPatients);
-      });
+    
+
+      this.onloadMyPatientsWearables();
+    });
   }
 
   onloadMyPatientsWearables () {
@@ -119,6 +147,7 @@ class EmployeeDashboard extends Component {
             }
 
             this.setState({ arrOfMyPatients:tempState })
+
           });
         });
     });
@@ -187,21 +216,6 @@ class EmployeeDashboard extends Component {
     });
     
     this.setState({
-      buttonRole: (
-        <div className="itemsModal" id="buttonRole">
-          <p className="modalBodyText">
-            <Button
-              bsStyle="primary"
-              type="submit"
-              id="loginBtn"
-              className="btn-block"
-              onClick={this.removingOfPatient.bind(this)}
-            >
-              Remove this
-            </Button>
-          </p>
-        </div>
-      ),
       openPatientDashboard: true
     });
   };
@@ -332,7 +346,7 @@ class EmployeeDashboard extends Component {
           </section>
 
           <div className="containerSectionSearch">
-            <div className="items">
+            {/* <div className="items">
               <FormGroup>
                 <FormControl
                   componentClass="select"
@@ -353,7 +367,7 @@ class EmployeeDashboard extends Component {
                   />
                 </InputGroup>
               </FormGroup>
-            </div>
+            </div> */}
           </div>
           <hr className="style-one" />
 

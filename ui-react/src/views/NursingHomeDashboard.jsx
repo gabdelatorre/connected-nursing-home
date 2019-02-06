@@ -424,6 +424,8 @@ class NursingHomeDashboard extends Component {
         this.setState({
           arrOfAllPatients: this.state.arrOfAllPatients.concat(tempStorage)
         });
+
+        console.log(this.state.arrOfAllPatients);
       });
 
       this.onloadAllWearables();

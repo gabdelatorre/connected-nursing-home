@@ -216,7 +216,7 @@ splitAllRelativeAndMyRelative() {
                       <div className="card-content">
                         <Row>
                           <Col lg={12}>
-                            <RelativeMyList view="My-Relative" selectedPatient={this.props.selectedPatient} arrayOfPatientRelative={this.state.arrayOfPatientRelative}/>
+                            <RelativeMyList view="My-Relative" selectedPatient={this.props.selectedPatient} arrayOfPatientRelative={this.state.arrayOfPatientRelative} userRole={this.props.userRole}/>
                           </Col>
                         </Row>
                       </div>
@@ -243,7 +243,7 @@ splitAllRelativeAndMyRelative() {
                       <div className="card-content">
                         <Row>
                           <Col lg={12}>
-                            <RelativeAllList view="All-Relative" selectedPatient={this.props.selectedPatient} arrayOfAllRelative={this.state.arrayOfAllRelative}/>
+                            <RelativeAllList view="All-Relative" selectedPatient={this.props.selectedPatient} arrayOfAllRelative={this.state.arrayOfAllRelative} userRole={this.props.userRole}/>
                           </Col>
                         </Row>
                       </div>
@@ -275,7 +275,7 @@ splitAllRelativeAndMyRelative() {
                       <div className="card-content">
                         <Row>
                           <Col lg={12}>
-                            <RelativeMyList view="My-Relative" selectedPatient={this.props.selectedPatient} arrayOfPatientRelative={this.state.arrayOfPatientRelative}/>
+                            <RelativeMyList view="My-Relative" selectedPatient={this.props.selectedPatient} arrayOfPatientRelative={this.state.arrayOfPatientRelative} userRole={this.props.userRole}/>
                           </Col>
                         </Row>
                       </div>
