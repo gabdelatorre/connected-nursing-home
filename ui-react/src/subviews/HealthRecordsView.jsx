@@ -19,6 +19,8 @@ import ButtonBase from "@material-ui/core/ButtonBase";
 import HealthRecordsHistory from "./HealthRecordsHistory";
 import HealthExaminationForm from './HealthExaminationForm';
 import HealthExaminationRecord from './HealthExaminationRecord';
+import LineChart from 'react-linechart';
+import "../../node_modules/react-linechart/dist/styles.css";
 
 class HealthRecordsView extends Component {
 
@@ -48,7 +50,13 @@ class HealthRecordsView extends Component {
                     remarks: "Patient is now healthy.",
                 },
             ],
-            selectedHealthExaminationRecord: null
+            selectedHealthExaminationRecord: null,
+            heartRateHistory: [
+                {									
+                    color: "red", 
+                    points: [{x: 1, y: 87}, {x: 2, y: 89}, {x: 3, y: 99}, {x: 4, y: 86}, {x: 5, y: 89}, {x: 6, y: 89}, {x: 7, y: 89}, {x: 8, y: 89}, {x: 9, y: 89}] 
+                }
+            ]
         };
     }
 
@@ -127,6 +135,9 @@ class HealthRecordsView extends Component {
 
     render() {
 
+        const data = [
+		];
+
         return (
             <div className="health-records-view">
                 <Grid fluid className="nopads">
@@ -162,7 +173,15 @@ class HealthRecordsView extends Component {
                                             <span className="health-stats-graph-label"> {this.state.selectedHealthStatGraph + " Graph"}</span>
                                         </div>
                                         <div className="card-content">
-                                            <p className=""></p>
+                                            <p className="">
+                                            </p>
+                                            <LineChart 
+					                        	width={600}
+					                        	height={400}
+                                                data={this.state.heartRateHistory}
+                                                xLabel="Instance"
+                                                yLabel="Heart Rate"
+					                        />
                                         </div>
                                     </div>
                                     </div>

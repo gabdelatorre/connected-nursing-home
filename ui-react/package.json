@@ -23,6 +23,7 @@
     "react-bootstrap-card": "^0.2.1",
     "react-dom": "^16.4.0",
     "react-image": "^2.0.0",
+    "react-linechart": "^1.1.12",
     "react-localstorage": "^1.0.0",
     "react-overlay-loader": "0.0.3",
     "react-pose": "^4.0.6",

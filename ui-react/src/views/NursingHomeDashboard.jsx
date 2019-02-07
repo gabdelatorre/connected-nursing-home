@@ -455,7 +455,9 @@ class NursingHomeDashboard extends Component {
         .collection("wearable")
         .onSnapshot(e => {
           e.docs.forEach(e => {
-
+            console.log("Wearables for: ");
+            console.log(patient);
+            console.log(e.data());
             patient.latestStats = {
               heartRate:e.data().latest.state.reported.HeartRate,
               bloodPressure:e.data().latest.state.reported.BloodPressure,
@@ -736,7 +738,6 @@ class NursingHomeDashboard extends Component {
     
     // if (this.state.areAllPatientsLoaded) {
       allPatientsInfo = this.state.arrOfAllPatients.map(pat => {
-        console.log(pat)
         return (
           <div className="items-patient-card">
             <ButtonBase
