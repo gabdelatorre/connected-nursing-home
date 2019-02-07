@@ -281,7 +281,8 @@ class PatientDashboard extends Component {
       selectedPatient: this.props.selectedPatient,
       selectedPatientVitalStats: this.props.selectedPatientVitalStats,
       switchDashboardView: this.switchDashboardView.bind(this),
-      userRole: this.props.userRole
+      userRole: this.props.userRole,
+      
     };
 
     console.log(this.props.selectedPatientVitalStats);
@@ -292,6 +293,12 @@ class PatientDashboard extends Component {
         60 / parseFloat(this.props.selectedPatientVitalStats.heartRate) +
         "s infinite"
     };
+
+    var tempActivityMap = this.props.tempSelectedPatientActivities.map((activity) => {
+        return (
+            <ActivityFeedItem {...employeeDashboardProps} activity={activity}/>
+        )
+    })
 
     var pdViewComponent = () => {
       if (this.state.currentView === "PROFILE") {
@@ -427,9 +434,7 @@ class PatientDashboard extends Component {
                       </span>
                     </div>
                     <div className="activity-feed">
-                      <ActivityFeedItem {...employeeDashboardProps} />
-                      <ActivityFeedItem {...employeeDashboardProps} />
-                      <ActivityFeedItem {...employeeDashboardProps} />
+                      {tempActivityMap}
                     </div>
                   </div>
                 </div>
@@ -451,6 +456,7 @@ class PatientDashboard extends Component {
             <Col lg={9}>
                 <ActivityView
                   {...employeeDashboardProps}
+                  tempSelectedPatientActivities={this.props.tempSelectedPatientActivities}
                 />
             </Col>
         );

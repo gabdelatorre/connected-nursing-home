@@ -53,7 +53,7 @@ class ActivityView extends Component {
         console.log(this.props.selectedPatient);
     }
 
-    goBack () {        
+    goBack () {
         this.props.switchDashboardView("DASHBOARD")
     }
 
@@ -93,8 +93,29 @@ class ActivityView extends Component {
         }
     }
 
+    addActivity(){
+        var activityDate = this.getVal("activityDate");
+        var activityName = this.getVal("activityName");
+        var activityDesc = this.getVal("activityDesc");
+        var patientId = this.getVal("patientId");
+        this.props.firebase.db.collection("patients").doc(patientId).collection("activity").add({
+            "status": "In Progress",
+            "activityDate": activityDate,
+            "activityName": activityName,
+            "activityDesc": activityDesc
+        }).then(
+            console.log("Successful")
+        )
+    }
+
     render() {
 
+        var tempActivityMap = this.props.tempSelectedPatientActivities.map((activity) => {
+            return (
+                <ActivityFeedItem selectedPatient={this.props.selectedPatient} activity={activity}/>
+            )
+        })
+        
         return (
             <div className="health-records-view">
                 <Grid fluid className="nopads">
@@ -105,7 +126,7 @@ class ActivityView extends Component {
                                     <div>
                                     <div className="health-conditions-card">
                                         <div className="card-header">
-                                            <span className="card-label"> Schedule for Today </span>
+                                            <span className="card-label"> Planned Activities </span>
                                         </div>
                                         <div className="card-content">
                                             ???
@@ -114,20 +135,18 @@ class ActivityView extends Component {
                                     </div>
                                 </Col>
                                 <Col lg={6}>
-                                <div>
-                                    <div className="patient-profile-card">
-                                      <div className="card-header">
-                                        <span className="patient-profile-label">
-                                          Activity Feed
-                                        </span>
-                                      </div>
-                                      <div className="activity-feed">
-                                        <ActivityFeedItem selectedPatient={this.props.selectedPatient} />
-                                        <ActivityFeedItem selectedPatient={this.props.selectedPatient} />
-                                        <ActivityFeedItem selectedPatient={this.props.selectedPatient} />
-                                      </div>
+                                    <div>
+                                        <div className="patient-profile-card">
+                                          <div className="card-header">
+                                            <span className="patient-profile-label">
+                                              Activity Feed
+                                            </span>
+                                          </div>
+                                          <div className="activity-feed">
+                                            {tempActivityMap}
+                                          </div>
+                                        </div>
                                     </div>
-                                </div>
                                 </Col>
                             </Row>
                         </Col>

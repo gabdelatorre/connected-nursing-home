@@ -35,10 +35,10 @@ class ActivityFeedItem extends Component {
                         <Glyphicon glyph="apple" className="activityicon"/>
                     </Col>
                     <Col lg={8}>
-                        <p className="activitydesc"> <b>{this.props.selectedPatient.firstName + " " + this.props.selectedPatient.lastName} </b> engaged in <b>Breakfast</b> </p>
+                        <p className="activitydesc"> <b>{this.props.selectedPatient.firstName + " " + this.props.selectedPatient.lastName} </b> engaged in <b>{this.props.activity.activityName}</b> </p>
                     </Col>
                     <Col lg={2}>
-                        <p className="activitytime"> 5m ago </p>
+                        <p className="activitytime"> {this.props.activity.activityDate} </p>
                     </Col>
                 </Row>
             </div>

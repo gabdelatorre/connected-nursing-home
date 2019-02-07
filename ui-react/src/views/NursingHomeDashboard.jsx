@@ -54,7 +54,8 @@ class NursingHomeDashboard extends Component {
       },
       buttonRole: null,
       areAllPatientsLoaded: false,
-      arePatientVitalStatsLoaded: false
+      arePatientVitalStatsLoaded: false,
+      tempSelectedPatientActivities: [],
     };
   }
 
@@ -670,6 +671,23 @@ class NursingHomeDashboard extends Component {
     });
 
     this.setState({
+        tempSelectedPatientActivities: [
+            {
+                activityName: "Eating",
+                activityDate: "2019-02-07",
+                activityDesc: "",
+                status: "In Progress",
+            },
+            {
+                activityName: "Playing",
+                activityDate: "2019-02-07",
+                activityDesc: "",
+                status: "In Progress",
+            }
+        ]
+    })
+
+    this.setState({
       buttonRole: (
         <div className="itemsModal" id="buttonRole">
           <p className="modalBodyText">
@@ -775,6 +793,7 @@ class NursingHomeDashboard extends Component {
               closePatientDashboardView={this.closePatientDashboardView.bind(
                 this
               )}
+              tempSelectedPatientActivities={this.state.tempSelectedPatientActivities}
             />
         </div>
       );
