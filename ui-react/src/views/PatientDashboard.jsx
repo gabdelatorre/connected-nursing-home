@@ -52,7 +52,8 @@ class PatientDashboard extends Component {
     this.state = {
       currentView: "PROFILE"
     };
-    alert(this.props.userRole);
+
+    alert("E");
   }
 
   goBack(view) {

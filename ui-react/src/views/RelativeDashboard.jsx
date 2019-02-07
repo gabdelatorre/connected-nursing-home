@@ -55,24 +55,11 @@ class RelativeDashboard extends Component {
     });
   }
 
-  routeDirection = (
-    passFirstName,
-    passLastName,
-    passBirthdate,
-    passId,
-    passRole,
-    patientLocation
-  ) => {
+  routeDirection = (patient) => {
     this.setState({
-      selectedPatient: {
-        firstName: passFirstName,
-        lastName: passLastName,
-        birthdate: passBirthdate,
-        id: passId,
-        role: passRole
-      }
+      selectedPatient: patient
     });
-    this.getAllPatientRecord(passId);
+    
     this.setState({
       openPatientDashboard: true
     });
@@ -133,8 +120,7 @@ class RelativeDashboard extends Component {
   }
 
   onloadMyPatients() {
-    console.log("GetMyPatients");
-    this.props.firebase.db
+      this.props.firebase.db
       .collection("users")
       .doc(this.props.authUser.uid)
       .collection("relatives")
@@ -142,34 +128,67 @@ class RelativeDashboard extends Component {
         this.setState({
           arrOfMyRelative: []
         });
-        e.docs.forEach(data => {
-          console.log(data.data());
-          this.setState({
-            tempStorage: {
-              firstName: data.data().firstName,
-              lastName: data.data().lastName,
-              birthdate: data.data().birthdate,
-              id: data.id
-            }
-          });
 
-          this.setState({
-            arrOfMyRelative: this.state.arrOfMyRelative.concat(
-              this.state.tempStorage
-            )
-          });
+        var tempStorage = {};
+
+        e.docs.forEach(data => {
+    
+      
+          this.getPatientInfoFromPatientCollection(data.id);
+
+        
         });
+      });
+
+  }
+
+  getPatientInfoFromPatientCollection(id) {
+    this.props.firebase.db.collection("patients").doc(id).onSnapshot(data => {
+ 
+
+      var tempStorage = {};
+      console.log(data.data());
+
+        tempStorage = data.data();
+        tempStorage = {
+          ...tempStorage,
+          id: data.id,
+        }
 
         this.setState({
-          tempStorage: {
-            firstName: null,
-            lastName: null,
-            birthdate: null,
-            id: null
-          }
+          arrOfMyRelative: this.state.arrOfMyRelative.concat(tempStorage)
         });
+
         console.log(this.state.arrOfMyRelative);
-      });
+    
+
+      this.onloadMyPatientsWearables();
+    });
+  }
+
+  onloadMyPatientsWearables () {
+    console.log("onloadMyPatientsWearables");
+    var tempState = this.state.arrOfMyRelative.slice();
+
+    tempState.forEach((patient) => {
+      this.props.firebase.db
+        .collection("patients")
+        .doc(patient.id)
+        .collection("wearable")
+        .onSnapshot(e => {
+          e.docs.forEach(e => {
+
+            patient.latestStats = {
+              heartRate:e.data().latest.state.reported.HeartRate,
+              bloodPressure:e.data().latest.state.reported.BloodPressure,
+              timestamp:e.data().latest.state.reported.timestamp,
+            }
+
+            this.setState({ arrOfMyRelative:tempState })
+
+          });
+        });
+    });
   }
 
   goToMedicalRecords(data) {
@@ -187,25 +206,21 @@ class RelativeDashboard extends Component {
 
   render() {
     const myPatientsInfo = this.state.arrOfMyRelative.map(pat => {
+      console.log("SASA");
+      console.log(pat);
       return (
         <div className="itemsPatientCard">
           <ButtonBase
-            onClick={() =>
-              this.routeDirection(
-                pat.firstName,
-                pat.lastName,
-                pat.birthdate,
-                pat.id,
-                pat.role,
-                "myPatient"
-              )
+             onClick={() =>
+              this.routeDirection(pat)
             }
           >
-            <PatientCard
+          <PatientCard
               firstName={pat.firstName}
               lastName={pat.lastName}
               birthdate={pat.birthdate}
               id={pat.id}
+              latestStats={pat.latestStats}
               nurseAssigned={pat.role}
             />
           </ButtonBase>
@@ -218,16 +233,14 @@ class RelativeDashboard extends Component {
     if (this.state.openPatientDashboard == true) {
       return (
         <div>
-          {this.state.arePatientVitalStatsLoaded && (
             <PatientDashboard
               selectedPatient={this.state.selectedPatient}
-              selectedPatientVitalStats={this.state.selectedPatientVitalStats}
+              selectedPatientVitalStats={this.state.selectedPatient.latestStats}
               userRole="Relative"
               closePatientDashboardView={this.closePatientDashboardView.bind(
                 this
               )}
             />
-          )}
         </div>
       );
     } else {
