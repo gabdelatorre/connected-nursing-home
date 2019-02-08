@@ -1,0 +1,104 @@
+.activity-block {
+    width: 100%;
+    height: 80px;
+    background-color: #fff;
+    border-bottom: 1px #eee solid;
+    margin: 0px 0px 4px;
+    cursor: pointer;
+    overflow-x: hidden;
+    overflow-y: hidden;
+    position: relative;
+
+    .activity-info-block {
+        display: inline-block;
+        width: 150%;
+        height: 100%;
+
+        transform: translate(0px, 0px);
+        -webkit-transition: all 300ms ease;
+        -moz-transition: all 300ms ease;
+        -ms-transition: all 300ms ease;
+        -o-transition: all 300ms ease;
+        transition: all 300ms ease;
+
+        .avatar {
+            margin-top: 14px;
+            margin-left: 8px;
+            margin-right: 8px;
+            float: left;
+            font-family: 'Poppins',sans-serif !important;
+            font-weight: 700;
+        }
+
+        .activity-block-info {
+            padding: 8px;
+
+            .activity-header {
+                font-size: 14px;
+                font-weight: 700;
+                margin: 0;
+            }
+            .activity-header-2 {
+                font-size: 12px;
+                margin: 0px 0px 8px;
+            }
+        }
+    }
+
+    .activity-info-block-clicked {
+        transform: translate(-200px, 0px);
+
+        -webkit-transition: all 300ms ease;
+        -moz-transition: all 300ms ease;
+        -ms-transition: all 300ms ease;
+        -o-transition: all 300ms ease;
+        transition: all 300ms ease;
+    }
+
+    .activity-complete-btn {
+        width: 100px;
+        height: 120px;
+        background-color: #39c563;
+        display: inline-block;
+        color: #fff;
+        font-weight: 700;
+        font-size: 10px;
+        text-align: center;
+        padding: 32px 8px 8px;
+    }
+
+    .activity-complete-btn:hover {
+        background-color: #2ea050;
+    }
+
+    .activity-delete-btn {
+        width: 100px;
+        height: 120px;
+        background-color: #e26a5a;
+        display: inline-block;
+        color: #fff;
+        font-weight: 700;
+        font-size: 10px;
+        text-align: center;
+        padding: 32px 8px 8px;
+    }
+
+    .activity-delete-btn:hover {
+        background-color: #c75344;
+    }
+    
+    .activityicon {
+        font-size: 32px;
+        margin-top: 16px;
+    };
+}
+
+.activity-block:hover {
+    border-color: #039be5;
+
+    -webkit-transition: all 300ms ease;
+    -moz-transition: all 300ms ease;
+    -ms-transition: all 300ms ease;
+    -o-transition: all 300ms ease;
+    transition: all 300ms ease;
+}

@@ -15,6 +15,7 @@ import {
   Button
 } from "react-bootstrap";
 import ActivityFeedItem from "./ActivityFeedItem";
+import ActivityPlannedItem from './ActivityPlannedItem';
 
 class ActivityView extends Component {
 
@@ -24,26 +25,6 @@ class ActivityView extends Component {
             selectedHealthStatGraph: "Heart Rate",
             showHealthExaminationForm: false,
             showHealthExaminationRecord: false,
-            patientHealthExaminationRecords: [ // HARDCODED
-                {
-                    timestamps: "1/22/2019",
-                    nurseId: "TBD",
-                    temperature: "37.1",
-                    bloodPressure: "122/70",
-                    heartRate: "81",
-                    medications: "Ambroxol",
-                    remarks: "Patient is suffering from Upper Respiratory Tract Infection.",
-                },
-                {
-                    timestamps: "1/29/2019",
-                    nurseId: "TBD",
-                    temperature: "37.8",
-                    bloodPressure: "120/70",
-                    heartRate: "78",
-                    medications: "None",
-                    remarks: "Patient is now healthy.",
-                },
-            ],
             selectedHealthExaminationRecord: null
         };
     }
@@ -108,11 +89,23 @@ class ActivityView extends Component {
         )
     }
 
+    setActivityAction (action) {
+        console.log(action);
+    }
+
     render() {
 
         var tempActivityMap = this.props.tempSelectedPatientActivities.map((activity) => {
             return (
                 <ActivityFeedItem selectedPatient={this.props.selectedPatient} activity={activity}/>
+            )
+        })
+
+        var tempPlannedActivityMap = this.props.tempSelectedPatientActivities.map((activity) => {
+            return (
+                <div className="activity-block">
+                <ActivityPlannedItem selectedPatient={this.props.selectedPatient} activity={activity} setAction={this.setActivityAction.bind(this)}/>
+                </div>
             )
         })
         
@@ -129,7 +122,7 @@ class ActivityView extends Component {
                                             <span className="card-label"> Planned Activities </span>
                                         </div>
                                         <div className="card-content">
-                                            ???
+                                            {tempPlannedActivityMap}
                                         </div>
                                     </div>
                                     </div>

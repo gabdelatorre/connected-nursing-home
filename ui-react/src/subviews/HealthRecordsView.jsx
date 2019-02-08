@@ -51,18 +51,86 @@ class HealthRecordsView extends Component {
                 },
             ],
             selectedHealthExaminationRecord: null,
-            heartRateHistory: [
-                {									
-                    color: "red", 
-                    points: [{x: 1, y: 87}, {x: 2, y: 89}, {x: 3, y: 99}, {x: 4, y: 86}, {x: 5, y: 89}, {x: 6, y: 89}, {x: 7, y: 89}, {x: 8, y: 89}, {x: 9, y: 89}] 
-                }
-            ]
+            heartRateHistory: []
         };
     }
 
     componentDidMount() {
         console.log("HealthRecordsView: componentDidMount");
+    }
+
+    componentDidUpdate() {
+
+    }
+
+    extractHealthStatsForGraph () {
         console.log(this.props.selectedPatient);
+        console.log(this.props.selectedPatientStatsHistory);
+       
+        var tempHeartRateHistory = [
+            {
+                color: "red",
+                points: []
+            }
+        ]
+
+        var tempBloodPressureHistory = [
+            {
+                color: "red",
+                points: []
+            },
+            {
+                color: "blue",
+                points: []
+            },
+        ]
+        
+        var tempTemperatureHistory = [
+            {
+                color: "red",
+                points: [{x: 1, y: 37.2}, {x: 2, y: 38}, ]
+            },
+        ]
+
+        this.props.selectedPatientStatsHistory.forEach((record) => {
+            console.log(record);
+
+            tempHeartRateHistory[0].points.push({
+                x: tempHeartRateHistory[0].points.length + 1,
+                y: record.state.reported.HeartRate
+            })
+
+            console.log(tempHeartRateHistory);
+
+            // Systolic
+            tempBloodPressureHistory[0].points.push({
+                x: tempBloodPressureHistory[0].points.length + 1,
+                y: parseInt(record.state.reported.BloodPressure.split('/')[0])
+            })
+
+            // Diastolic
+            tempBloodPressureHistory[1].points.push({
+                x: tempBloodPressureHistory[1].points.length + 1,
+                y: parseInt(record.state.reported.BloodPressure.split('/')[1])
+            })
+
+            console.log(tempHeartRateHistory);
+            console.log(tempBloodPressureHistory);
+        })
+
+
+        if (this.state.selectedHealthStatGraph === "Heart Rate") {
+            return tempHeartRateHistory;
+        }
+        else if (this.state.selectedHealthStatGraph === "Blood Pressure") {
+            return tempBloodPressureHistory;
+        }
+        else if (this.state.selectedHealthStatGraph === "Temperature") {
+            return tempTemperatureHistory;
+        }
+        else {
+            return tempHeartRateHistory;
+        }
     }
 
     searchCheckUp(){
@@ -135,8 +203,7 @@ class HealthRecordsView extends Component {
 
     render() {
 
-        const data = [
-		];
+        var graphData = this.extractHealthStatsForGraph();
 
         return (
             <div className="health-records-view">
@@ -175,13 +242,15 @@ class HealthRecordsView extends Component {
                                         <div className="card-content">
                                             <p className="">
                                             </p>
-                                            <LineChart 
-					                        	width={600}
-					                        	height={400}
-                                                data={this.state.heartRateHistory}
-                                                xLabel="Instance"
-                                                yLabel="Heart Rate"
-					                        />
+                                            {/* {   this.state.heartRateHistory.length != 0 && */}
+                                                <LineChart 
+					                            	width={600}
+					                            	height={400}
+                                                    data={graphData}
+                                                    xLabel="Instance"
+                                                    yLabel={this.state.selectedHealthStatGraph}
+					                            />
+                                            {/* } */}
                                         </div>
                                     </div>
                                     </div>

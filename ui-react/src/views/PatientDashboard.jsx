@@ -328,8 +328,7 @@ class PatientDashboard extends Component {
                       <p className="lastupdate">
                         {" "}
                         <b>Last Update: </b> &nbsp;{" "}
-                        {moment
-                          .unix(
+                        {moment(
                             this.props.selectedPatientVitalStats.timestamp
                               .seconds
                           )
@@ -379,8 +378,7 @@ class PatientDashboard extends Component {
                       <p className="lastupdate">
                         {" "}
                         <b>Last Update: </b> &nbsp;{" "}
-                        {moment
-                          .unix(
+                        {moment(
                             this.props.selectedPatientVitalStats.timestamp
                               .seconds
                           )
@@ -448,6 +446,7 @@ class PatientDashboard extends Component {
                 <HealthRecordsView
                   {...employeeDashboardProps}
                   heartAnimation={heartAnimation}
+                  selectedPatientStatsHistory={this.props.selectedPatientStatsHistory}
                 />
             </Col>
         );

@@ -52,6 +52,8 @@ class NursingHomeDashboard extends Component {
         temperature: null,
         heartRate: null
       },
+      selectedPatientStatsHistory: [],
+      selectedPatientBloodPressureHistory: [],
       buttonRole: null,
       areAllPatientsLoaded: false,
       arePatientVitalStatsLoaded: false,
@@ -461,13 +463,31 @@ class NursingHomeDashboard extends Component {
             console.log("Wearables for: ");
             console.log(patient);
             console.log(e.data());
+
             patient.latestStats = {
               heartRate:e.data().latest.state.reported.HeartRate,
               bloodPressure:e.data().latest.state.reported.BloodPressure,
               timestamp:e.data().latest.state.reported.timestamp,
             }
 
-            this.setState({ arrOfAllPatients:tempState })
+            var tempFirestoreHeartRateData = e.data().history.slice(Math.max(e.data().history.length - 5, 1))
+
+            console.log(tempFirestoreHeartRateData);
+
+            patient.statsHistory = [];
+            tempFirestoreHeartRateData.forEach((record) => {
+                patient.statsHistory.push(record)
+            });
+            console.log(this.state.selectedPatient.id + ":" + patient.id)
+            
+            if (this.state.selectedPatient.id === patient.id) {
+                this.setState({ selectedPatient: patient }, () => {
+                    console.log(this.state.selectedPatient);
+                })
+            }
+            this.setState({ 
+                arrOfAllPatients:tempState,
+            })
           });
         });
     });
@@ -673,13 +693,13 @@ class NursingHomeDashboard extends Component {
     this.setState({
         tempSelectedPatientActivities: [
             {
-                activityName: "Eating",
+                activityName: "Breakfast",
                 activityDate: "2019-02-07",
                 activityDesc: "",
                 status: "In Progress",
             },
             {
-                activityName: "Playing",
+                activityName: "Arts Class",
                 activityDate: "2019-02-07",
                 activityDesc: "",
                 status: "In Progress",
@@ -793,6 +813,7 @@ class NursingHomeDashboard extends Component {
               closePatientDashboardView={this.closePatientDashboardView.bind(
                 this
               )}
+              selectedPatientStatsHistory={this.state.selectedPatient.statsHistory}
               tempSelectedPatientActivities={this.state.tempSelectedPatientActivities}
             />
         </div>
