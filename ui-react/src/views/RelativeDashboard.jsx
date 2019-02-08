@@ -48,7 +48,8 @@ class RelativeDashboard extends Component {
         lastName: null,
         birthdate: null,
         id: null
-      }
+      },
+      tempSelectedPatientActivities: [],
     };
     this.setState({
       arrOfMyRelative: []
@@ -59,7 +60,22 @@ class RelativeDashboard extends Component {
     this.setState({
       selectedPatient: patient
     });
-    
+    this.setState({
+      tempSelectedPatientActivities: [
+          {
+              activityName: "Eating",
+              activityDate: "2019-02-07",
+              activityDesc: "",
+              status: "In Progress",
+          },
+          {
+              activityName: "Playing",
+              activityDate: "2019-02-07",
+              activityDesc: "",
+              status: "In Progress",
+          }
+      ]
+  })
     this.setState({
       openPatientDashboard: true
     });
@@ -240,6 +256,7 @@ class RelativeDashboard extends Component {
               closePatientDashboardView={this.closePatientDashboardView.bind(
                 this
               )}
+              tempSelectedPatientActivities={this.state.tempSelectedPatientActivities}
             />
         </div>
       );

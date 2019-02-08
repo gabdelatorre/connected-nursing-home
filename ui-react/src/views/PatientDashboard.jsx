@@ -53,7 +53,6 @@ class PatientDashboard extends Component {
       currentView: "PROFILE"
     };
 
-    alert("E");
   }
 
   goBack(view) {
@@ -448,6 +447,7 @@ class PatientDashboard extends Component {
                 <HealthRecordsView
                   {...employeeDashboardProps}
                   heartAnimation={heartAnimation}
+                  authUser = {this.props.authUser}
                 />
             </Col>
         );
