@@ -16,16 +16,14 @@ import {
 } from "react-bootstrap";
 import ActivityFeedItem from "./ActivityFeedItem";
 import ActivityPlannedItem from './ActivityPlannedItem';
+import { ActivityForm } from './ActivityForm';
 
 class ActivityView extends Component {
 
     constructor() {
         super();
         this.state = {
-            selectedHealthStatGraph: "Heart Rate",
-            showHealthExaminationForm: false,
-            showHealthExaminationRecord: false,
-            selectedHealthExaminationRecord: null
+            showActivityForm: false,
         };
     }
 
@@ -34,59 +32,21 @@ class ActivityView extends Component {
         console.log(this.props.selectedPatient);
     }
 
-    goBack () {
-        this.props.switchDashboardView("DASHBOARD")
-    }
+    toggleActivityForm () {
 
-    toggleHealthExaminationForm () {
-
-        if (this.state.showHealthExaminationForm) {
+        if (this.state.showActivityForm) {
             this.setState({
-                showHealthExaminationForm: false
+                showActivityForm: false,
             })
         }
         else {
             this.setState({
-                showHealthExaminationForm: true
-            })
-        }
-    }
-
-    setHealthStatGraph (healthstat) {
-        this.setState({
-            selectedHealthStatGraph: healthstat
-        })
-    }
-
-    toggleHealthExaminationRecord (record) {
-
-        if (this.state.showHealthExaminationRecord) {
-            this.setState({
-                showHealthExaminationRecord: false,
-                selectedHealthExaminationRecord: null,
-            })
-        }
-        else {
-            this.setState({
-                showHealthExaminationRecord: true,
-                selectedHealthExaminationRecord: record,
+                showActivityForm: true,
             })
         }
     }
 
     addActivity(){
-        var activityDate = this.getVal("activityDate");
-        var activityName = this.getVal("activityName");
-        var activityDesc = this.getVal("activityDesc");
-        var patientId = this.getVal("patientId");
-        this.props.firebase.db.collection("patients").doc(patientId).collection("activity").add({
-            "status": "In Progress",
-            "activityDate": activityDate,
-            "activityName": activityName,
-            "activityDesc": activityDesc
-        }).then(
-            console.log("Successful")
-        )
     }
 
     setActivityAction (action) {
@@ -95,13 +55,25 @@ class ActivityView extends Component {
 
     render() {
 
-        var tempActivityMap = this.props.tempSelectedPatientActivities.map((activity) => {
+        const buttonRole = () => {
+            if(this.props.userRole == "Relative") {
+                
+            } else {
+           return <Button className="header-option-btn" onClick={this.toggleActivityForm.bind(this)}><Glyphicon glyph="plus"/></Button>
+            }
+        }
+        
+        var tempActivityMap = this.props.activityFeed.map((activity) => {
+            console.log("ActivityFeed: ");
+            console.log(activity);
             return (
                 <ActivityFeedItem selectedPatient={this.props.selectedPatient} activity={activity}/>
             )
         })
 
-        var tempPlannedActivityMap = this.props.tempSelectedPatientActivities.map((activity) => {
+        var tempPlannedActivityMap = this.props.plannedActivities.map((activity) => {
+            console.log("PlannedActivity: ");
+            console.log(activity);
             return (
                 <div className="activity-block">
                 <ActivityPlannedItem selectedPatient={this.props.selectedPatient} activity={activity} setAction={this.setActivityAction.bind(this)}/>
@@ -110,16 +82,17 @@ class ActivityView extends Component {
         })
         
         return (
-            <div className="health-records-view">
+            <div className="activity-view">
                 <Grid fluid className="nopads">
                     <Row>
                         <Col lg={12}>
                             <Row>
                                 <Col lg={6}>
                                     <div>
-                                    <div className="health-conditions-card">
+                                    <div className="planned-activities-card">
                                         <div className="card-header">
                                             <span className="card-label"> Planned Activities </span>
+                                            {buttonRole()}
                                         </div>
                                         <div className="card-content">
                                             {tempPlannedActivityMap}
@@ -129,9 +102,9 @@ class ActivityView extends Component {
                                 </Col>
                                 <Col lg={6}>
                                     <div>
-                                        <div className="patient-profile-card">
+                                        <div className="planned-activities-card">
                                           <div className="card-header">
-                                            <span className="patient-profile-label">
+                                            <span className="card-label">
                                               Activity Feed
                                             </span>
                                           </div>
@@ -144,6 +117,12 @@ class ActivityView extends Component {
                             </Row>
                         </Col>
                     </Row>
+
+                    <ActivityForm
+                        showActivityForm={this.state.showActivityForm}
+                        closeActivityForm={this.toggleActivityForm.bind(this)}
+                        selectedPatient={this.props.selectedPatient}
+                    />
 
                 </Grid>
             </div>

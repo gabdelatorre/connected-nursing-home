@@ -43,6 +43,7 @@ option {
 .breadcrumbs-view {
     margin-bottom: 40px;
     padding-left: 16px;
+    float: right;
 
     .breadcrumbs {
         font-size: 14px;
@@ -64,12 +65,23 @@ option {
     }
 }
 
-.header-section {
-  padding: 0px 16px 8px;
+.view-content {
+    padding: 64px;
+}
 
+.header-section {
+  padding: 24px 63px;
+  background-color: #fff;
+
+  .header-s {
+      display: inline;
+  }
+  
   h3 {
     font-size: 22px;
     font-weight: bold;
     color: rgba(0,0,0,0.54);
+    margin: 0;
+    display: inline;
   }
 }

@@ -32,35 +32,29 @@ class HealthRecordsView extends Component {
             showHealthExaminationRecord: false,
             patientHealthExaminationRecords: [ // HARDCODED
                 {
-                    timestamps: "1/22/2019",
-                    nurseId: "TBD",
-                    temperature: "37.1",
-                    bloodPressure: "122/70",
-                    heartRate: "81",
-                    medications: "Ambroxol",
-                    remarks: "Patient is suffering from Upper Respiratory Tract Infection.",
-                },
-                {
-                    timestamps: "1/29/2019",
-                    nurseId: "TBD",
-                    temperature: "37.8",
-                    bloodPressure: "120/70",
-                    heartRate: "78",
-                    medications: "None",
-                    remarks: "Patient is now healthy.",
-                },
+                    timestamps: null,
+                    nurseId: null,
+                    temperature: null,
+                    bloodPressure: null,
+                    heartRate: null,
+                    medications: null,
+                    remarks: null,
+                    height: null,
+                    weight: null,
+                }
             ],
+            tempTimestamp : null,
+            tempNurseId: null,
+            doctorsName: null,
             selectedHealthExaminationRecord: null,
             heartRateHistory: []
         };
+
     }
 
     componentDidMount() {
         console.log("HealthRecordsView: componentDidMount");
-    }
-
-    componentDidUpdate() {
-
+        this.getPatientHealthRecord();    
     }
 
     extractHealthStatsForGraph () {
@@ -201,7 +195,66 @@ class HealthRecordsView extends Component {
         }
     }
 
+    getPatientHealthRecord() {
+        var patientId = this.props.selectedPatient.id;
+        console.log(patientId);
+        this.props.firebase.db
+        .collection("patients")
+        .doc(patientId)
+        .collection("health_records")
+        .orderBy("timestamp", "desc")
+        .onSnapshot(e=>{
+            this.setState({
+                patientHealthExaminationRecords: []
+            })
+            e.docs.forEach(e=>{
+                console.log(e.data().timestamp + " SASAS");
+                this.setState({
+                    tempTimestamp:e.data().timestamp.toDate(),
+                    tempNurseId: e.data().uid
+                })
+                var dateTimestamp = this.state.tempTimestamp;
+                console.log(dateTimestamp);
+                dateTimestamp = [dateTimestamp.getMonth()+1, dateTimestamp.getDate(), dateTimestamp.getFullYear()].join('/')+ ' ' +
+                [dateTimestamp.getHours(), dateTimestamp.getMinutes(), dateTimestamp.getSeconds()].join(':');
+             
+                this.props.firebase.db
+                .collection("users")
+                .doc(this.state.tempNurseId)
+                .get()
+                .then(d => { 
+
+                    this.setState({
+                        patientHealthExaminationRecords: this.state.patientHealthExaminationRecords.concat([
+                            {
+                                timestamps:  dateTimestamp,
+                                nurseId:  d.data().lastName + ", " + d.data().firstName,
+                                temperature: e.data().temperature,
+                                bloodPressure: e.data().bloodPressure,
+                                heartRate: e.data().heartRate,
+                                medications: e.data().medications,
+                                remarks: e.data().remarks,
+                                height: e.data().height,
+                                weight: e.data().weight,
+                                id: e.id,
+                            }
+                        ])
+                       })
+
+                });
+
+            })
+        })
+    }
+
     render() {
+        const buttonRole = () => {
+            if(this.props.userRole == "Relative") {
+                
+            } else {
+           return <Button className="header-option-btn" onClick={this.toggleHealthExaminationForm.bind(this)}><Glyphicon glyph="plus"/></Button>
+            }
+        }
 
         var graphData = this.extractHealthStatsForGraph();
 
@@ -269,7 +322,7 @@ class HealthRecordsView extends Component {
                                                 <Glyphicon glyph="heart" className="heart-glyph" style={this.props.heartAnimation}/>
                                             </div>
                                             <div className="stats-last-update">
-                                                <p className="lastupdate"> <b>Last Update: </b> &nbsp; {moment(this.props.selectedPatientVitalStats.timestamp.seconds).format("lll")} </p>
+                                                <p className="lastupdate"> <b>Last Update: </b> &nbsp; {moment(this.props.selectedPatientVitalStats.timestamp).format("lll")} </p>
                                             </div>
                                         </div>
                                     </div>
@@ -304,7 +357,7 @@ class HealthRecordsView extends Component {
                                                 <Glyphicon glyph="tint" className="bp-glyph"/>
                                             </div>
                                             <div className="stats-last-update">
-                                                <p className="lastupdate"> <b>Last Update: </b> &nbsp; {moment(this.props.selectedPatientVitalStats.timestamp.seconds).format("lll")} </p>
+                                                <p className="lastupdate"> <b>Last Update: </b> &nbsp; {moment(this.props.selectedPatientVitalStats.timestamp).format("lll")} </p>
                                             </div>
                                         </div>
                                     </div>
@@ -319,13 +372,14 @@ class HealthRecordsView extends Component {
                                             <div className="health-records-card">
                                                 <div className="card-header">
                                                     <span className="health-records-label">Examination Records</span>
-                                                    <Button className="header-option-btn" onClick={this.toggleHealthExaminationForm.bind(this)}><Glyphicon glyph="plus"/></Button>
+                                                    {buttonRole()}
                                                 </div>
                                                 <div className="card-content">
                                                     <p className="">
                                                         <HealthRecordsHistory 
                                                             healthRecords={this.state.patientHealthExaminationRecords}
                                                             toggleHealthExaminationRecord={this.toggleHealthExaminationRecord.bind(this)}
+                                                            userRole = {this.props.userRole}
                                                         />
                                                     </p>
                                                 </div>
@@ -340,6 +394,8 @@ class HealthRecordsView extends Component {
                     <HealthExaminationForm
                         showHealthExaminationForm={this.state.showHealthExaminationForm}
                         closeHealthExaminationForm={this.toggleHealthExaminationForm.bind(this)}
+                        selectedPatient={this.props.selectedPatient}
+                        authUser = {this.props.authUser}
                     />
 
                     {
@@ -348,6 +404,8 @@ class HealthRecordsView extends Component {
                             healthRecord={this.state.selectedHealthExaminationRecord}
                             showHealthExaminationRecord={this.state.showHealthExaminationRecord}
                             closeHealthExaminationRecord={this.toggleHealthExaminationRecord.bind(this)}
+                            selectedPatient={this.props.selectedPatient}
+                            userRole = {this.props.userRole}
                         />
                     }
 

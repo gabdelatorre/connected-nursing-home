@@ -59,6 +59,7 @@ class NursingHomeDashboard extends Component {
       arePatientVitalStatsLoaded: false,
       tempSelectedPatientActivities: [],
     };
+    
   }
 
   componentDidMount() {
@@ -83,75 +84,6 @@ class NursingHomeDashboard extends Component {
         temperature: "4",
         heartRate: "5"
       },
-      buttonRole: (
-        <div>
-          <div className="itemsModal">
-            <p className="modalBodyText">
-              <Button
-                bsStyle="primary"
-                type="submit"
-                id="loginBtn"
-                className="btn-block"
-                onClick={this.addPatientToRelative.bind(this)}
-              >
-                Add Relative
-              </Button>
-            </p>
-          </div>
-
-          <div className="itemsModal">
-            <ControlLabel>Relative List</ControlLabel>
-            <FormControl
-              componentClass="select"
-              className="relativeList"
-              id="relativeList"
-              placeholder="select"
-              value={optionsState}
-            >
-              {/* {listOfRelativesUser} */}
-            </FormControl>
-          </div>
-
-          <div className="itemsModal">
-            <p className="modalBodyText">
-              <Button
-                bsStyle="primary"
-                type="submit"
-                id="loginBtn"
-                className="btn-block"
-                onClick={this.removePatientAccount.bind(this)}
-              >
-                Remove Patient Account
-              </Button>
-            </p>
-          </div>
-          <div className="itemsModal">
-            <p className="modalBodyText">
-              <Button
-                bsStyle="primary"
-                type="submit"
-                id="loginBtn"
-                className="btn-block"
-                onClick={this.addPatient.bind(this)}
-              >
-                AddPatient to nurse
-              </Button>
-            </p>
-          </div>
-          <div className="formItems">
-            <ControlLabel>Nurse List</ControlLabel>
-            <FormControl
-              componentClass="select"
-              className="showNurses"
-              id="showNurses"
-              placeholder="select"
-              value={optionsState}
-            >
-              {/* {nurseListPop} */}
-            </FormControl>
-          </div>
-        </div>
-      )
     });
   };
 
@@ -431,7 +363,7 @@ class NursingHomeDashboard extends Component {
         console.log(this.state.arrOfAllPatients);
       });
 
-      this.onloadAllWearables();
+      //this.onloadAllWearables();
     });
 
     // this.props.firebase.db
@@ -464,11 +396,9 @@ class NursingHomeDashboard extends Component {
             console.log(patient);
             console.log(e.data());
 
-            patient.latestStats = {
-              heartRate:e.data().latest.state.reported.HeartRate,
-              bloodPressure:e.data().latest.state.reported.BloodPressure,
-              timestamp:e.data().latest.state.reported.timestamp,
-            }
+            patient.latestStats["heartRate"] = e.data().latest.state.reported.HeartRate;
+            patient.latestStats["bloodPressure"] = e.data().latest.state.reported.BloodPressure;
+            patient.latestStats["timestamp"] = e.data().latest.state.reported.timestamp;
 
             var tempFirestoreHeartRateData = e.data().history.slice(Math.max(e.data().history.length - 5, 1))
 
@@ -708,21 +638,6 @@ class NursingHomeDashboard extends Component {
     })
 
     this.setState({
-      buttonRole: (
-        <div className="itemsModal" id="buttonRole">
-          <p className="modalBodyText">
-            <Button
-              bsStyle="primary"
-              type="submit"
-              id="loginBtn"
-              className="btn-block"
-              onClick={this.removingOfPatient.bind(this)}
-            >
-              Remove this
-            </Button>
-          </p>
-        </div>
-      ),
       openPatientDashboard: true
     });
   };
@@ -815,6 +730,7 @@ class NursingHomeDashboard extends Component {
               )}
               selectedPatientStatsHistory={this.state.selectedPatient.statsHistory}
               tempSelectedPatientActivities={this.state.tempSelectedPatientActivities}
+              authUser={this.props.authUser}
             />
         </div>
       );

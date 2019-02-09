@@ -14,6 +14,7 @@ import {
 } from "react-bootstrap";
 import Modal from "react-responsive-modal";
 import ButtonBase from "@material-ui/core/ButtonBase";
+import moment from "moment";
 
 class ActivityFeedItem extends Component {
 
@@ -38,7 +39,8 @@ class ActivityFeedItem extends Component {
                         <p className="activitydesc"> <b>{this.props.selectedPatient.firstName + " " + this.props.selectedPatient.lastName} </b> engaged in <b>{this.props.activity.activityName}</b> </p>
                     </Col>
                     <Col lg={2}>
-                        <p className="activitytime"> {this.props.activity.activityDate} </p>
+                        <p className="activitytime"> {moment.unix(this.props.activity.activityDate.seconds)
+                          .format("lll")} </p>
                     </Col>
                 </Row>
             </div>

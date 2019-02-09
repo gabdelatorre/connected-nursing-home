@@ -1,9 +1,29 @@
+.activity-view {
+
+    .planned-activities-card {
+        background-color: #fff;
+        border-radius: 0;
+        margin-bottom: 24px;
+        border: 1px solid #e5e9f2;
+        box-shadow: 0 0.25rem 0.5rem rgba(0,0,0,.025);
+        border-radius: .2rem;
+
+        .card-content {
+            padding: 0 !important;
+        }
+    }
+
+    .activities-label {
+        font-weight: bold;
+    }
+}
+
 .activity-block {
     width: 100%;
-    height: 80px;
+    height: 70px;
     background-color: #fff;
     border-bottom: 1px #eee solid;
-    margin: 0px 0px 4px;
+    margin: 0px;
     cursor: pointer;
     overflow-x: hidden;
     overflow-y: hidden;
@@ -31,16 +51,20 @@
         }
 
         .activity-block-info {
-            padding: 8px;
+            padding: 16px;
 
             .activity-header {
                 font-size: 14px;
                 font-weight: 700;
+                line-height: 140%;
                 margin: 0;
             }
+
             .activity-header-2 {
                 font-size: 12px;
-                margin: 0px 0px 8px;
+                line-height: 140%;
+                margin: 0;
+                color: #858585;
             }
         }
     }
@@ -57,14 +81,14 @@
 
     .activity-complete-btn {
         width: 100px;
-        height: 120px;
+        height: 70px;
         background-color: #39c563;
         display: inline-block;
         color: #fff;
         font-weight: 700;
         font-size: 10px;
         text-align: center;
-        padding: 32px 8px 8px;
+        padding: 28px 8px 8px;
     }
 
     .activity-complete-btn:hover {
@@ -73,14 +97,14 @@
 
     .activity-delete-btn {
         width: 100px;
-        height: 120px;
+        height: 70px;
         background-color: #e26a5a;
         display: inline-block;
         color: #fff;
         font-weight: 700;
         font-size: 10px;
         text-align: center;
-        padding: 32px 8px 8px;
+        padding: 28px 8px 8px;
     }
 
     .activity-delete-btn:hover {

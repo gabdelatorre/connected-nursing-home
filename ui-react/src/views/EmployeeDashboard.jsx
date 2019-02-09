@@ -63,7 +63,8 @@ class EmployeeDashboard extends Component {
         id: null,
         role: null
       },
-      idOfPatient: null
+      idOfPatient: null,
+      tempSelectedPatientActivities: [],
     };
   }
   componentDidMount() {
@@ -216,6 +217,23 @@ class EmployeeDashboard extends Component {
     });
     
     this.setState({
+      tempSelectedPatientActivities: [
+          {
+              activityName: "Eating",
+              activityDate: "2019-02-07",
+              activityDesc: "",
+              status: "In Progress",
+          },
+          {
+              activityName: "Playing",
+              activityDate: "2019-02-07",
+              activityDesc: "",
+              status: "In Progress",
+          }
+      ]
+  })
+
+    this.setState({
       openPatientDashboard: true
     });
   };
@@ -331,6 +349,8 @@ class EmployeeDashboard extends Component {
               closePatientDashboardView={this.closePatientDashboardView.bind(
                 this
               )}
+              tempSelectedPatientActivities={this.state.tempSelectedPatientActivities}
+              authUser={this.props.authUser}
             />
         </div>
       );

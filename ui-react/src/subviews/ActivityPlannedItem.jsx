@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Grid, Row, Col, Glyphicon } from 'react-bootstrap';
 import Avatar from 'react-avatar';
+import moment from "moment";
 
 class ActivityPlannedItem extends Component {
 
@@ -35,13 +36,10 @@ class ActivityPlannedItem extends Component {
                  onClick={this.setActivityClicked.bind(this)}>
                 <Grid fluid>
                     <Row>
-                        <Col lg={2} md={2} sm={2} xs={2}>
-                            <Glyphicon glyph="apple" className="activityicon"/>
-                        </Col>
-                        <Col lg={6} md={6} sm={6} xs={4}>
+                        <Col lg={8} md={8} sm={8} xs={6}>
                             <div className="activity-block-info">
+                                <h4 className="activity-header-2">{moment.unix(this.props.activity.activityDate.seconds).format("lll")}</h4>
                                 <h4 className="activity-header">{this.props.activity.activityName}</h4>
-                                <h4 className="activity-header-2">{this.props.activity.activityDate}</h4>
                             </div>
                         </Col>
                         <div className="activity-complete-btn" onClick={this.setAction.bind(this, "COMPLETE")}>

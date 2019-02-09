@@ -50,10 +50,17 @@ class PatientDashboard extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      currentView: "PROFILE"
+      currentView: "PROFILE",
+      statsHistory: [],
+      activityFeed: [],
+      plannedActivities: [],
     };
 
-    alert("E");
+  }
+
+  componentDidMount() {
+      this.getHealthStatsForGraph();
+      this.getActivities();
   }
 
   goBack(view) {
@@ -82,6 +89,63 @@ class PatientDashboard extends Component {
           console.log(e.data());
         });
       });
+  }
+
+  getHealthStatsForGraph() {
+    this.props.firebase.db
+    .collection("patients")
+    .doc(this.props.selectedPatient.id)
+    .collection("wearable")
+    .onSnapshot(e => {
+      e.docs.forEach(e => {
+        console.log("Wearables for: ");
+        console.log(this.props.selectedPatient);
+        console.log(e.data());
+
+        var tempFirestoreHeartRateData = e.data().history.slice(Math.max(e.data().history.length - 5, 1))
+
+        console.log(tempFirestoreHeartRateData);
+
+        this.setState({ 
+            statsHistory:tempFirestoreHeartRateData,
+        })
+      });
+    });
+  }
+
+  getActivities() {
+    this.props.firebase.db
+    .collection("patients")
+    .doc(this.props.selectedPatient.id)
+    .collection("activity")
+    .onSnapshot(e => {
+        var tempActivityFeed = [];
+        var tempPlannedActivity = [];
+
+        e.docs.forEach(e => {
+            if (e.data().status === "Completed") {
+                tempActivityFeed.push(e.data()) 
+            } else {
+                tempPlannedActivity.push(e.data())
+            }
+        });
+
+        tempActivityFeed.sort((a, b)=>{
+            var keyA = new Date(a.activityDate.seconds),
+                keyB = new Date(b.activityDate.seconds);
+            // Compare the 2 dates
+            if(keyA < keyB) return 1;
+            if(keyA > keyB) return -1;
+            return 0;
+        });
+
+        console.log(tempActivityFeed);
+
+        this.setState({ 
+            activityFeed:tempActivityFeed,
+            plannedActivities:tempPlannedActivity
+        })
+    });
   }
 
   render() {
@@ -294,7 +358,7 @@ class PatientDashboard extends Component {
         "s infinite"
     };
 
-    var tempActivityMap = this.props.tempSelectedPatientActivities.map((activity) => {
+    var tempActivityMap = this.state.activityFeed.map((activity) => {
         return (
             <ActivityFeedItem {...employeeDashboardProps} activity={activity}/>
         )
@@ -330,7 +394,6 @@ class PatientDashboard extends Component {
                         <b>Last Update: </b> &nbsp;{" "}
                         {moment(
                             this.props.selectedPatientVitalStats.timestamp
-                              .seconds
                           )
                           .format("lll")}{" "}
                       </p>
@@ -380,7 +443,6 @@ class PatientDashboard extends Component {
                         <b>Last Update: </b> &nbsp;{" "}
                         {moment(
                             this.props.selectedPatientVitalStats.timestamp
-                              .seconds
                           )
                           .format("lll")}{" "}
                       </p>
@@ -446,7 +508,8 @@ class PatientDashboard extends Component {
                 <HealthRecordsView
                   {...employeeDashboardProps}
                   heartAnimation={heartAnimation}
-                  selectedPatientStatsHistory={this.props.selectedPatientStatsHistory}
+                  selectedPatientStatsHistory={this.state.statsHistory}
+                  authUser = {this.props.authUser}
                 />
             </Col>
         );
@@ -455,7 +518,8 @@ class PatientDashboard extends Component {
             <Col lg={9}>
                 <ActivityView
                   {...employeeDashboardProps}
-                  tempSelectedPatientActivities={this.props.tempSelectedPatientActivities}
+                  plannedActivities={this.state.plannedActivities}
+                  activityFeed={this.state.activityFeed}
                 />
             </Col>
         );
@@ -479,20 +543,22 @@ class PatientDashboard extends Component {
     return (
       <div className="patient-data-dashboard-view">
         <div className="header-section">
-          <h3>Patient's Dashboard</h3>  
+            <div className="header-s"><h3>Patient's Dashboard</h3></div>
+          
+            <div className="breadcrumbs-view">
+              <h3 className="breadcrumbs">
+                <span
+                  className="clickable-bread"
+                  onClick={this.goBack.bind(this, "EMPLOYEE_DASHBOARD")}
+                >
+                  {" "}
+                  Home{" "}
+                </span>{" "}
+                &nbsp; > &nbsp; <b>Patient</b>{" "}
+              </h3>
+            </div>
         </div>
-        <div className="breadcrumbs-view">
-          <h3 className="breadcrumbs">
-            <span
-              className="clickable-bread"
-              onClick={this.goBack.bind(this, "EMPLOYEE_DASHBOARD")}
-            >
-              {" "}
-              Home{" "}
-            </span>{" "}
-            &nbsp; > &nbsp; <b>Patient</b>{" "}
-          </h3>
-        </div>
+        <div className="view-content">
         <Grid fluid>
           <Row>
             <Col lg={3}>
@@ -517,6 +583,7 @@ class PatientDashboard extends Component {
             {pdViewComponent()}
           </Row>
         </Grid>
+        </div>
       </div>
     );
   }

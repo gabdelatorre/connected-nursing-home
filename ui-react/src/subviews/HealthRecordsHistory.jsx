@@ -31,10 +31,10 @@ class HealthRecordsHistory extends Component {
     render() {
 
         var healthRecords = this.props.healthRecords.map((prop) => {
-            return (
+            return (    
                 <tr onClick={this.toggleModal.bind(this, prop)}>
                     <td> {prop.timestamps} </td>
-                    <td> {prop.nurseId} </td>
+                    <td> {prop.nurseId} </td> 
                 </tr>
             )
         })

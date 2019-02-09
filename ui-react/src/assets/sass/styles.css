@@ -60,7 +60,8 @@ option {
 
 .breadcrumbs-view {
   margin-bottom: 40px;
-  padding-left: 16px; }
+  padding-left: 16px;
+  float: right; }
   .breadcrumbs-view .breadcrumbs {
     font-size: 14px;
     margin: 0;
@@ -73,12 +74,20 @@ option {
     .breadcrumbs-view .breadcrumbs .clickable-bread:hover {
       color: #039be5; }
 
+.view-content {
+  padding: 64px; }
+
 .header-section {
-  padding: 0px 16px 8px; }
+  padding: 24px 63px;
+  background-color: #fff; }
+  .header-section .header-s {
+    display: inline; }
   .header-section h3 {
     font-size: 22px;
     font-weight: bold;
-    color: rgba(0, 0, 0, 0.54); }
+    color: rgba(0, 0, 0, 0.54);
+    margin: 0;
+    display: inline; }
 
 /*           Font Smoothing      */
 body,
@@ -1208,7 +1217,7 @@ body > .navbar-collapse:before {
   border: 0;
   font-size: 16px;
   border-radius: 0;
-  padding: 70px 32px 0px 48px; }
+  padding: 32px 32px 0px 48px; }
   .navbar .navbar-brand {
     font-weight: 700;
     margin: 5px 0px;
@@ -2024,12 +2033,25 @@ body > .navbar-collapse:before {
       /* ----- animation ----- */
       animation: moveUp 0.4s ease-in both, fadeIn 0.4s ease-in both; }
 
+.activity-view .planned-activities-card {
+  background-color: #fff;
+  border-radius: 0;
+  margin-bottom: 24px;
+  border: 1px solid #e5e9f2;
+  box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.025);
+  border-radius: .2rem; }
+  .activity-view .planned-activities-card .card-content {
+    padding: 0 !important; }
+
+.activity-view .activities-label {
+  font-weight: bold; }
+
 .activity-block {
   width: 100%;
-  height: 80px;
+  height: 70px;
   background-color: #fff;
   border-bottom: 1px #eee solid;
-  margin: 0px 0px 4px;
+  margin: 0px;
   cursor: pointer;
   overflow-x: hidden;
   overflow-y: hidden;
@@ -2052,14 +2074,17 @@ body > .navbar-collapse:before {
       font-family: 'Poppins',sans-serif !important;
       font-weight: 700; }
     .activity-block .activity-info-block .activity-block-info {
-      padding: 8px; }
+      padding: 16px; }
       .activity-block .activity-info-block .activity-block-info .activity-header {
         font-size: 14px;
         font-weight: 700;
+        line-height: 140%;
         margin: 0; }
       .activity-block .activity-info-block .activity-block-info .activity-header-2 {
         font-size: 12px;
-        margin: 0px 0px 8px; }
+        line-height: 140%;
+        margin: 0;
+        color: #858585; }
   .activity-block .activity-info-block-clicked {
     transform: translate(-200px, 0px);
     -webkit-transition: all 300ms ease;
@@ -2069,26 +2094,26 @@ body > .navbar-collapse:before {
     transition: all 300ms ease; }
   .activity-block .activity-complete-btn {
     width: 100px;
-    height: 120px;
+    height: 70px;
     background-color: #39c563;
     display: inline-block;
     color: #fff;
     font-weight: 700;
     font-size: 10px;
     text-align: center;
-    padding: 32px 8px 8px; }
+    padding: 28px 8px 8px; }
   .activity-block .activity-complete-btn:hover {
     background-color: #2ea050; }
   .activity-block .activity-delete-btn {
     width: 100px;
-    height: 120px;
+    height: 70px;
     background-color: #e26a5a;
     display: inline-block;
     color: #fff;
     font-weight: 700;
     font-size: 10px;
     text-align: center;
-    padding: 32px 8px 8px; }
+    padding: 28px 8px 8px; }
   .activity-block .activity-delete-btn:hover {
     background-color: #c75344; }
   .activity-block .activityicon {
@@ -2472,98 +2497,103 @@ hr.style-one {
   .containerRelativeDashboard .containerSectionBody .items {
     flex-basis: auto; }
 
-.patient-data-dashboard-view {
-  padding: 64px; }
-  .patient-data-dashboard-view .card-header {
-    padding: 24px;
-    border-bottom: 1px solid #e5e9f2; }
-  .patient-data-dashboard-view .card-content {
-    padding: 24px;
-    font-size: 14px;
-    line-height: 90%; }
-    .patient-data-dashboard-view .card-content .card-content-title {
+.patient-data-dashboard-view .card-header {
+  padding: 24px;
+  border-bottom: 1px solid #e5e9f2; }
+
+.patient-data-dashboard-view .card-content {
+  padding: 24px;
+  font-size: 14px;
+  line-height: 90%; }
+  .patient-data-dashboard-view .card-content .card-content-title {
+    font-size: 10px;
+    text-transform: uppercase;
+    font-weight: bold;
+    margin: 0;
+    padding: 0; }
+
+.patient-data-dashboard-view .card-label {
+  font-weight: bold; }
+
+.patient-data-dashboard-view .profile-card {
+  background-color: #fff;
+  padding: 32px;
+  border-radius: 0;
+  border: 1px solid #e5e9f2;
+  box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.025);
+  border-radius: .2rem; }
+
+.patient-data-dashboard-view .patient-profile-card {
+  background-color: #fff;
+  border-radius: 0;
+  margin-bottom: 24px;
+  border: 1px solid #e5e9f2;
+  box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.025);
+  border-radius: .2rem;
+  min-height: 300px; }
+  .patient-data-dashboard-view .patient-profile-card .patient-profile-label {
+    font-weight: bold; }
+
+.patient-data-dashboard-view .patient-data-dashboard-card {
+  background-color: #fff;
+  border-radius: 0;
+  margin-bottom: 24px;
+  border: 1px solid #e5e9f2;
+  box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.025);
+  border-radius: .2rem; }
+  .patient-data-dashboard-view .patient-data-dashboard-card .patient-data-dashboard-label {
+    font-weight: bold; }
+  .patient-data-dashboard-view .patient-data-dashboard-card .patient-data-dashboard-history-view {
+    background-color: #fff;
+    min-height: 300px; }
+    .patient-data-dashboard-view .patient-data-dashboard-card .patient-data-dashboard-history-view th {
       font-size: 10px;
       text-transform: uppercase;
-      font-weight: bold;
-      margin: 0;
-      padding: 0; }
-  .patient-data-dashboard-view .card-label {
+      padding: 16px 8px; }
+    .patient-data-dashboard-view .patient-data-dashboard-card .patient-data-dashboard-history-view td {
+      font-size: 12px;
+      padding: 16px 8px; }
+
+.patient-data-dashboard-view .health-stats-card {
+  background-color: #fff;
+  padding: 32px 32px 16px;
+  border-radius: 0;
+  margin-bottom: 24px;
+  border: 1px solid #e5e9f2;
+  box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.025);
+  border-radius: .2rem; }
+  .patient-data-dashboard-view .health-stats-card .stats-segment-1 {
+    display: inline-block;
+    margin: 0px 8px 0px 0px;
+    vertical-align: bottom; }
+  .patient-data-dashboard-view .health-stats-card .stats-segment-2 {
+    display: inline-block;
+    margin: 0px 8px 4px 0px;
+    vertical-align: bottom; }
+  .patient-data-dashboard-view .health-stats-card .stats-segment-3 {
+    display: inline-block;
+    margin: 0px 8px 22px 0px;
+    vertical-align: bottom; }
+  .patient-data-dashboard-view .health-stats-card .health-stats-label {
     font-weight: bold; }
-  .patient-data-dashboard-view .profile-card {
-    background-color: #fff;
-    padding: 32px;
-    border-radius: 0;
-    border: 1px solid #e5e9f2;
-    box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.025);
-    border-radius: .2rem; }
-  .patient-data-dashboard-view .patient-profile-card {
-    background-color: #fff;
-    border-radius: 0;
-    margin-bottom: 24px;
-    border: 1px solid #e5e9f2;
-    box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.025);
-    border-radius: .2rem;
-    min-height: 300px; }
-    .patient-data-dashboard-view .patient-profile-card .patient-profile-label {
-      font-weight: bold; }
-  .patient-data-dashboard-view .patient-data-dashboard-card {
-    background-color: #fff;
-    border-radius: 0;
-    margin-bottom: 24px;
-    border: 1px solid #e5e9f2;
-    box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.025);
-    border-radius: .2rem; }
-    .patient-data-dashboard-view .patient-data-dashboard-card .patient-data-dashboard-label {
-      font-weight: bold; }
-    .patient-data-dashboard-view .patient-data-dashboard-card .patient-data-dashboard-history-view {
-      background-color: #fff;
-      min-height: 300px; }
-      .patient-data-dashboard-view .patient-data-dashboard-card .patient-data-dashboard-history-view th {
-        font-size: 10px;
-        text-transform: uppercase;
-        padding: 16px 8px; }
-      .patient-data-dashboard-view .patient-data-dashboard-card .patient-data-dashboard-history-view td {
-        font-size: 12px;
-        padding: 16px 8px; }
-  .patient-data-dashboard-view .health-stats-card {
-    background-color: #fff;
-    padding: 32px 32px 16px;
-    border-radius: 0;
-    margin-bottom: 24px;
-    border: 1px solid #e5e9f2;
-    box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.025);
-    border-radius: .2rem; }
-    .patient-data-dashboard-view .health-stats-card .stats-segment-1 {
-      display: inline-block;
-      margin: 0px 8px 0px 0px;
-      vertical-align: bottom; }
-    .patient-data-dashboard-view .health-stats-card .stats-segment-2 {
-      display: inline-block;
-      margin: 0px 8px 4px 0px;
-      vertical-align: bottom; }
-    .patient-data-dashboard-view .health-stats-card .stats-segment-3 {
-      display: inline-block;
-      margin: 0px 8px 22px 0px;
-      vertical-align: bottom; }
-    .patient-data-dashboard-view .health-stats-card .health-stats-label {
-      font-weight: bold; }
-    .patient-data-dashboard-view .health-stats-card .stats-last-update {
-      margin-top: 16px; }
-      .patient-data-dashboard-view .health-stats-card .stats-last-update .lastupdate {
-        font-size: 10px; }
-    .patient-data-dashboard-view .health-stats-card .heartrate-bpm {
-      margin: 0px;
-      font-size: 36px; }
-    .patient-data-dashboard-view .health-stats-card .heartrate-bpm-label {
-      margin: 8px 0px 0px;
-      color: red; }
-    .patient-data-dashboard-view .health-stats-card .heart-glyph {
-      color: red; }
-    .patient-data-dashboard-view .health-stats-card .bp-glyph {
-      color: red; }
-  .patient-data-dashboard-view .profilepic {
-    width: 100%;
-    height: 100%; }
+  .patient-data-dashboard-view .health-stats-card .stats-last-update {
+    margin-top: 16px; }
+    .patient-data-dashboard-view .health-stats-card .stats-last-update .lastupdate {
+      font-size: 10px; }
+  .patient-data-dashboard-view .health-stats-card .heartrate-bpm {
+    margin: 0px;
+    font-size: 36px; }
+  .patient-data-dashboard-view .health-stats-card .heartrate-bpm-label {
+    margin: 8px 0px 0px;
+    color: red; }
+  .patient-data-dashboard-view .health-stats-card .heart-glyph {
+    color: red; }
+  .patient-data-dashboard-view .health-stats-card .bp-glyph {
+    color: red; }
+
+.patient-data-dashboard-view .profilepic {
+  width: 100%;
+  height: 100%; }
 
 .patient-pic-card {
   background-color: #fff;
