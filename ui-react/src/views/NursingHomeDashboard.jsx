@@ -341,6 +341,7 @@ class NursingHomeDashboard extends Component {
 
   onloadAllPatients() {
     this.props.firebase.patients().onSnapshot(e => {
+      console.log("onloadAllPatients snapShot");
       this.setState({
         arrOfAllPatients: []
       });
@@ -361,6 +362,12 @@ class NursingHomeDashboard extends Component {
         });
 
         console.log(this.state.arrOfAllPatients);
+
+        if (this.state.selectedPatient.id === tempStorage.id) {
+          this.setState({ selectedPatient: tempStorage }, () => {
+              console.log(this.state.selectedPatient);
+          })
+        }
       });
 
       //this.onloadAllWearables();
@@ -731,6 +738,7 @@ class NursingHomeDashboard extends Component {
               selectedPatientStatsHistory={this.state.selectedPatient.statsHistory}
               tempSelectedPatientActivities={this.state.tempSelectedPatientActivities}
               authUser={this.props.authUser}
+              userData={this.props.userData}
             />
         </div>
       );

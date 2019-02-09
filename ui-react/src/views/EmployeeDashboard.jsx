@@ -351,6 +351,7 @@ class EmployeeDashboard extends Component {
               )}
               tempSelectedPatientActivities={this.state.tempSelectedPatientActivities}
               authUser={this.props.authUser}
+              userData={this.props.userData}
             />
         </div>
       );

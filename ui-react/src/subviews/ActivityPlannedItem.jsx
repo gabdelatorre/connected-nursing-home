@@ -25,8 +25,8 @@ class ActivityPlannedItem extends Component {
         }
     }
 
-    setAction (action) {
-        this.props.setAction(action);
+    setAction (action, activity) {
+        this.props.setAction(action, activity);
     }
 
     render() {
@@ -36,17 +36,17 @@ class ActivityPlannedItem extends Component {
                  onClick={this.setActivityClicked.bind(this)}>
                 <Grid fluid>
                     <Row>
-                        <Col lg={8} md={8} sm={8} xs={6}>
+                        <Col lg={8} md={8} sm={8} xs={8}>
                             <div className="activity-block-info">
                                 <h4 className="activity-header-2">{moment.unix(this.props.activity.activityDate.seconds).format("lll")}</h4>
                                 <h4 className="activity-header">{this.props.activity.activityName}</h4>
                             </div>
                         </Col>
-                        <div className="activity-complete-btn" onClick={this.setAction.bind(this, "COMPLETE")}>
-                            Complete
+                        <div className="activity-complete-btn act-btn" onClick={this.setAction.bind(this, "COMPLETE", this.props.activity)}>
+                            <Glyphicon glyph="ok-sign"/>
                         </div>
-                        <div className="activity-delete-btn" onClick={this.setAction.bind(this, "DELETE")}>
-                            Delete
+                        <div className="activity-delete-btn act-btn" onClick={this.setAction.bind(this, "REMOVE", this.props.activity)}>
+                            <Glyphicon glyph="remove-sign"/>
                         </div>
                     </Row>
                 </Grid>

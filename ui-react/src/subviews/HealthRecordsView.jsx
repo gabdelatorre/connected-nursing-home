@@ -30,19 +30,6 @@ class HealthRecordsView extends Component {
             selectedHealthStatGraph: "Heart Rate",
             showHealthExaminationForm: false,
             showHealthExaminationRecord: false,
-            patientHealthExaminationRecords: [ // HARDCODED
-                {
-                    timestamps: null,
-                    nurseId: null,
-                    temperature: null,
-                    bloodPressure: null,
-                    heartRate: null,
-                    medications: null,
-                    remarks: null,
-                    height: null,
-                    weight: null,
-                }
-            ],
             tempTimestamp : null,
             tempNurseId: null,
             doctorsName: null,
@@ -54,12 +41,10 @@ class HealthRecordsView extends Component {
 
     componentDidMount() {
         console.log("HealthRecordsView: componentDidMount");
-        this.getPatientHealthRecord();    
+        //this.getPatientHealthRecord();    
     }
 
     extractHealthStatsForGraph () {
-        console.log(this.props.selectedPatient);
-        console.log(this.props.selectedPatientStatsHistory);
        
         var tempHeartRateHistory = [
             {
@@ -86,30 +71,24 @@ class HealthRecordsView extends Component {
             },
         ]
 
-        this.props.selectedPatientStatsHistory.forEach((record) => {
-            console.log(record);
+        this.props.selectedPatientStatsHistoryForGraph.forEach((record) => {
 
             tempHeartRateHistory[0].points.push({
                 x: tempHeartRateHistory[0].points.length + 1,
-                y: record.state.reported.HeartRate
+                y: parseInt(record.heartRate)
             })
-
-            console.log(tempHeartRateHistory);
 
             // Systolic
             tempBloodPressureHistory[0].points.push({
                 x: tempBloodPressureHistory[0].points.length + 1,
-                y: parseInt(record.state.reported.BloodPressure.split('/')[0])
+                y: parseInt(record.bloodPressure.split('/')[0])
             })
 
             // Diastolic
             tempBloodPressureHistory[1].points.push({
                 x: tempBloodPressureHistory[1].points.length + 1,
-                y: parseInt(record.state.reported.BloodPressure.split('/')[1])
+                y: parseInt(record.bloodPressure.split('/')[1])
             })
-
-            console.log(tempHeartRateHistory);
-            console.log(tempBloodPressureHistory);
         })
 
 
@@ -148,7 +127,7 @@ class HealthRecordsView extends Component {
             e.docs.forEach(e=>{
                 this.props.firebase.db.collection("patients").doc(e.id).collection("vital_statistics").where("timestamps", "==", finalDate).get().then( data =>{
                     data.docs.forEach(data=>{
-                        console.log(data.data())
+                        //console.log(data.data())
                     }) 
                 });
             })
@@ -195,58 +174,6 @@ class HealthRecordsView extends Component {
         }
     }
 
-    getPatientHealthRecord() {
-        var patientId = this.props.selectedPatient.id;
-        console.log(patientId);
-        this.props.firebase.db
-        .collection("patients")
-        .doc(patientId)
-        .collection("health_records")
-        .orderBy("timestamp", "desc")
-        .onSnapshot(e=>{
-            this.setState({
-                patientHealthExaminationRecords: []
-            })
-            e.docs.forEach(e=>{
-                console.log(e.data().timestamp + " SASAS");
-                this.setState({
-                    tempTimestamp:e.data().timestamp.toDate(),
-                    tempNurseId: e.data().uid
-                })
-                var dateTimestamp = this.state.tempTimestamp;
-                console.log(dateTimestamp);
-                dateTimestamp = [dateTimestamp.getMonth()+1, dateTimestamp.getDate(), dateTimestamp.getFullYear()].join('/')+ ' ' +
-                [dateTimestamp.getHours(), dateTimestamp.getMinutes(), dateTimestamp.getSeconds()].join(':');
-             
-                this.props.firebase.db
-                .collection("users")
-                .doc(this.state.tempNurseId)
-                .get()
-                .then(d => { 
-
-                    this.setState({
-                        patientHealthExaminationRecords: this.state.patientHealthExaminationRecords.concat([
-                            {
-                                timestamps:  dateTimestamp,
-                                nurseId:  d.data().lastName + ", " + d.data().firstName,
-                                temperature: e.data().temperature,
-                                bloodPressure: e.data().bloodPressure,
-                                heartRate: e.data().heartRate,
-                                medications: e.data().medications,
-                                remarks: e.data().remarks,
-                                height: e.data().height,
-                                weight: e.data().weight,
-                                id: e.id,
-                            }
-                        ])
-                       })
-
-                });
-
-            })
-        })
-    }
-
     render() {
         const buttonRole = () => {
             if(this.props.userRole == "Relative") {
@@ -262,9 +189,9 @@ class HealthRecordsView extends Component {
             <div className="health-records-view">
                 <Grid fluid className="nopads">
                     <Row>
-                        <Col lg={12}>
+                        <Col lg={12} md={12} sm={12} xs={12}>
                             <Row>
-                                <Col lg={12}>
+                                <Col lg={12} md={12} sm={12} xs={12}>
                                     <div>
                                     <div className="health-conditions-card">
                                         <div className="card-header">
@@ -286,7 +213,7 @@ class HealthRecordsView extends Component {
                             </Row>
 
                             <Row>
-                                <Col lg={8}>
+                                <Col lg={8} md={8} sm={8} xs={12}>
                                     <div>
                                     <div className="health-stats-graph-card">
                                         <div className="card-header">
@@ -308,8 +235,8 @@ class HealthRecordsView extends Component {
                                     </div>
                                     </div>
                                 </Col>
-                                <Col lg={4}>
-                                    <Col lg={12} md={12} sm={4} xs={4}>
+                                <Col lg={4} md={4} sm={4} xs={12}>
+                                    <Col lg={12} md={12} sm={4} xs={12}>
                                     <div 
                                         className={"health-stats-card clickable-heart-health-stat " + (this.state.selectedHealthStatGraph === "Heart Rate" ? "clickable-heart-health-stat-active" : "")}
                                         onClick={this.setHealthStatGraph.bind(this, "Heart Rate")}
@@ -327,7 +254,7 @@ class HealthRecordsView extends Component {
                                         </div>
                                     </div>
                                     </Col>
-                                    <Col lg={12} md={12} sm={4} xs={4}>
+                                    <Col lg={12} md={12} sm={4} xs={12}>
                                     <div 
                                         className={"health-stats-card clickable-temp-health-stat " + (this.state.selectedHealthStatGraph === "Temperature" ? "clickable-temp-health-stat-active" : "")}
                                         onClick={this.setHealthStatGraph.bind(this, "Temperature")}
@@ -344,7 +271,7 @@ class HealthRecordsView extends Component {
                                         </div>
                                     </div>
                                     </Col>
-                                    <Col lg={12} md={12} sm={4} xs={4}>
+                                    <Col lg={12} md={12} sm={4} xs={12}>
                                     <div 
                                         className={"health-stats-card clickable-bp-health-stat " + (this.state.selectedHealthStatGraph === "Blood Pressure" ? "clickable-bp-health-stat-active" : "")}
                                         onClick={this.setHealthStatGraph.bind(this, "Blood Pressure")}
@@ -366,9 +293,9 @@ class HealthRecordsView extends Component {
                             </Row>
                             
                             <Row>
-                                <Col lg={12}>
+                                <Col lg={12} md={12} sm={12} xs={12}>
                                     <Row>
-                                        <Col lg={12}>
+                                        <Col lg={12} md={12} sm={12} xs={12}>
                                             <div className="health-records-card">
                                                 <div className="card-header">
                                                     <span className="health-records-label">Examination Records</span>
@@ -377,7 +304,7 @@ class HealthRecordsView extends Component {
                                                 <div className="card-content">
                                                     <p className="">
                                                         <HealthRecordsHistory 
-                                                            healthRecords={this.state.patientHealthExaminationRecords}
+                                                            healthRecords={this.props.selectedPatientHealthExamRecords}
                                                             toggleHealthExaminationRecord={this.toggleHealthExaminationRecord.bind(this)}
                                                             userRole = {this.props.userRole}
                                                         />
@@ -396,6 +323,7 @@ class HealthRecordsView extends Component {
                         closeHealthExaminationForm={this.toggleHealthExaminationForm.bind(this)}
                         selectedPatient={this.props.selectedPatient}
                         authUser = {this.props.authUser}
+                        userData = {this.props.userData}
                     />
 
                     {

@@ -31,7 +31,7 @@
 
     .activity-info-block {
         display: inline-block;
-        width: 150%;
+        width: calc(100% + 200px);
         height: 100%;
 
         transform: translate(0px, 0px);
@@ -79,14 +79,17 @@
         transition: all 300ms ease;
     }
 
-    .activity-complete-btn {
-        width: 100px;
+    .act-btn {
+        width: 80px;
         height: 70px;
+        font-size: 16px;
+    }
+    
+    .activity-complete-btn {
         background-color: #39c563;
-        display: inline-block;
+        float: right;
         color: #fff;
         font-weight: 700;
-        font-size: 10px;
         text-align: center;
         padding: 28px 8px 8px;
     }
@@ -96,13 +99,10 @@
     }
 
     .activity-delete-btn {
-        width: 100px;
-        height: 70px;
         background-color: #e26a5a;
-        display: inline-block;
+        float: right;
         color: #fff;
         font-weight: 700;
-        font-size: 10px;
         text-align: center;
         padding: 28px 8px 8px;
     }
@@ -118,7 +118,9 @@
 }
 
 .activity-block:hover {
-    border-color: #039be5;
+    .activity-header {
+        color: #039be5;
+    }
 
     -webkit-transition: all 300ms ease;
     -moz-transition: all 300ms ease;

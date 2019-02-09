@@ -1605,7 +1605,7 @@ body > .navbar-collapse:before {
       color: #fff; }
     .login .login-form .alert-block {
       /* ----- animation ----- */
-      animation: drop 0.4s ease-in both, fadeIn 0.4s ease-in both;
+      animation: drop 0.4s ease-in both, fadeIn 0.4s ease-in both;
       padding: 16px;
       width: 250px;
       margin: 8px auto;
@@ -1682,7 +1682,7 @@ body > .navbar-collapse:before {
 .feedback-card {
   margin-bottom: 16px;
   /* ----- animation ----- */
-  animation: drop 0.4s ease-in both, fadeIn 0.4s ease-in both; }
+  animation: drop 0.4s ease-in both, fadeIn 0.4s ease-in both; }
   .feedback-card .feedback-block {
     padding: 16px;
     background-color: #37be60;
@@ -2031,7 +2031,7 @@ body > .navbar-collapse:before {
           background-color: #16a9c8; }
     .search-card .search-list .diseaseinfo-card {
       /* ----- animation ----- */
-      animation: moveUp 0.4s ease-in both, fadeIn 0.4s ease-in both; }
+      animation: moveUp 0.4s ease-in both, fadeIn 0.4s ease-in both; }
 
 .activity-view .planned-activities-card {
   background-color: #fff;
@@ -2058,7 +2058,7 @@ body > .navbar-collapse:before {
   position: relative; }
   .activity-block .activity-info-block {
     display: inline-block;
-    width: 150%;
+    width: calc(100% + 200px);
     height: 100%;
     transform: translate(0px, 0px);
     -webkit-transition: all 300ms ease;
@@ -2092,26 +2092,24 @@ body > .navbar-collapse:before {
     -ms-transition: all 300ms ease;
     -o-transition: all 300ms ease;
     transition: all 300ms ease; }
-  .activity-block .activity-complete-btn {
-    width: 100px;
+  .activity-block .act-btn {
+    width: 80px;
     height: 70px;
+    font-size: 16px; }
+  .activity-block .activity-complete-btn {
     background-color: #39c563;
-    display: inline-block;
+    float: right;
     color: #fff;
     font-weight: 700;
-    font-size: 10px;
     text-align: center;
     padding: 28px 8px 8px; }
   .activity-block .activity-complete-btn:hover {
     background-color: #2ea050; }
   .activity-block .activity-delete-btn {
-    width: 100px;
-    height: 70px;
     background-color: #e26a5a;
-    display: inline-block;
+    float: right;
     color: #fff;
     font-weight: 700;
-    font-size: 10px;
     text-align: center;
     padding: 28px 8px 8px; }
   .activity-block .activity-delete-btn:hover {
@@ -2121,12 +2119,13 @@ body > .navbar-collapse:before {
     margin-top: 16px; }
 
 .activity-block:hover {
-  border-color: #039be5;
   -webkit-transition: all 300ms ease;
   -moz-transition: all 300ms ease;
   -ms-transition: all 300ms ease;
   -o-transition: all 300ms ease;
   transition: all 300ms ease; }
+  .activity-block:hover .activity-header {
+    color: #039be5; }
 
 .health-records-view .health-records-categories {
   margin: 0px 0px 24px;
@@ -2591,10 +2590,6 @@ hr.style-one {
   .patient-data-dashboard-view .health-stats-card .bp-glyph {
     color: red; }
 
-.patient-data-dashboard-view .profilepic {
-  width: 100%;
-  height: 100%; }
-
 .patient-pic-card {
   background-color: #fff;
   border-radius: 0;
@@ -2604,7 +2599,7 @@ hr.style-one {
   border-radius: .2rem;
   padding: 16px 16px 48px; }
   .patient-pic-card .patient-pic-section {
-    margin: 24px 32px; }
+    margin: 32px 64px; }
     .patient-pic-card .patient-pic-section .profilepic {
       border-radius: 50% !important;
       height: 100%;
@@ -3578,14 +3573,14 @@ hr.style-one {
   .navbar .navbar-brand {
     font-size: 18px;
     padding: 14px 0px 0px; }
-  .patient-data-dashboard-view, .nursing-home-dashboard-view, .employee-dashboard-view {
+  .patient-data-dashboard-view .view-content, .nursing-home-dashboard-view .view-content, .employee-dashboard-view .view-content {
     padding: 16px 4px !important; }
-    .patient-data-dashboard-view .header-section, .nursing-home-dashboard-view .header-section, .employee-dashboard-view .header-section {
-      padding: 8px 24px; }
-    .patient-data-dashboard-view .items-patient-card, .nursing-home-dashboard-view .items-patient-card, .employee-dashboard-view .items-patient-card {
-      margin: auto; }
-    .patient-data-dashboard-view .patient-card, .nursing-home-dashboard-view .patient-card, .employee-dashboard-view .patient-card {
-      width: 350px; } }
+  .patient-data-dashboard-view .header-section, .nursing-home-dashboard-view .header-section, .employee-dashboard-view .header-section {
+    padding: 8px 24px; }
+  .patient-data-dashboard-view .items-patient-card, .nursing-home-dashboard-view .items-patient-card, .employee-dashboard-view .items-patient-card {
+    margin: auto; }
+  .patient-data-dashboard-view .patient-card, .nursing-home-dashboard-view .patient-card, .employee-dashboard-view .patient-card {
+    width: 350px; } }
 
 @media (min-width: 992px) {
   .dashboard-card .analytics-card .data-tile .data-icon {

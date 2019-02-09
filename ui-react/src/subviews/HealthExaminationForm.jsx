@@ -16,7 +16,8 @@ export class HealthExaminationForm extends Component{
 
     handleSubmit () {
         var patientId = this.props.selectedPatient.id;
-        var nurseInCharge = this.props.authUser.uid;
+        var nurseUid = this.props.authUser.uid;
+        var nurseInCharge = this.props.userData.firstName + " " + this.props.userData.lastName;
         var weightFieldRecordValue = document.getElementById("weightFieldRecordValue").value;
         var heightFieldRecordValue = document.getElementById("heightFieldRecordValue").value;
         var heartRateFieldRecordValue = document.getElementById("heartRateFieldRecordValue").value;
@@ -54,7 +55,8 @@ export class HealthExaminationForm extends Component{
             remarks: remarksFieldRecordValue,
             temperature: temperatureFieldRecordValue,
             timestamp: timestamp,
-            uid: nurseInCharge,
+            nurseInCharge: nurseInCharge,
+            uid: nurseUid,
             weight: weightFieldRecordValue
         });
         this.props.closeHealthExaminationForm();

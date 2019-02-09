@@ -16,7 +16,7 @@ import {
 } from "react-bootstrap";
 import ActivityFeedItem from "./ActivityFeedItem";
 import ActivityPlannedItem from './ActivityPlannedItem';
-import { ActivityForm } from './ActivityForm';
+import ActivityForm from './ActivityForm';
 
 class ActivityView extends Component {
 
@@ -30,6 +30,7 @@ class ActivityView extends Component {
     componentDidMount() {
         console.log("ActivityView: componentDidMount");
         console.log(this.props.selectedPatient);
+        console.log(this.props.firebase);
     }
 
     toggleActivityForm () {
@@ -46,11 +47,23 @@ class ActivityView extends Component {
         }
     }
 
-    addActivity(){
+    completeActivity (activity) {
+        // TODO
     }
 
-    setActivityAction (action) {
+    removeActivity (activity) {
+        // TODO
+    }
+
+    setActivityAction (action, activity) {
         console.log(action);
+
+        if (action === "COMPLETE") {
+            this.completeActivity(activity);
+        }
+        else if (action === "REMOVE") {
+            this.removeActivity(activity);
+        }
     }
 
     render() {
@@ -85,9 +98,9 @@ class ActivityView extends Component {
             <div className="activity-view">
                 <Grid fluid className="nopads">
                     <Row>
-                        <Col lg={12}>
+                        <Col lg={12} md={12} sm={12} xs={12}>
                             <Row>
-                                <Col lg={6}>
+                                <Col lg={6} md={6} sm={6} xs={12}>
                                     <div>
                                     <div className="planned-activities-card">
                                         <div className="card-header">
@@ -100,7 +113,7 @@ class ActivityView extends Component {
                                     </div>
                                     </div>
                                 </Col>
-                                <Col lg={6}>
+                                <Col lg={6} md={6} sm={6} xs={12}>
                                     <div>
                                         <div className="planned-activities-card">
                                           <div className="card-header">

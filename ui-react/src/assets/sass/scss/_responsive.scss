@@ -494,8 +494,11 @@
         }
     }
     .patient-data-dashboard-view, .nursing-home-dashboard-view, .employee-dashboard-view {
-        padding: 16px 4px !important;
 
+        .view-content { 
+            padding: 16px 4px !important;
+        }
+        
         .header-section {
             padding: 8px 24px;
         }

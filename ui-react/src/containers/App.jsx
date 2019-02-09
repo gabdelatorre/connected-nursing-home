@@ -83,18 +83,23 @@ class App extends Component {
     // == Routes for authenticated users
     // ==========================================================
     else {
+
+      const userProps = {
+        userData: this.state.userData,
+        authUser: this.state.authUser
+      }
       return (
         <div className="wrapper">
           {/* <Sidebar userData={this.state.userData} /> */}
           <div id="main-panel" className="main-panel">
-            <Header userData={this.state.userData} />
+            <Header {...userProps} />
             <Switch>
               <Route
                 path="/edashboard"
                 exact
                 strict
                 render={() => (
-                  <EmployeeDashboard authUser={this.state.authUser} />
+                  <EmployeeDashboard {...userProps} />
                 )}
               />
               <Route
@@ -102,7 +107,7 @@ class App extends Component {
                 exact
                 strict
                 render={() => (
-                  <NursingHomeDashboard authUser={this.state.authUser} />
+                  <NursingHomeDashboard {...userProps} />
                 )}
               />
               <Route
@@ -110,7 +115,7 @@ class App extends Component {
                 exact
                 strict
                 render={() => (
-                  <RelativeDashboard authUser={this.state.authUser} />
+                  <RelativeDashboard {...userProps} />
                 )}
               />
             </Switch>
@@ -119,7 +124,7 @@ class App extends Component {
               path="/pdashboard"
               exact
               strict
-              render={() => <PatientDashboard authUser={this.state.authUser} />}
+              render={() => <PatientDashboard {...userProps} />}
             />
           </div>
         </div>

@@ -51,7 +51,9 @@ class PatientDashboard extends Component {
     super(props);
     this.state = {
       currentView: "PROFILE",
-      statsHistory: [],
+      statsHistoryForGraph: [],
+      patientWearableStats: [],
+      patientHealthExaminationRecords: [],
       activityFeed: [],
       plannedActivities: [],
     };
@@ -59,7 +61,8 @@ class PatientDashboard extends Component {
   }
 
   componentDidMount() {
-      this.getHealthStatsForGraph();
+      this.getPatientHealthStatsFromWearable();
+      this.getPatientHealthRecord();
       this.getActivities();
   }
 
@@ -91,26 +94,85 @@ class PatientDashboard extends Component {
       });
   }
 
-  getHealthStatsForGraph() {
+  getPatientHealthStatsFromWearable() {
     this.props.firebase.db
-    .collection("patients")
-    .doc(this.props.selectedPatient.id)
-    .collection("wearable")
-    .onSnapshot(e => {
-      e.docs.forEach(e => {
-        console.log("Wearables for: ");
-        console.log(this.props.selectedPatient);
-        console.log(e.data());
+      .collection("patients")
+      .doc(this.props.selectedPatient.id)
+      .collection("wearable")
+      .onSnapshot(e => {
+        e.docs.forEach(e => {
+          console.log("========== WEARABLES SNAPSHOT ==========");
+          console.log(this.props.selectedPatient);
+          console.log(e.data());
 
-        var tempFirestoreHeartRateData = e.data().history.slice(Math.max(e.data().history.length - 5, 1))
+          var tempFirestoreHeartRateData = e.data().history.slice(Math.max(e.data().history.length - 5, 1))
+          var tempHealthStatsData = [];
 
-        console.log(tempFirestoreHeartRateData);
+          tempFirestoreHeartRateData.forEach((data) => {
+            var tempObj = {
+              heartRate: data.state.reported.HeartRate,
+              bloodPressure: data.state.reported.BloodPressure,
+              timestamp: this.timestampFormatter(data.state.reported.timestamp),
+            }
 
-        this.setState({ 
-            statsHistory:tempFirestoreHeartRateData,
-        })
+            tempHealthStatsData.push(tempObj);
+          });
+
+          console.log(tempHealthStatsData);
+
+          this.setState({ 
+            patientWearableStats:tempHealthStatsData,
+          }, () => this.healthStatsSort());
+
+        });
       });
-    });
+  }
+
+  getPatientHealthRecord() {
+    this.props.firebase.db
+      .collection("patients")
+      .doc(this.props.selectedPatient.id)
+      .collection("health_records")
+      .orderBy("timestamp", "desc")
+      .onSnapshot(e=>{
+          this.setState({
+            patientHealthExaminationRecords: []
+          })
+
+          e.docs.forEach(e=>{
+              console.log(e.data())
+              var tempTimestamp = e.data().timestamp.toDate();
+
+              var dateTimestamp = this.timestampFormatter(tempTimestamp);
+           
+              this.setState({
+                patientHealthExaminationRecords: this.state.patientHealthExaminationRecords.concat([
+                  {
+                    timestamp:  dateTimestamp,
+                    nurseId:  e.data().uid,
+                    nurseInCharge: e.data().nurseInCharge,
+                    temperature: e.data().temperature,
+                    bloodPressure: e.data().bloodPressure,
+                    heartRate: e.data().heartRate,
+                    medications: e.data().medications,
+                    remarks: e.data().remarks,
+                    height: e.data().height,
+                    weight: e.data().weight,
+                    id: e.id,
+                  }
+                ])
+              })
+          })
+
+          this.healthStatsSort();
+      })
+  }
+
+  timestampFormatter(timestamp) {
+    var newDate = new Date(timestamp);
+
+    return [newDate.getMonth()+1, newDate.getDate(), newDate.getFullYear()].join('/')+ ' ' +
+              [newDate.getHours(), newDate.getMinutes(), newDate.getSeconds()].join(':');
   }
 
   getActivities() {
@@ -138,14 +200,48 @@ class PatientDashboard extends Component {
             if(keyA > keyB) return -1;
             return 0;
         });
-
-        console.log(tempActivityFeed);
+        
+        tempPlannedActivity.sort((a, b)=>{
+            var keyA = new Date(a.activityDate.seconds),
+                keyB = new Date(b.activityDate.seconds);
+            // Compare the 2 dates
+            if(keyA < keyB) return -1;
+            if(keyA > keyB) return 1;
+            return 0;
+        });
 
         this.setState({ 
             activityFeed:tempActivityFeed,
             plannedActivities:tempPlannedActivity
         })
     });
+  }
+
+  healthStatsSort() {
+    console.log("healthStatsSorts");
+    var tempWearableStatsSort = this.state.patientWearableStats.slice();
+    var tempHealthRecordsStatsSort = this.state.patientHealthExaminationRecords.slice();
+    
+    var combinedStats = tempWearableStatsSort.concat(tempHealthRecordsStatsSort);
+
+    console.log(tempWearableStatsSort);
+    console.log(tempHealthRecordsStatsSort);
+    console.log(combinedStats);
+
+    combinedStats.sort((a, b)=>{
+      var keyA = new Date(a.timestamp),
+          keyB = new Date(b.timestamp);
+      // Compare the 2 dates
+      if(keyA < keyB) return -1;
+      if(keyA > keyB) return 1;
+      return 0;
+    });
+
+    console.log(combinedStats);
+
+    var lastFiveStats = combinedStats.slice(Math.max(combinedStats.length - 5, 1))
+
+    this.setState({statsHistoryForGraph:lastFiveStats})
   }
 
   render() {
@@ -368,9 +464,9 @@ class PatientDashboard extends Component {
       if (this.state.currentView === "PROFILE") {
         console.log("CURRENT VIEW IS PROFILE");
         return (
-          <Col lg={9}>
+          <Col lg={9} md={9} sm={12} xs={12}>
             <Row>
-              <Col lg={4}>
+              <Col lg={4} md={4} sm={4} xs={12}>
                 <div className="health-stats-card">
                   <span className="health-stats-label">Heart Rate</span>
                   <br />
@@ -401,7 +497,7 @@ class PatientDashboard extends Component {
                   </div>
                 </div>
               </Col>
-              <Col lg={4}>
+              <Col lg={4} md={4} sm={4} xs={12}>
                 <div className="health-stats-card">
                   <span className="health-stats-label">Temperature</span>
                   <br />
@@ -423,7 +519,7 @@ class PatientDashboard extends Component {
                   </div>
                 </div>
               </Col>
-              <Col lg={4}>
+              <Col lg={4} md={4} sm={4} xs={12}>
                 <div className="health-stats-card">
                   <span className="health-stats-label">Blood Pressure</span>
                   <br />
@@ -452,7 +548,7 @@ class PatientDashboard extends Component {
               </Col>
             </Row>
             <Row>
-              <Col lg={6}>
+              <Col lg={6} md={6} sm={6} xs={12}>
                 <div>
                   <div className="patient-profile-card">
                     <div className="card-header">
@@ -485,7 +581,7 @@ class PatientDashboard extends Component {
                   </div>
                 </div>
               </Col>
-              <Col lg={6}>
+              <Col lg={6} md={6} sm={6} xs={12}>
                 <div>
                   <div className="patient-profile-card">
                     <div className="card-header">
@@ -504,18 +600,20 @@ class PatientDashboard extends Component {
         );
       } else if (this.state.currentView === "HEALTH_RECORDS") {
         return (
-            <Col lg={9}>
+            <Col lg={9} md={9} sm={12} xs={12}>
                 <HealthRecordsView
                   {...employeeDashboardProps}
                   heartAnimation={heartAnimation}
-                  selectedPatientStatsHistory={this.state.statsHistory}
+                  selectedPatientStatsHistoryForGraph={this.state.statsHistoryForGraph}
+                  selectedPatientHealthExamRecords={this.state.patientHealthExaminationRecords}
                   authUser = {this.props.authUser}
+                  userData = {this.props.userData}
                 />
             </Col>
         );
       } else if (this.state.currentView === "ACTIVITY") {
         return (
-            <Col lg={9}>
+            <Col lg={9} md={9} sm={12} xs={12}>
                 <ActivityView
                   {...employeeDashboardProps}
                   plannedActivities={this.state.plannedActivities}
@@ -525,13 +623,13 @@ class PatientDashboard extends Component {
         );
       } else if (this.state.currentView === "LIST_OF_NURSE_ASSIGNED") {
         return (
-          <Col lg={9}>
+          <Col lg={9} md={9} sm={12} xs={12}>
             <NurseAssignedListOfAvailable selectedPatient={this.props.selectedPatient} userRole={this.props.userRole}/>
           </Col>
         );
       } else if (this.state.currentView === "LIST_OF_RELATIVES") {
         return (
-          <Col lg={9}>
+          <Col lg={9} md={9} sm={12} xs={12}>
             <RelativeView selectedPatient={this.props.selectedPatient} userRole={this.props.userRole}/>
           </Col>
         );
@@ -561,23 +659,31 @@ class PatientDashboard extends Component {
         <div className="view-content">
         <Grid fluid>
           <Row>
-            <Col lg={3}>
+            <Col lg={3} md={3} sm={12} xs={12} >
               <div className="patient-pic-card">
                 <div className="options-section">
                   <Button className="patient-option-btn">
                     <Glyphicon glyph="option-vertical" />
                   </Button>
                 </div>
-                <div className="patient-pic-section">
-                  <img src={samplepic} className="profilepic" />
-                </div>
-                <div className="patient-name-section">
-                  {this.props.selectedPatient.firstName +
-                    " " +
-                    this.props.selectedPatient.lastName}
-                </div>
+                <Grid fluid className="nopads">
+                  <Row>
+                    <Col lg={12} md={12} sm={6} xs={12}>
+                      <div className="patient-pic-section">
+                        <img src={samplepic} className="profilepic" />
+                      </div>
+                      <div className="patient-name-section">
+                        {this.props.selectedPatient.firstName +
+                          " " +
+                          this.props.selectedPatient.lastName}
+                      </div>
+                    </Col>
+                    <Col lg={12} md={12} sm={6} xs={12}>
+                      {btnRole()}
+                    </Col>
+                  </Row>
+                </Grid>
 
-                {btnRole()}
               </div>
             </Col>
             {pdViewComponent()}

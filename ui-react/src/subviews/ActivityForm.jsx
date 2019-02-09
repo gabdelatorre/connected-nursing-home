@@ -3,7 +3,7 @@ import { Modal } from 'react-bootstrap';
 import {
     Grid, Row, Col, Button, FormControl
 } from 'react-bootstrap';
-import { withFirebase } from "../firebase/context";
+import { withFirebase } from "./../firebase/context";
 
 export class ActivityForm extends Component{
 
@@ -14,15 +14,37 @@ export class ActivityForm extends Component{
         }
     }
 
+    componentDidMount(){
+        console.log("Activityform");
+        console.log(this.props.firebase);
+    }
+
     handleSubmit () {
-        this.props.firebase.db.collection("patients").doc(this.props.selectedPatient.id).collection("activity").add({
-            "status": "In Progress",
-            "activityDate": this.activityDate.value,
+
+        var tm_year = this.activityDate.value.split('-')[0];
+        var tm_month = this.activityDate.value.split('-')[1];
+        var tm_day = this.activityDate.value.split('-')[2];
+        var tm_hour = this.activityTime.value.split(':')[0];
+        var tm_sec = this.activityTime.value.split(':')[1];
+
+        console.log(tm_year);
+        console.log(tm_month);
+        console.log(tm_day);
+        var timestamp = new Date(tm_year, tm_month-1, tm_day, tm_hour, tm_sec);
+        console.log(timestamp);
+
+        this.props.firebase.db
+        .collection("patients")
+        .doc(this.props.selectedPatient.id)
+        .collection("activity")
+        .doc()
+        .set({
+            "status": "Planned",
+            "activityDate": timestamp,
             "activityName": this.activityName.value,
-            "activityDesc": this.activityDesc.value
-        }).then(
-            console.log("Successful")
-        )
+            "activityDesc": this.activityDesc.value,
+            "activityDateCompleted": "",
+        })
 
         this.props.closeActivityForm();
     }
@@ -66,6 +88,22 @@ export class ActivityForm extends Component{
                                     componentClass="textarea"
                                     placeholder="" 
                                     inputRef={activityDesc => this.activityDesc = activityDesc}
+                                    defaultValue=""
+                                />
+                            </Col>
+                        </Row>
+                        <Row className="field-row-entry">
+                            <Col lg={4} md={4} sm={4} xs={4}>
+                                <h4>Start Date</h4>
+                            </Col>
+                            <Col lg={8} md={8} sm={8} xs={8}>
+                                <input className="forminput" type="date" ref={(activityDate) => this.activityDate = activityDate} />
+                                <br/>
+                                Time
+                                <FormControl 
+                                    componentClass="textarea"
+                                    placeholder="" 
+                                    inputRef={activityTime => this.activityTime = activityTime}
                                     defaultValue=""
                                 />
                             </Col>
