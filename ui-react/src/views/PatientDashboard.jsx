@@ -200,8 +200,8 @@ class PatientDashboard extends Component {
         });
         console.log(tempActivityFeed);
         tempActivityFeed.sort((a, b)=>{
-            var keyA = new Date(a.data.activityDate.seconds),
-                keyB = new Date(b.data.activityDate.seconds);
+            var keyA = new Date(a.data.activityDateCompleted.seconds),
+                keyB = new Date(b.data.activityDateCompleted.seconds);
             // Compare the 2 dates
             if(keyA < keyB) return 1;
             if(keyA > keyB) return -1;
