@@ -260,7 +260,7 @@ class HealthRecordsView extends Component {
                                     </div>
                                 </Col>
                                 <Col lg={4} md={4} sm={4} xs={12}>
-                                    <Col lg={12} md={12} sm={4} xs={12} className="nopads">
+                                    <Col lg={12} md={12} sm={12} xs={12} className="nopads">
                                     <div 
                                         className={"health-stats-card clickable-heart-health-stat " + (this.state.selectedHealthStatGraph === "Heart Rate" ? "clickable-heart-health-stat-active" : "")}
                                         onClick={this.setHealthStatGraph.bind(this, "Heart Rate")}
@@ -278,7 +278,7 @@ class HealthRecordsView extends Component {
                                         </div>
                                     </div>
                                     </Col>
-                                    <Col lg={12} md={12} sm={4} xs={12} className="nopads">
+                                    <Col lg={12} md={12} sm={12} xs={12} className="nopads">
                                     <div 
                                         className={"health-stats-card clickable-temp-health-stat " + (this.state.selectedHealthStatGraph === "Temperature" ? "clickable-temp-health-stat-active" : "")}
                                         onClick={this.setHealthStatGraph.bind(this, "Temperature")}
@@ -295,7 +295,7 @@ class HealthRecordsView extends Component {
                                         </div>
                                     </div>
                                     </Col>
-                                    <Col lg={12} md={12} sm={4} xs={12} className="nopads">
+                                    <Col lg={12} md={12} sm={12} xs={12} className="nopads">
                                     <div 
                                         className={"health-stats-card clickable-bp-health-stat " + (this.state.selectedHealthStatGraph === "Blood Pressure" ? "clickable-bp-health-stat-active" : "")}
                                         onClick={this.setHealthStatGraph.bind(this, "Blood Pressure")}
@@ -319,7 +319,7 @@ class HealthRecordsView extends Component {
                             <Row>
                                 <Col lg={12} md={12} sm={12} xs={12}>
                                     <Row>
-                                        <Col lg={12} md={12} sm={12} xs={12}>
+                                        <Col lg={8} md={8} sm={8} xs={12}>
                                             <div className="health-records-card">
                                                 <div className="card-header">
                                                     <span className="health-records-label">Examination Records</span>

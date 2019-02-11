@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { Grid, Row, Col, Glyphicon } from 'react-bootstrap';
 import Avatar from 'react-avatar';
 import moment from "moment";
+import { consolidateStreamedStyles } from 'styled-components';
+import { withFirebase } from '../firebase';
 
 class ActivityPlannedItem extends Component {
 
@@ -26,7 +28,18 @@ class ActivityPlannedItem extends Component {
     }
 
     setAction (action, activity) {
-        this.props.setAction(action, activity);
+        if(action == "REMOVE") {
+            this.props.firebase.db.collection("patients").doc(activity.patientId).collection("activity").doc(activity.id).delete().then(e=>{
+                console.log("REMOVED")
+            });
+        } else if(action == "COMPLETE") {
+            this.props.firebase.db.collection("patients").doc(activity.patientId).collection("activity").doc(activity.id).update({
+                "status": "Completed",
+                "activityDateCompleted": new Date(),
+            }).then(e=>{
+                console.log("COMPLETE")
+            });
+        }
     }
 
     render() {
@@ -38,8 +51,8 @@ class ActivityPlannedItem extends Component {
                     <Row>
                         <Col lg={8} md={8} sm={8} xs={8}>
                             <div className="activity-block-info">
-                                <h4 className="activity-header-2">{moment.unix(this.props.activity.activityDate.seconds).format("lll")}</h4>
-                                <h4 className="activity-header">{this.props.activity.activityName}</h4>
+                                <h4 className="activity-header-2">{moment.unix(this.props.activity.data.activityDate.seconds).format("lll")}</h4>
+                                <h4 className="activity-header">{this.props.activity.data.activityName}</h4>
                             </div>
                         </Col>
                         <div className="activity-complete-btn act-btn" onClick={this.setAction.bind(this, "COMPLETE", this.props.activity)}>
@@ -55,4 +68,4 @@ class ActivityPlannedItem extends Component {
     }
 }
 
-export default ActivityPlannedItem;
+export default withFirebase(ActivityPlannedItem);

@@ -47,47 +47,6 @@ class ActivityView extends Component {
         }
     }
 
-    completeActivity (activity) {
-        console.log("completeActivity");
-        console.log(activity);
-
-        this.props.firebase.db
-        .collection("patients")
-        .doc(this.props.selectedPatient.id)
-        .collection("activity")
-        .doc(activity.id)
-        .update({
-            "status": "Completed",
-            "activityDateCompleted": new Date(),
-        })
-    }
-
-    removeActivity (activity) {
-        console.log("removeActivity");
-        console.log(activity);
-
-        this.props.firebase.db
-        .collection("patients")
-        .doc(this.props.selectedPatient.id)
-        .collection("activity")
-        .doc(activity.id)
-        .delete()
-        .then(e => {
-            console.log("Delete Successful!");
-        });
-    }
-
-    setActivityAction (action, activity) {
-        console.log(action);
-
-        if (action === "COMPLETE") {
-            this.completeActivity(activity);
-        }
-        else if (action === "REMOVE") {
-            this.removeActivity(activity);
-        }
-    }
-
     render() {
 
         const buttonRole = () => {
@@ -111,7 +70,7 @@ class ActivityView extends Component {
             console.log(activity);
             return (
                 <div className="activity-block">
-                <ActivityPlannedItem selectedPatient={this.props.selectedPatient} activity={activity} setAction={this.setActivityAction.bind(this)}/>
+                <ActivityPlannedItem selectedPatient={this.props.selectedPatient} activity={activity}/>
                 </div>
             )
         })

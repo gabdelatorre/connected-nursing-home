@@ -89,7 +89,7 @@
     
     .clickable-heart-health-stat-active::after {
         position: absolute;
-        left: 15px;
+        left: 0px;
         top: 37px;
         height: 64px;
         width: 5px;
@@ -99,7 +99,7 @@
 
     .clickable-heart-health-stat:hover::after {
         position: absolute;
-        left: 15px;
+        left: 0px;
         top: 37px;
         height: 64px;
         width: 5px;
@@ -109,7 +109,7 @@
     
     .clickable-temp-health-stat-active::after {
         position: absolute;
-        left: 15px;
+        left: 0px;
         // top: 225px;
         top: 37px;
         height: 64px;
@@ -120,7 +120,7 @@
 
     .clickable-temp-health-stat:hover::after {
         position: absolute;
-        left: 15px;
+        left: 0px;
         // top: 225px;
         top: 37px;
         height: 64px;
@@ -131,7 +131,7 @@
     
     .clickable-bp-health-stat-active::after {
         position: absolute;
-        left: 15px;
+        left: 0px;
         // top: 415px;
         top: 37px;
         height: 64px;
@@ -142,7 +142,7 @@
 
     .clickable-bp-health-stat:hover::after {
         position: absolute;
-        left: 15px;
+        left: 0px;
         // top: 415px;
         top: 37px;
         height: 64px;

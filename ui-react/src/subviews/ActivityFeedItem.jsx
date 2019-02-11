@@ -25,6 +25,7 @@ class ActivityFeedItem extends Component {
     }
 
     componentDidMount() {
+        console.log(this.props);
     }
 
     render() {
@@ -33,10 +34,10 @@ class ActivityFeedItem extends Component {
             <div className="activity-feed-item">
                 <Row>
                     <Col lg={8}>
-                        <p className="activitydesc"> <b>{this.props.selectedPatient.firstName + " " + this.props.selectedPatient.lastName} </b> engaged in <b>{this.props.activity.activityName}</b> </p>
+                        <p className="activitydesc"> <b>{this.props.selectedPatient.firstName + " " + this.props.selectedPatient.lastName} </b> engaged in <b>{this.props.activity.data.activityName}</b> </p>
                     </Col>
                     <Col lg={4}>
-                        <p className="activitytime"> {moment.unix(this.props.activity.activityDateCompleted.seconds)
+                        <p className="activitytime"> {moment.unix(this.props.activity.data.activityDateCompleted.seconds)
                           .format("lll")} </p>
                     </Col>
                 </Row>

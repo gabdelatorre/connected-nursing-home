@@ -5,7 +5,7 @@
     box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.025);
     border-radius: 0.2rem;
     margin-bottom: 32px;
-    height:480px;
+
     .nurseCardTitle {
         margin: 2%;
         font-size: 16px ;
@@ -31,7 +31,7 @@
         flex-direction: row;
         width: 100%;
         flex-wrap: wrap;
-        justify-content: center;
+        justify-content: flex-start;
         align-items: baseline;
         margin: 0.5%;
         overflow-y: scroll;

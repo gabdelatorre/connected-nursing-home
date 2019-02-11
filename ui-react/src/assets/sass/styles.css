@@ -2234,7 +2234,7 @@ body > .navbar-collapse:before {
 
 .health-records-view .clickable-heart-health-stat-active::after {
   position: absolute;
-  left: 15px;
+  left: 0px;
   top: 37px;
   height: 64px;
   width: 5px;
@@ -2243,7 +2243,7 @@ body > .navbar-collapse:before {
 
 .health-records-view .clickable-heart-health-stat:hover::after {
   position: absolute;
-  left: 15px;
+  left: 0px;
   top: 37px;
   height: 64px;
   width: 5px;
@@ -2252,7 +2252,7 @@ body > .navbar-collapse:before {
 
 .health-records-view .clickable-temp-health-stat-active::after {
   position: absolute;
-  left: 15px;
+  left: 0px;
   top: 37px;
   height: 64px;
   width: 5px;
@@ -2261,7 +2261,7 @@ body > .navbar-collapse:before {
 
 .health-records-view .clickable-temp-health-stat:hover::after {
   position: absolute;
-  left: 15px;
+  left: 0px;
   top: 37px;
   height: 64px;
   width: 5px;
@@ -2270,7 +2270,7 @@ body > .navbar-collapse:before {
 
 .health-records-view .clickable-bp-health-stat-active::after {
   position: absolute;
-  left: 15px;
+  left: 0px;
   top: 37px;
   height: 64px;
   width: 5px;
@@ -2279,7 +2279,7 @@ body > .navbar-collapse:before {
 
 .health-records-view .clickable-bp-health-stat:hover::after {
   position: absolute;
-  left: 15px;
+  left: 0px;
   top: 37px;
   height: 64px;
   width: 5px;
@@ -2555,8 +2555,7 @@ hr.style-one {
   margin-bottom: 24px;
   border: 1px solid #e5e9f2;
   box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.025);
-  border-radius: .2rem;
-  min-height: 300px; }
+  border-radius: .2rem; }
   .patient-data-dashboard-view .patient-profile-card .patient-profile-label {
     font-weight: bold; }
 
@@ -2808,8 +2807,7 @@ hr.style-one {
   border: 1px solid #e5e9f2;
   box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.025);
   border-radius: 0.2rem;
-  margin-bottom: 32px;
-  height: 480px; }
+  margin-bottom: 32px; }
   .my-nurses-card .nurseCardTitle {
     margin: 2%;
     font-size: 16px;
@@ -2828,7 +2826,7 @@ hr.style-one {
     flex-direction: row;
     width: 100%;
     flex-wrap: wrap;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: baseline;
     margin: 0.5%;
     overflow-y: scroll; }

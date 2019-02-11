@@ -184,23 +184,24 @@ class PatientDashboard extends Component {
     .onSnapshot(e => {
         var tempActivityFeed = [];
         var tempPlannedActivity = [];
+        var tempActivity = {}
 
         e.docs.forEach(e => {
-            var tempObj = {
-                ...e.data(),
-                id: e.id
-            }
-
+          tempActivity = {
+            "data": e.data(),
+            "id": e.id,
+            "patientId": this.props.selectedPatient.id
+          }
             if (e.data().status === "Completed") {
-                tempActivityFeed.push(tempObj) 
+                tempActivityFeed.push(tempActivity) 
             } else {
-                tempPlannedActivity.push(tempObj)
+                tempPlannedActivity.push(tempActivity)
             }
         });
-
+        console.log(tempActivityFeed);
         tempActivityFeed.sort((a, b)=>{
-            var keyA = new Date(a.activityDateCompleted.seconds),
-                keyB = new Date(b.activityDateCompleted.seconds);
+            var keyA = new Date(a.data.activityDate.seconds),
+                keyB = new Date(b.data.activityDate.seconds);
             // Compare the 2 dates
             if(keyA < keyB) return 1;
             if(keyA > keyB) return -1;
@@ -208,8 +209,8 @@ class PatientDashboard extends Component {
         });
         
         tempPlannedActivity.sort((a, b)=>{
-            var keyA = new Date(a.activityDate.seconds),
-                keyB = new Date(b.activityDate.seconds);
+          var keyA = new Date(a.data.activityDate.seconds),
+              keyB = new Date(b.data.activityDate.seconds);
             // Compare the 2 dates
             if(keyA < keyB) return -1;
             if(keyA > keyB) return 1;
@@ -491,8 +492,6 @@ class PatientDashboard extends Component {
                           <br />
                           <h4 className="card-content-title">Birthday</h4>{" "}
                           {this.props.selectedPatient.birthdate}
-                          <br />
-                          <br />
                         </Col>
                         <Col lg={6}>
                           <h4 className="card-content-title">Height</h4>{" "}
@@ -501,11 +500,8 @@ class PatientDashboard extends Component {
                           <br />
                           <h4 className="card-content-title">Weight</h4>{" "}
                           {this.props.selectedPatientVitalStats.weight}
-                          <br />
-                          <br />
                         </Col>
                       </Row>
-                      <h4 className="card-content-title">Address</h4> ?
                     </div>
                   </div>
                   
@@ -519,12 +515,12 @@ class PatientDashboard extends Component {
                         ?
                         <div className="upnext-content">
                             <Col lg={3} md={3} sm={3} xs={3}> 
-                                <p className="upnextdate">{moment.unix(nextActivity.activityDate.seconds)
+                                <p className="upnextdate">{moment.unix(nextActivity.data.activityDate.seconds)
                                 .format("ddd, h:mmA")}
                                 </p>
                             </Col>
                             <Col lg={9} md={9} sm={9} xs={9}> 
-                                <p><b>{this.props.selectedPatient.firstName}</b>'s next activity is &nbsp; <b>{nextActivity.activityName}</b>.</p>
+                                <p><b>{this.props.selectedPatient.firstName}</b>'s next activity is &nbsp; <b>{nextActivity.data.activityName}</b>.</p>
                             </Col>
                         </div>
                         :
@@ -546,7 +542,7 @@ class PatientDashboard extends Component {
                 </div>
               </Col>
               <Col lg={4} md={4} sm={4} xs={12}>
-                <Col lg={12} md={12} sm={4} xs={12} className="nopads">
+                <Col lg={12} md={12} sm={12} xs={12} className="nopads">
                   <div className="health-stats-card">
                     <span className="health-stats-label">Heart Rate</span>
                     <br />
@@ -577,7 +573,7 @@ class PatientDashboard extends Component {
                     </div>
                   </div>
                 </Col>
-                <Col lg={12} md={12} sm={4} xs={12} className="nopads">
+                <Col lg={12} md={12} sm={12} xs={12} className="nopads">
                   <div className="health-stats-card">
                     <span className="health-stats-label">Temperature</span>
                     <br />
@@ -599,7 +595,7 @@ class PatientDashboard extends Component {
                     </div>
                   </div>
                 </Col>
-                <Col lg={12} md={12} sm={4} xs={12} className="nopads">
+                <Col lg={12} md={12} sm={12} xs={12} className="nopads">
                   <div className="health-stats-card">
                     <span className="health-stats-label">Blood Pressure</span>
                     <br />
