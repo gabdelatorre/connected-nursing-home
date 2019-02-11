@@ -56,6 +56,7 @@ class PatientDashboard extends Component {
       patientHealthExaminationRecords: [],
       activityFeed: [],
       plannedActivities: [],
+      nextActivity: "",
     };
 
   }
@@ -185,16 +186,21 @@ class PatientDashboard extends Component {
         var tempPlannedActivity = [];
 
         e.docs.forEach(e => {
+            var tempObj = {
+                ...e.data(),
+                id: e.id
+            }
+
             if (e.data().status === "Completed") {
-                tempActivityFeed.push(e.data()) 
+                tempActivityFeed.push(tempObj) 
             } else {
-                tempPlannedActivity.push(e.data())
+                tempPlannedActivity.push(tempObj)
             }
         });
 
         tempActivityFeed.sort((a, b)=>{
-            var keyA = new Date(a.activityDate.seconds),
-                keyB = new Date(b.activityDate.seconds);
+            var keyA = new Date(a.activityDateCompleted.seconds),
+                keyB = new Date(b.activityDateCompleted.seconds);
             // Compare the 2 dates
             if(keyA < keyB) return 1;
             if(keyA > keyB) return -1;
@@ -232,16 +238,16 @@ class PatientDashboard extends Component {
       var keyA = new Date(a.timestamp),
           keyB = new Date(b.timestamp);
       // Compare the 2 dates
-      if(keyA < keyB) return -1;
-      if(keyA > keyB) return 1;
+      if(keyA < keyB) return 1;
+      if(keyA > keyB) return -1;
       return 0;
     });
 
     console.log(combinedStats);
 
-    var lastFiveStats = combinedStats.slice(Math.max(combinedStats.length - 5, 1))
+    //var lastFiveStats = combinedStats.slice(Math.max(combinedStats.length - 5, 1))
 
-    this.setState({statsHistoryForGraph:lastFiveStats})
+    this.setState({statsHistoryForGraph:combinedStats})
   }
 
   render() {
@@ -460,95 +466,18 @@ class PatientDashboard extends Component {
         )
     })
 
+    var nextActivity = "";
+    if (this.state.plannedActivities.length != 0) {
+        nextActivity = this.state.plannedActivities[0]
+    }
+    
     var pdViewComponent = () => {
       if (this.state.currentView === "PROFILE") {
         console.log("CURRENT VIEW IS PROFILE");
         return (
           <Col lg={9} md={9} sm={12} xs={12}>
             <Row>
-              <Col lg={4} md={4} sm={4} xs={12}>
-                <div className="health-stats-card">
-                  <span className="health-stats-label">Heart Rate</span>
-                  <br />
-                  <div>
-                    <div className="stats-segment-1">
-                      <p className="heartrate-bpm">
-                        {this.props.selectedPatientVitalStats.heartRate}
-                      </p>
-                    </div>
-                    <div className="stats-segment-2">
-                      <p className="heartrate-bpm-label">BPM</p>
-                      <Glyphicon
-                        glyph="heart"
-                        className="heart-glyph"
-                        style={heartAnimation}
-                      />
-                    </div>
-                    <div className="stats-last-update">
-                      <p className="lastupdate">
-                        {" "}
-                        <b>Last Update: </b> &nbsp;{" "}
-                        {moment(
-                            this.props.selectedPatientVitalStats.timestamp
-                          )
-                          .format("lll")}{" "}
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </Col>
-              <Col lg={4} md={4} sm={4} xs={12}>
-                <div className="health-stats-card">
-                  <span className="health-stats-label">Temperature</span>
-                  <br />
-                  <div>
-                    <div className="stats-segment-1">
-                      <p className="heartrate-bpm">
-                        {this.props.selectedPatientVitalStats.temperature}
-                      </p>
-                    </div>
-                    <div className="stats-segment-3">
-                      <p className="heartrate-bpm-label">°C</p>
-                    </div>
-                    <div className="stats-last-update">
-                      <p className="lastupdate">
-                        {" "}
-                        <b>Last Update: </b> &nbsp; {}{" "}
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </Col>
-              <Col lg={4} md={4} sm={4} xs={12}>
-                <div className="health-stats-card">
-                  <span className="health-stats-label">Blood Pressure</span>
-                  <br />
-                  <div>
-                    <div className="stats-segment-1">
-                      <p className="heartrate-bpm">
-                        {this.props.selectedPatientVitalStats.bloodPressure}
-                      </p>
-                    </div>
-                    <div className="stats-segment-2">
-                      <p className="heartrate-bpm-label">mmHg</p>
-                      <Glyphicon glyph="tint" className="bp-glyph" />
-                    </div>
-                    <div className="stats-last-update">
-                      <p className="lastupdate">
-                        {" "}
-                        <b>Last Update: </b> &nbsp;{" "}
-                        {moment(
-                            this.props.selectedPatientVitalStats.timestamp
-                          )
-                          .format("lll")}{" "}
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </Col>
-            </Row>
-            <Row>
-              <Col lg={6} md={6} sm={6} xs={12}>
+              <Col lg={8} md={8} sm={8} xs={12}>
                 <div>
                   <div className="patient-profile-card">
                     <div className="card-header">
@@ -579,10 +508,31 @@ class PatientDashboard extends Component {
                       <h4 className="card-content-title">Address</h4> ?
                     </div>
                   </div>
-                </div>
-              </Col>
-              <Col lg={6} md={6} sm={6} xs={12}>
-                <div>
+                  
+                  <div className="patient-nextact-card">
+                    <div className="card-header">
+                        <div className="card-label">Up Next</div>
+                    </div>
+                    <div className="card-content">
+                    {
+                        nextActivity !== ""
+                        ?
+                        <div className="upnext-content">
+                            <Col lg={3} md={3} sm={3} xs={3}> 
+                                <p className="upnextdate">{moment.unix(nextActivity.activityDate.seconds)
+                                .format("ddd, h:mmA")}
+                                </p>
+                            </Col>
+                            <Col lg={9} md={9} sm={9} xs={9}> 
+                                <p><b>{this.props.selectedPatient.firstName}</b>'s next activity is &nbsp; <b>{nextActivity.activityName}</b>.</p>
+                            </Col>
+                        </div>
+                        :
+                        <p><b>{this.props.selectedPatient.firstName}</b> has no upcoming planned activity. </p>
+                    }
+                    </div>
+                  </div>
+
                   <div className="patient-profile-card">
                     <div className="card-header">
                       <span className="patient-profile-label">
@@ -594,6 +544,88 @@ class PatientDashboard extends Component {
                     </div>
                   </div>
                 </div>
+              </Col>
+              <Col lg={4} md={4} sm={4} xs={12}>
+                <Col lg={12} md={12} sm={4} xs={12} className="nopads">
+                  <div className="health-stats-card">
+                    <span className="health-stats-label">Heart Rate</span>
+                    <br />
+                    <div>
+                      <div className="stats-segment-1">
+                        <p className="heartrate-bpm">
+                          {this.props.selectedPatientVitalStats.heartRate}
+                        </p>
+                      </div>
+                      <div className="stats-segment-2">
+                        <p className="heartrate-bpm-label">BPM</p>
+                        <Glyphicon
+                          glyph="heart"
+                          className="heart-glyph"
+                          style={heartAnimation}
+                        />
+                      </div>
+                      <div className="stats-last-update">
+                        <p className="lastupdate">
+                          {" "}
+                          <b>Last Update: </b> &nbsp;{" "}
+                          {moment(
+                              this.props.selectedPatientVitalStats.timestamp
+                            )
+                            .format("lll")}{" "}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </Col>
+                <Col lg={12} md={12} sm={4} xs={12} className="nopads">
+                  <div className="health-stats-card">
+                    <span className="health-stats-label">Temperature</span>
+                    <br />
+                    <div>
+                      <div className="stats-segment-1">
+                        <p className="heartrate-bpm">
+                          {this.props.selectedPatientVitalStats.temperature}
+                        </p>
+                      </div>
+                      <div className="stats-segment-3">
+                        <p className="heartrate-bpm-label">°C</p>
+                      </div>
+                      <div className="stats-last-update">
+                        <p className="lastupdate">
+                          {" "}
+                          <b>Last Update: </b> &nbsp; {}{" "}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </Col>
+                <Col lg={12} md={12} sm={4} xs={12} className="nopads">
+                  <div className="health-stats-card">
+                    <span className="health-stats-label">Blood Pressure</span>
+                    <br />
+                    <div>
+                      <div className="stats-segment-1">
+                        <p className="heartrate-bpm">
+                          {this.props.selectedPatientVitalStats.bloodPressure}
+                        </p>
+                      </div>
+                      <div className="stats-segment-2">
+                        <p className="heartrate-bpm-label">mmHg</p>
+                        <Glyphicon glyph="tint" className="bp-glyph" />
+                      </div>
+                      <div className="stats-last-update">
+                        <p className="lastupdate">
+                          {" "}
+                          <b>Last Update: </b> &nbsp;{" "}
+                          {moment(
+                              this.props.selectedPatientVitalStats.timestamp
+                            )
+                            .format("lll")}{" "}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </Col>
               </Col>
             </Row>
           </Col>

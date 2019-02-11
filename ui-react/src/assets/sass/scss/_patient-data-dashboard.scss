@@ -1,28 +1,5 @@
 .patient-data-dashboard-view {
 
-    .card-header {
-        padding: 24px;
-        border-bottom: 1px solid #e5e9f2;
-    }
-
-    .card-content {
-        padding: 24px;
-        font-size: 14px;
-        line-height: 90%;
-
-        .card-content-title {
-            font-size: 10px;
-            text-transform: uppercase;
-            font-weight: bold;
-            margin: 0;
-            padding: 0;
-        }
-    }
-
-    .card-label {
-        font-weight: bold;
-    }
-
     .profile-card {
         background-color: #fff;
         padding: 32px;
@@ -166,28 +143,21 @@
     }
 }
 
-.activity-feed {
-    padding: 0px 24px;
-    font-size: 16px;
-    line-height: 90%;
+.patient-nextact-card {
+    background-color: #fff;
+    border-radius: 0;
+    margin-bottom: 24px;
+    border: 1px solid #e5e9f2;
+    box-shadow: 0 0.25rem 0.5rem rgba(0,0,0,.025);
+    border-radius: .2rem;
 
-    .activity-feed-item {
-        padding: 24px 16px;
-        border-bottom: 1px solid #eee;
-        min-height: 80px;
+    .upnext-content {
+        height: 20px;
+    }
 
-        .activityicon {
-            font-size: 14px;
-        }
-
-        .activitydesc{
-            font-size: 12px;
-        }
-
-        .activitytime {
-            font-size: 10px;
-            float: right;
-        }
+    .upnextdate {
+        font-size: 12px;
+        color: #858585;
     }
 }
 

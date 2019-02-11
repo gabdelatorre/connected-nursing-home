@@ -32,14 +32,11 @@ class ActivityFeedItem extends Component {
         return (
             <div className="activity-feed-item">
                 <Row>
-                    <Col lg={2}>
-                        <Glyphicon glyph="apple" className="activityicon"/>
-                    </Col>
                     <Col lg={8}>
                         <p className="activitydesc"> <b>{this.props.selectedPatient.firstName + " " + this.props.selectedPatient.lastName} </b> engaged in <b>{this.props.activity.activityName}</b> </p>
                     </Col>
-                    <Col lg={2}>
-                        <p className="activitytime"> {moment.unix(this.props.activity.activityDate.seconds)
+                    <Col lg={4}>
+                        <p className="activitytime"> {moment.unix(this.props.activity.activityDateCompleted.seconds)
                           .format("lll")} </p>
                     </Col>
                 </Row>

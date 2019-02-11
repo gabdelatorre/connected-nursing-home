@@ -746,17 +746,9 @@ class NursingHomeDashboard extends Component {
       return (
         <div className="nursing-home-dashboard-view">
           <div className="header-section">
-            <h3>Nursing Home Dashboard</h3>
-          </div>
-
-          <div className="dashboard-card">
-            hi
-          </div>
-
-          <div className="header-section">
             <h3>Nursing Home Patients</h3>
           </div>
-
+          <div className="view-content">
           <div className="search-bar-section">
             <div className="bar-dropdown">
                 <FormControl
@@ -871,6 +863,7 @@ class NursingHomeDashboard extends Component {
               <div className="containerModalButtons" />
             </div>
           </Modal> */}
+        </div>
         </div>
       );
     }

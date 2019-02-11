@@ -128,3 +128,31 @@
     -o-transition: all 300ms ease;
     transition: all 300ms ease;
 }
+
+.activity-feed {
+    padding: 0px 24px;
+    font-size: 16px;
+    line-height: 90%;
+    max-height: 540px;
+    overflow: auto;
+
+    .activity-feed-item {
+        padding: 24px 16px;
+        border-bottom: 1px solid #eee;
+
+        .activityicon {
+            font-size: 14px;
+        }
+
+        .activitydesc{
+            font-size: 12px;
+        }
+
+        .activitytime {
+            font-size: 10px;
+            float: right;
+        }
+
+        p { margin: 0; }
+    }
+}

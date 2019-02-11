@@ -48,11 +48,33 @@ class ActivityView extends Component {
     }
 
     completeActivity (activity) {
-        // TODO
+        console.log("completeActivity");
+        console.log(activity);
+
+        this.props.firebase.db
+        .collection("patients")
+        .doc(this.props.selectedPatient.id)
+        .collection("activity")
+        .doc(activity.id)
+        .update({
+            "status": "Completed",
+            "activityDateCompleted": new Date(),
+        })
     }
 
     removeActivity (activity) {
-        // TODO
+        console.log("removeActivity");
+        console.log(activity);
+
+        this.props.firebase.db
+        .collection("patients")
+        .doc(this.props.selectedPatient.id)
+        .collection("activity")
+        .doc(activity.id)
+        .delete()
+        .then(e => {
+            console.log("Delete Successful!");
+        });
     }
 
     setActivityAction (action, activity) {
@@ -100,7 +122,7 @@ class ActivityView extends Component {
                     <Row>
                         <Col lg={12} md={12} sm={12} xs={12}>
                             <Row>
-                                <Col lg={6} md={6} sm={6} xs={12}>
+                                <Col lg={5} md={5} sm={5} xs={12}>
                                     <div>
                                     <div className="planned-activities-card">
                                         <div className="card-header">
@@ -113,7 +135,7 @@ class ActivityView extends Component {
                                     </div>
                                     </div>
                                 </Col>
-                                <Col lg={6} md={6} sm={6} xs={12}>
+                                <Col lg={7} md={7} sm={7} xs={12}>
                                     <div>
                                         <div className="planned-activities-card">
                                           <div className="card-header">

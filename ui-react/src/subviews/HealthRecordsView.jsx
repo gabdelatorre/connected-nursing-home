@@ -59,7 +59,7 @@ class HealthRecordsView extends Component {
                 points: []
             },
             {
-                color: "blue",
+                color: "#039be5",
                 points: []
             },
         ]
@@ -67,28 +67,52 @@ class HealthRecordsView extends Component {
         var tempTemperatureHistory = [
             {
                 color: "red",
-                points: [{x: 1, y: 37.2}, {x: 2, y: 38}, ]
+                points: []
             },
         ]
 
+        var heartRateCtr = 0;
+        var bloodPressureCtr = 0;
+        var tempCtr = 0;
         this.props.selectedPatientStatsHistoryForGraph.forEach((record) => {
 
-            tempHeartRateHistory[0].points.push({
-                x: tempHeartRateHistory[0].points.length + 1,
-                y: parseInt(record.heartRate)
-            })
+            if (heartRateCtr < 5) {
+                tempHeartRateHistory[0].points.push({
+                    x: 5-heartRateCtr,
+                    y: parseInt(record.heartRate)
+                })
+                heartRateCtr++;
+            }
 
-            // Systolic
-            tempBloodPressureHistory[0].points.push({
-                x: tempBloodPressureHistory[0].points.length + 1,
-                y: parseInt(record.bloodPressure.split('/')[0])
-            })
+            if (bloodPressureCtr < 5) {
+                // Systolic
+                tempBloodPressureHistory[0].points.push({
+                    x: 5-bloodPressureCtr,
+                    y: parseInt(record.bloodPressure.split('/')[0])
+                })
 
-            // Diastolic
-            tempBloodPressureHistory[1].points.push({
-                x: tempBloodPressureHistory[1].points.length + 1,
-                y: parseInt(record.bloodPressure.split('/')[1])
-            })
+                // Diastolic
+                tempBloodPressureHistory[1].points.push({
+                    x: 5-bloodPressureCtr,
+                    y: parseInt(record.bloodPressure.split('/')[1])
+                })
+                bloodPressureCtr++;
+            }
+
+            if (tempCtr < 5) {
+                if (record["temperature"]) {
+                    tempTemperatureHistory[0].points.push({
+                        x: 5-tempCtr,
+                        y: parseFloat(record.temperature)
+                    })
+
+                    tempCtr++;
+                }
+            }
+
+            console.log(heartRateCtr);
+            console.log(bloodPressureCtr);
+            console.log(tempCtr);
         })
 
 
@@ -236,7 +260,7 @@ class HealthRecordsView extends Component {
                                     </div>
                                 </Col>
                                 <Col lg={4} md={4} sm={4} xs={12}>
-                                    <Col lg={12} md={12} sm={4} xs={12}>
+                                    <Col lg={12} md={12} sm={4} xs={12} className="nopads">
                                     <div 
                                         className={"health-stats-card clickable-heart-health-stat " + (this.state.selectedHealthStatGraph === "Heart Rate" ? "clickable-heart-health-stat-active" : "")}
                                         onClick={this.setHealthStatGraph.bind(this, "Heart Rate")}
@@ -254,7 +278,7 @@ class HealthRecordsView extends Component {
                                         </div>
                                     </div>
                                     </Col>
-                                    <Col lg={12} md={12} sm={4} xs={12}>
+                                    <Col lg={12} md={12} sm={4} xs={12} className="nopads">
                                     <div 
                                         className={"health-stats-card clickable-temp-health-stat " + (this.state.selectedHealthStatGraph === "Temperature" ? "clickable-temp-health-stat-active" : "")}
                                         onClick={this.setHealthStatGraph.bind(this, "Temperature")}
@@ -271,7 +295,7 @@ class HealthRecordsView extends Component {
                                         </div>
                                     </div>
                                     </Col>
-                                    <Col lg={12} md={12} sm={4} xs={12}>
+                                    <Col lg={12} md={12} sm={4} xs={12} className="nopads">
                                     <div 
                                         className={"health-stats-card clickable-bp-health-stat " + (this.state.selectedHealthStatGraph === "Blood Pressure" ? "clickable-bp-health-stat-active" : "")}
                                         onClick={this.setHealthStatGraph.bind(this, "Blood Pressure")}

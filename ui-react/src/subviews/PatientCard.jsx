@@ -41,13 +41,7 @@ class PatientCard extends Component {
               {this.props.firstName + " " + this.props.lastName}
             </b>
           </CardTitle>
-          <div className="profile-section">
-            <hr/>
-            <b>Birthdate:</b> {this.props.birthdate}
-            <br />
-            <b>Nurse Assigned:</b> {this.props.nurseAssigned}
-          </div>
-          <br/>
+          <hr/>
           <div className="vital-stats-section">
             <Grid fluid>
               <Row>

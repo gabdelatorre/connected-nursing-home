@@ -58,6 +58,26 @@ option {
 .nopads {
   padding: 0; }
 
+.card-header {
+  padding: 24px;
+  border-bottom: 1px solid #e5e9f2; }
+
+.card-content {
+  padding: 24px;
+  font-size: 14px;
+  line-height: 90%; }
+  .card-content .card-content-title {
+    font-size: 10px;
+    text-transform: uppercase;
+    font-weight: bold;
+    margin: 0;
+    padding: 0; }
+  .card-content p {
+    font-size: 12px !important; }
+
+.card-label {
+  font-weight: bold; }
+
 .breadcrumbs-view {
   margin-bottom: 40px;
   padding-left: 16px;
@@ -588,7 +608,7 @@ body > .navbar-collapse:before {
   background-color: #fff;
   color: #039be5;
   font-size: 10px;
-  border-radius: 4px;
+  border-radius: .2rem;
   text-transform: uppercase;
   font-weight: bold;
   border: 1px solid #039be5;
@@ -1605,7 +1625,7 @@ body > .navbar-collapse:before {
       color: #fff; }
     .login .login-form .alert-block {
       /* ----- animation ----- */
-      animation: drop 0.4s ease-in both, fadeIn 0.4s ease-in both;
+      animation: drop 0.4s ease-in both, fadeIn 0.4s ease-in both;
       padding: 16px;
       width: 250px;
       margin: 8px auto;
@@ -1682,7 +1702,7 @@ body > .navbar-collapse:before {
 .feedback-card {
   margin-bottom: 16px;
   /* ----- animation ----- */
-  animation: drop 0.4s ease-in both, fadeIn 0.4s ease-in both; }
+  animation: drop 0.4s ease-in both, fadeIn 0.4s ease-in both; }
   .feedback-card .feedback-block {
     padding: 16px;
     background-color: #37be60;
@@ -2031,7 +2051,7 @@ body > .navbar-collapse:before {
           background-color: #16a9c8; }
     .search-card .search-list .diseaseinfo-card {
       /* ----- animation ----- */
-      animation: moveUp 0.4s ease-in both, fadeIn 0.4s ease-in both; }
+      animation: moveUp 0.4s ease-in both, fadeIn 0.4s ease-in both; }
 
 .activity-view .planned-activities-card {
   background-color: #fff;
@@ -2126,6 +2146,25 @@ body > .navbar-collapse:before {
   transition: all 300ms ease; }
   .activity-block:hover .activity-header {
     color: #039be5; }
+
+.activity-feed {
+  padding: 0px 24px;
+  font-size: 16px;
+  line-height: 90%;
+  max-height: 540px;
+  overflow: auto; }
+  .activity-feed .activity-feed-item {
+    padding: 24px 16px;
+    border-bottom: 1px solid #eee; }
+    .activity-feed .activity-feed-item .activityicon {
+      font-size: 14px; }
+    .activity-feed .activity-feed-item .activitydesc {
+      font-size: 12px; }
+    .activity-feed .activity-feed-item .activitytime {
+      font-size: 10px;
+      float: right; }
+    .activity-feed .activity-feed-item p {
+      margin: 0; }
 
 .health-records-view .health-records-categories {
   margin: 0px 0px 24px;
@@ -2262,90 +2301,96 @@ body > .navbar-collapse:before {
     transform: scale(1);
     -webkit-transform: scale(1); } }
 
-.nursing-home-dashboard-view {
-  padding: 64px; }
-  .nursing-home-dashboard-view .formCreation {
-    display: flex;
-    flex-direction: column;
+.nursing-home-dashboard-view .formCreation {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: baseline;
+  padding: 0 30px 0 30px; }
+
+.nursing-home-dashboard-view .vitalStatistics {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: baseline;
+  padding: 0 30px 0 30px; }
+  .nursing-home-dashboard-view .vitalStatistics .formItems {
+    width: 48%;
+    margin: 1%; }
+
+.nursing-home-dashboard-view .formItems {
+  align-self: auto;
+  flex-basis: auto;
+  width: 100%; }
+
+.nursing-home-dashboard-view .formItems #firstNamePatientCreation {
+  width: 100%; }
+
+.nursing-home-dashboard-view .form {
+  margin: auto;
+  width: 40%; }
+
+.nursing-home-dashboard-view hr.style-one {
+  border: 10px;
+  height: 1px;
+  background: #333;
+  background-image: linear-gradient(to right, #ccc, #333, #ccc);
+  width: 95%;
+  margin: 2%; }
+
+.nursing-home-dashboard-view hr.style14 {
+  height: 10px;
+  border: 0;
+  box-shadow: 0 10px 10px -10px #8c8b8b inset; }
+
+.nursing-home-dashboard-view .dashboard-card {
+  background-color: #fff;
+  padding: 0;
+  border-radius: 0;
+  margin: 8px 16px 40px;
+  border: 1px solid #e5e9f2;
+  box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.025);
+  border-radius: .2rem;
+  min-height: 300px; }
+
+.nursing-home-dashboard-view .search-bar-section {
+  background-color: #fff;
+  padding: 16px;
+  border-radius: 0;
+  margin: 8px 16px 40px;
+  border: 1px solid #e5e9f2;
+  box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.025);
+  border-radius: .2rem; }
+  .nursing-home-dashboard-view .search-bar-section .bar-dropdown {
+    display: inline-block;
+    vertical-align: bottom;
+    margin-right: 8px;
+    width: 120px; }
+    .nursing-home-dashboard-view .search-bar-section .bar-dropdown .form-group {
+      margin: 0; }
+    .nursing-home-dashboard-view .search-bar-section .bar-dropdown select.form-control {
+      border: 1px solid #eee;
+      border-radius: 4px;
+      font-size: 12px;
+      padding: 8px 16px; }
+  .nursing-home-dashboard-view .search-bar-section .bar-search {
+    display: inline-block;
+    vertical-align: bottom;
     width: 100%;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: baseline;
-    padding: 0 30px 0 30px; }
-  .nursing-home-dashboard-view .vitalStatistics {
-    display: flex;
-    flex-direction: row;
-    width: 100%;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: baseline;
-    padding: 0 30px 0 30px; }
-    .nursing-home-dashboard-view .vitalStatistics .formItems {
-      width: 48%;
-      margin: 1%; }
-  .nursing-home-dashboard-view .formItems {
-    align-self: auto;
-    flex-basis: auto;
-    width: 100%; }
-  .nursing-home-dashboard-view .formItems #firstNamePatientCreation {
-    width: 100%; }
-  .nursing-home-dashboard-view .form {
-    margin: auto;
-    width: 40%; }
-  .nursing-home-dashboard-view hr.style-one {
-    border: 10px;
-    height: 1px;
-    background: #333;
-    background-image: linear-gradient(to right, #ccc, #333, #ccc);
-    width: 95%;
-    margin: 2%; }
-  .nursing-home-dashboard-view hr.style14 {
-    height: 10px;
-    border: 0;
-    box-shadow: 0 10px 10px -10px #8c8b8b inset; }
-  .nursing-home-dashboard-view .dashboard-card {
-    background-color: #fff;
-    padding: 0;
-    border-radius: 0;
-    margin: 8px 16px 40px;
-    border: 1px solid #e5e9f2;
-    box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.025);
-    border-radius: .2rem;
-    min-height: 300px; }
-  .nursing-home-dashboard-view .search-bar-section {
-    background-color: #fff;
-    padding: 16px;
-    border-radius: 0;
-    margin: 8px 16px 40px;
-    border: 1px solid #e5e9f2;
-    box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.025);
-    border-radius: .2rem; }
-    .nursing-home-dashboard-view .search-bar-section .bar-dropdown {
-      display: inline-block;
-      vertical-align: bottom;
-      margin-right: 8px;
-      width: 100px; }
-      .nursing-home-dashboard-view .search-bar-section .bar-dropdown .form-group {
-        margin: 0; }
-      .nursing-home-dashboard-view .search-bar-section .bar-dropdown select.form-control {
-        border: 1px solid #eee;
-        border-radius: 4px;
-        font-size: 12px;
-        padding: 8px 16px; }
-    .nursing-home-dashboard-view .search-bar-section .bar-search {
-      display: inline-block;
-      vertical-align: bottom;
-      width: 100%;
-      max-width: 800px; }
-      .nursing-home-dashboard-view .search-bar-section .bar-search .form-group {
-        margin: 0; }
-      .nursing-home-dashboard-view .search-bar-section .bar-search .input-group, .nursing-home-dashboard-view .search-bar-section .bar-search .form-control {
-        width: 100%; }
-      .nursing-home-dashboard-view .search-bar-section .bar-search .form-control {
-        border: 1px solid #eee;
-        border-radius: 4px; }
-    .nursing-home-dashboard-view .search-bar-section .bar-btns {
-      float: right; }
+    max-width: 800px; }
+    .nursing-home-dashboard-view .search-bar-section .bar-search .form-group {
+      margin: 0; }
+    .nursing-home-dashboard-view .search-bar-section .bar-search .input-group, .nursing-home-dashboard-view .search-bar-section .bar-search .form-control {
+      width: 100%; }
+    .nursing-home-dashboard-view .search-bar-section .bar-search .form-control {
+      border: 1px solid #eee;
+      border-radius: 4px; }
+  .nursing-home-dashboard-view .search-bar-section .bar-btns {
+    float: right; }
 
 /* Gradient color1 - color2 - color1 */
 .employee-dashboard-view {
@@ -2496,24 +2541,6 @@ hr.style-one {
   .containerRelativeDashboard .containerSectionBody .items {
     flex-basis: auto; }
 
-.patient-data-dashboard-view .card-header {
-  padding: 24px;
-  border-bottom: 1px solid #e5e9f2; }
-
-.patient-data-dashboard-view .card-content {
-  padding: 24px;
-  font-size: 14px;
-  line-height: 90%; }
-  .patient-data-dashboard-view .card-content .card-content-title {
-    font-size: 10px;
-    text-transform: uppercase;
-    font-weight: bold;
-    margin: 0;
-    padding: 0; }
-
-.patient-data-dashboard-view .card-label {
-  font-weight: bold; }
-
 .patient-data-dashboard-view .profile-card {
   background-color: #fff;
   padding: 32px;
@@ -2612,21 +2639,18 @@ hr.style-one {
     margin-top: 48px;
     text-align: center; }
 
-.activity-feed {
-  padding: 0px 24px;
-  font-size: 16px;
-  line-height: 90%; }
-  .activity-feed .activity-feed-item {
-    padding: 24px 16px;
-    border-bottom: 1px solid #eee;
-    min-height: 80px; }
-    .activity-feed .activity-feed-item .activityicon {
-      font-size: 14px; }
-    .activity-feed .activity-feed-item .activitydesc {
-      font-size: 12px; }
-    .activity-feed .activity-feed-item .activitytime {
-      font-size: 10px;
-      float: right; }
+.patient-nextact-card {
+  background-color: #fff;
+  border-radius: 0;
+  margin-bottom: 24px;
+  border: 1px solid #e5e9f2;
+  box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.025);
+  border-radius: .2rem; }
+  .patient-nextact-card .upnext-content {
+    height: 20px; }
+  .patient-nextact-card .upnextdate {
+    font-size: 12px;
+    color: #858585; }
 
 @keyframes anim-heart-beat {
   0% {
@@ -2860,7 +2884,7 @@ hr.style-one {
   border-radius: .2rem;
   padding: 24px;
   margin: 5px;
-  width: 320px; }
+  width: 332px; }
   .patient-card .patient-pic-section {
     margin: 24px 32px; }
     .patient-card .patient-pic-section .profilepic {
@@ -2871,7 +2895,7 @@ hr.style-one {
     font-size: 14px;
     padding: 0px 16px 16px; }
   .patient-card .vital-stats-section {
-    padding: 24px 0px; }
+    padding: 8px 0px; }
     .patient-card .vital-stats-section .vital-stat {
       font-size: 12px;
       height: 22px; }
