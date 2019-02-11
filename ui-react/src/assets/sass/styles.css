@@ -1605,7 +1605,7 @@ body > .navbar-collapse:before {
       color: #fff; }
     .login .login-form .alert-block {
       /* ----- animation ----- */
-      animation: drop 0.4s ease-in both, fadeIn 0.4s ease-in both;
+      animation: drop 0.4s ease-in both, fadeIn 0.4s ease-in both;
       padding: 16px;
       width: 250px;
       margin: 8px auto;
@@ -1682,7 +1682,7 @@ body > .navbar-collapse:before {
 .feedback-card {
   margin-bottom: 16px;
   /* ----- animation ----- */
-  animation: drop 0.4s ease-in both, fadeIn 0.4s ease-in both; }
+  animation: drop 0.4s ease-in both, fadeIn 0.4s ease-in both; }
   .feedback-card .feedback-block {
     padding: 16px;
     background-color: #37be60;
@@ -2031,7 +2031,7 @@ body > .navbar-collapse:before {
           background-color: #16a9c8; }
     .search-card .search-list .diseaseinfo-card {
       /* ----- animation ----- */
-      animation: moveUp 0.4s ease-in both, fadeIn 0.4s ease-in both; }
+      animation: moveUp 0.4s ease-in both, fadeIn 0.4s ease-in both; }
 
 .activity-view .planned-activities-card {
   background-color: #fff;

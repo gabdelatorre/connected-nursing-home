@@ -25,6 +25,7 @@ class ActivityFeedItem extends Component {
     }
 
     componentDidMount() {
+        console.log(this.props);
     }
 
     render() {
@@ -36,10 +37,10 @@ class ActivityFeedItem extends Component {
                         <Glyphicon glyph="apple" className="activityicon"/>
                     </Col>
                     <Col lg={8}>
-                        <p className="activitydesc"> <b>{this.props.selectedPatient.firstName + " " + this.props.selectedPatient.lastName} </b> engaged in <b>{this.props.activity.activityName}</b> </p>
+                        <p className="activitydesc"> <b>{this.props.selectedPatient.firstName + " " + this.props.selectedPatient.lastName} </b> engaged in <b>{this.props.activity.data.activityName}</b> </p>
                     </Col>
                     <Col lg={2}>
-                        <p className="activitytime"> {moment.unix(this.props.activity.activityDate.seconds)
+                        <p className="activitytime"> {moment.unix(this.props.activity.data.activityDate.seconds)
                           .format("lll")} </p>
                     </Col>
                 </Row>

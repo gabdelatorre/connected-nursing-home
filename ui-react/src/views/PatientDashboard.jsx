@@ -183,18 +183,24 @@ class PatientDashboard extends Component {
     .onSnapshot(e => {
         var tempActivityFeed = [];
         var tempPlannedActivity = [];
+        var tempActivity = {}
 
         e.docs.forEach(e => {
+          tempActivity = {
+            "data": e.data(),
+            "id": e.id,
+            "patientId": this.props.selectedPatient.id
+          }
             if (e.data().status === "Completed") {
-                tempActivityFeed.push(e.data()) 
+                tempActivityFeed.push(tempActivity) 
             } else {
-                tempPlannedActivity.push(e.data())
+                tempPlannedActivity.push(tempActivity)
             }
         });
-
+        console.log(tempActivityFeed);
         tempActivityFeed.sort((a, b)=>{
-            var keyA = new Date(a.activityDate.seconds),
-                keyB = new Date(b.activityDate.seconds);
+            var keyA = new Date(a.data.activityDate.seconds),
+                keyB = new Date(b.data.activityDate.seconds);
             // Compare the 2 dates
             if(keyA < keyB) return 1;
             if(keyA > keyB) return -1;
@@ -202,8 +208,8 @@ class PatientDashboard extends Component {
         });
         
         tempPlannedActivity.sort((a, b)=>{
-            var keyA = new Date(a.activityDate.seconds),
-                keyB = new Date(b.activityDate.seconds);
+          var keyA = new Date(a.data.activityDate.seconds),
+              keyB = new Date(b.data.activityDate.seconds);
             // Compare the 2 dates
             if(keyA < keyB) return -1;
             if(keyA > keyB) return 1;
