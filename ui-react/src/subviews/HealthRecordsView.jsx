@@ -41,7 +41,7 @@ class HealthRecordsView extends Component {
 
     componentDidMount() {
         console.log("HealthRecordsView: componentDidMount");
-        //this.getPatientHealthRecord();    
+        //this.getPatientHealthRecord();   
     }
 
     extractHealthStatsForGraph () {

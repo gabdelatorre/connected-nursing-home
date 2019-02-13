@@ -50,6 +50,11 @@ class RelativeDashboard extends Component {
         id: null
       },
       tempSelectedPatientActivities: [],
+      userData: [{
+        firstName: null,
+        lastName: null,
+        email: null
+      }]
     };
     this.setState({
       arrOfMyRelative: []
@@ -133,6 +138,16 @@ class RelativeDashboard extends Component {
 
   componentDidMount() {
     this.onloadMyPatients();
+    
+    this.setState({
+      userData: {
+        firstName: this.props.userData.firstName,
+        lastName: this.props.userData.lastName,
+        email: this.props.authUser.email
+      }
+    })
+   
+
   }
 
   onloadMyPatients() {
@@ -257,6 +272,7 @@ class RelativeDashboard extends Component {
                 this
               )}
               tempSelectedPatientActivities={this.state.tempSelectedPatientActivities}
+              userData={this.state.userData}
             />
         </div>
       );

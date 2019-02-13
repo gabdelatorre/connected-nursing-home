@@ -1,0 +1,57 @@
+
+    .visitationViewRelativeList {
+    background-color: #fff;
+    border-radius: 0;
+    border: 1px solid #e5e9f2;
+    box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.025);
+    border-radius: 0.2rem;
+    margin-bottom: 20px;
+    .visitationRelativesOfPatient {
+    .containerListOfRelatives {
+        display: flex;
+        flex-direction: row;
+        width: 100%;
+        flex-wrap: nowrap;
+        justify-content: flex-start;
+        align-items: baseline;
+        margin: 0.5%;
+        overflow-x: scroll;
+    }
+    }
+
+    .nurseCardTitle {
+    margin: 2%;
+    font-size: 16px ;
+    margin: 5px;
+  }
+    }
+
+    .visitationViewTable {
+        background-color: #fff;
+        border-radius: 0;
+        padding:0% 1% 1% 1%;
+        .table-row-rejected {
+            background: #f8d7da !important;
+        }
+        
+        .table-row-emailsent {
+            background: #d4edda !important;
+        }
+        .table-row-waiting {
+            background: #fff3cd !important;
+        }
+    }
+
+    .visitation-cards {
+        background-color: #fff;
+        border-radius: 0;
+        margin-bottom: 24px;
+        border: 1px solid #e5e9f2;
+        box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.025);
+        border-radius: .2rem;
+
+        .visitation-label {
+            font-weight: bold;
+        }
+    }
+

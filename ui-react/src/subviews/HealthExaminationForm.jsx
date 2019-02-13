@@ -26,6 +26,7 @@ export class HealthExaminationForm extends Component{
         var medicationsFieldRecordValue = document.getElementById("medicationsFieldRecordValue").value;
         var remarksFieldRecordValue = document.getElementById("remarksFieldRecordValue").value;
         var timestampToday = new Date().toString();
+        alert(timestampToday);
         var timestamp = new Date();
 
         this.props.firebase.db

@@ -22,29 +22,7 @@ import ActivityFeedItem from "../subviews/ActivityFeedItem";
 import NurseAssignedListOfAvailable from "../subviews/NurseAssignedListOfAvailable";
 import ActivityView from "../subviews/ActivityView";
 import RelativeView from "../subviews/RelativeView";
-
-const Ball = posed.div({
-  visible: { opcaity: 1 },
-  hidden: { opacity: 0 }
-});
-
-const Square = posed.div({
-  idle: { scale: 1 },
-  hovered: {
-    scale: 1.3,
-    transition: {
-      type: "spring",
-      stiffness: 200,
-      damping: 0
-    }
-  }
-});
-
-const StyledSquare = styled(Square)`
-  width: 100px;
-  height: 100px;
-  background: red;
-`;
+import VisitationView from "../subviews/VisitationView";
 
 class PatientDashboard extends Component {
   constructor(props) {
@@ -57,6 +35,7 @@ class PatientDashboard extends Component {
       activityFeed: [],
       plannedActivities: [],
       nextActivity: "",
+      arrayOfVisitors: []
     };
 
   }
@@ -65,6 +44,7 @@ class PatientDashboard extends Component {
       this.getPatientHealthStatsFromWearable();
       this.getPatientHealthRecord();
       this.getActivities();
+      this.getPatientVisitors();
   }
 
   goBack(view) {
@@ -169,6 +149,32 @@ class PatientDashboard extends Component {
       })
   }
 
+  getPatientVisitors() {
+
+    var patientId = this.props.selectedPatient.id;
+    this.props.firebase.db.collection("patients").doc(patientId).collection("visitor_logs").orderBy("dateCreated", "desc").onSnapshot(e =>{
+      this.setState({
+        arrayOfVisitors: []
+      });
+        e.docs.forEach(e =>{
+          var tempTimestamp = e.data().dateCreated.toDate();
+
+          var dateTimestamp = this.timestampFormatter(tempTimestamp);
+          this.setState ({
+            arrayOfVisitors: this.state.arrayOfVisitors.concat({
+              visitorName: e.data().visitorName,
+              visitorEmail: e.data().visitorEmail,
+              visitationDate: e.data().visitationDate,
+              status: e.data().status,
+              dateCreated: dateTimestamp,
+              id: e.id,
+              remarks: e.data().remarks
+            })
+          })
+          })
+        })
+  }
+
   timestampFormatter(timestamp) {
     var newDate = new Date(timestamp);
 
@@ -200,8 +206,8 @@ class PatientDashboard extends Component {
         });
         console.log(tempActivityFeed);
         tempActivityFeed.sort((a, b)=>{
-            var keyA = new Date(a.data.activityDate.seconds),
-                keyB = new Date(b.data.activityDate.seconds);
+            var keyA = new Date(a.data.activityDateCompleted.seconds),
+                keyB = new Date(b.data.activityDateCompleted.seconds);
             // Compare the 2 dates
             if(keyA < keyB) return 1;
             if(keyA > keyB) return -1;
@@ -324,6 +330,18 @@ class PatientDashboard extends Component {
               {" "}
               Relatives{" "}
             </Button>
+            <Button
+              className={
+                "profile-action-btn " +
+                (this.state.currentView === "VISITATION_VIEW"
+                  ? "profile-action-btn-active"
+                  : "")
+              }
+              onClick={this.switchDashboardView.bind(this, "VISITATION_VIEW")}
+            >
+              {" "}
+              Visitation{" "}
+            </Button>
           </div>
         );
       } else if (userRole == "Employee") {
@@ -379,6 +397,18 @@ class PatientDashboard extends Component {
             >
               {" "}
               Relatives{" "}
+            </Button>
+            <Button
+              className={
+                "profile-action-btn " +
+                (this.state.currentView === "VISITATION_VIEW"
+                  ? "profile-action-btn-active"
+                  : "")
+              }
+              onClick={this.switchDashboardView.bind(this, "VISITATION_VIEW")}
+            >
+              {" "}
+              Visitation{" "}
             </Button>
           </div>
         );
@@ -438,7 +468,19 @@ class PatientDashboard extends Component {
             >
               {" "}
               Nurses{" "}
-            </Button> 
+            </Button>             
+            <Button
+              className={
+                "profile-action-btn " +
+                (this.state.currentView === "VISITATION_VIEW"
+                  ? "profile-action-btn-active"
+                  : "")
+              }
+              onClick={this.switchDashboardView.bind(this, "VISITATION_VIEW")}
+            >
+              {" "}
+              Visitation{" "}
+            </Button>
           </div>
         );
       }
@@ -659,6 +701,12 @@ class PatientDashboard extends Component {
         return (
           <Col lg={9} md={9} sm={12} xs={12}>
             <RelativeView selectedPatient={this.props.selectedPatient} userRole={this.props.userRole}/>
+          </Col>
+        );
+      } else if (this.state.currentView === "VISITATION_VIEW") {
+        return (
+          <Col lg={9} md={9} sm={12} xs={12}>
+            <VisitationView selectedPatient={this.props.selectedPatient} userRole={this.props.userRole} userData={this.props.userData} arrayOfVisitors={this.state.arrayOfVisitors}/>
           </Col>
         );
       } else {

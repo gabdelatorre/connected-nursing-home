@@ -582,6 +582,20 @@ body > .navbar-collapse:before {
   box-shadow: none !important;
   float: right; }
 
+.modal-action-default-btn {
+  margin-top: 24px;
+  padding: 16px 12px;
+  background-color: #fff;
+  color: #039be5;
+  font-size: 10px;
+  border-radius: 0;
+  text-transform: uppercase;
+  font-weight: bold;
+  border: 1px solid #039be5;
+  width: 120px;
+  margin-bottom: 8px;
+  box-shadow: none !important; }
+
 .modal-action-btn:hover {
   background-color: #039be5;
   color: #fff;
@@ -2497,8 +2511,9 @@ hr.style14 {
   align-items: baseline;
   margin: 10px; }
 
-.itemPatientCard {
-  flex-basis: auto; }
+.itemsPatientCard {
+  flex-basis: auto;
+  margin: 0% 1% 0% 1%; }
 
 hr.style-one {
   border: 10px;
@@ -2975,6 +2990,48 @@ hr.style-one {
   align-items: flex-start;
   padding: 0%;
   margin: 2%; }
+
+.visitationViewRelativeList {
+  background-color: #fff;
+  border-radius: 0;
+  border: 1px solid #e5e9f2;
+  box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.025);
+  border-radius: 0.2rem;
+  margin-bottom: 20px; }
+  .visitationViewRelativeList .visitationRelativesOfPatient .containerListOfRelatives {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    align-items: baseline;
+    margin: 0.5%;
+    overflow-x: scroll; }
+  .visitationViewRelativeList .nurseCardTitle {
+    margin: 2%;
+    font-size: 16px;
+    margin: 5px; }
+
+.visitationViewTable {
+  background-color: #fff;
+  border-radius: 0;
+  padding: 0% 1% 1% 1%; }
+  .visitationViewTable .table-row-rejected {
+    background: #f8d7da !important; }
+  .visitationViewTable .table-row-emailsent {
+    background: #d4edda !important; }
+  .visitationViewTable .table-row-waiting {
+    background: #fff3cd !important; }
+
+.visitation-cards {
+  background-color: #fff;
+  border-radius: 0;
+  margin-bottom: 24px;
+  border: 1px solid #e5e9f2;
+  box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.025);
+  border-radius: .2rem; }
+  .visitation-cards .visitation-label {
+    font-weight: bold; }
 
 .dropdown-menu {
   visibility: hidden;

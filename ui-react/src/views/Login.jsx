@@ -45,7 +45,7 @@ class Login extends Component {
               </Row>
               <Row>
                 <Col md={12}>
-                  <p className="inputText">Password </p>
+                    <p className="inputText">Password </p>
                 </Col>
               </Row>
               <Row>
