@@ -22,32 +22,24 @@ export class PatientForm extends Component{
 
     handleSubmit () {
 
-      var latestStats = {
-        bloodPressure: this.bloodPressure.value,
-        heartRate: this.heartRate.value,
-        temperature: this.temperature.value,
-        height: this.height.value,
-        weight: this.weight.value,
-        medications: this.medications.value,
-        remarks: this.remarks.value,
-        medications: this.medications.value,
-        timestamp: new Date(),
-      }
-
-        var editPatient = this.props.editPatient;
-        if(editPatient) {
-          console.log(this.birthDate.value)
-          // this.props.firebase.db
-          //     .collection("patients")
-          //     .doc(editPatient.id)
-          //     .set({
-          //       birthdate: this.birthDate.value,
-          //       firstName: this.firstName.value,
-          //       lastName: this.lastName.value
-          //     })
-          //     .then(docRef => {});
-          //
-          // this.props.closePatientForm();
+      var editPatient = this.props.editPatient;
+      if(editPatient) {
+        updatePatient(editPatient.id,{
+          birthdate: this.birthDate.value,
+          firstName: this.firstName.value,
+          lastName: this.lastName.value
+        }, this.props.firebase.db);
+      } else {
+        var latestStats = {
+          bloodPressure: this.bloodPressure.value,
+          heartRate: this.heartRate.value,
+          temperature: this.temperature.value,
+          height: this.height.value,
+          weight: this.weight.value,
+          medications: this.medications.value,
+          remarks: this.remarks.value,
+          medications: this.medications.value,
+          timestamp: new Date(),
         }
 
         this.props.firebase.db
@@ -60,8 +52,9 @@ export class PatientForm extends Component{
               role: "Patient"
             })
             .then(docRef => {});
+      }
 
-        this.props.closePatientForm();
+      this.props.closePatientForm();
     }
 
     closeModal() {
@@ -298,3 +291,60 @@ export class PatientForm extends Component{
 }
 
 export default withFirebase(PatientForm);
+
+function updatePatient(patientId, payload, dbinstance, callback) {
+  console.log(patientId);
+  var patientsRef = dbinstance.collection("patients");
+  var usersRef = dbinstance.collection("users");
+
+  //update data initially;
+  patientsRef
+    .doc(patientId)
+    .update(payload);
+
+  //Retrieve affected user's ids
+  var retrieveUsers = [], affectedUsers = [];
+  retrieveUsers.push(
+    patientsRef //one for relatives
+      .doc(patientId)
+      .collection("relatives")
+      .get()
+      .then((snapshot) => {
+        snapshot.docs.forEach(doc => {
+          affectedUsers.push({id:doc.id, collection:"relatives"});
+        });
+        return null;
+      }),
+    patientsRef //one for nurses
+      .doc(patientId)
+      .collection("nurse_Assigned")
+      .get()
+      .then((snapshot) => {
+        snapshot.docs.forEach(doc => {
+          affectedUsers.push({id:doc.id, collection:"patients"});
+        });
+        return null;
+      }),
+  );
+
+  //Process affected users
+  var updateUsers = [];
+  Promise.all(retrieveUsers).then(() =>{
+    affectedUsers.forEach((user) => {
+      updateUsers.push(
+        usersRef
+          .doc(user.id)
+          .collection(user.collection)
+          .doc(patientId)
+          .set(payload)
+          .then(() => {
+            return null; //resolve promise
+          })
+      )
+    });
+
+    Promise.all(updateUsers).then(() => {
+      // do something after users are updated
+    });
+  });
+}
