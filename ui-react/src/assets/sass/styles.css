@@ -2148,6 +2148,15 @@ body > .navbar-collapse:before {
     padding: 28px 8px 8px; }
   .activity-block .activity-delete-btn:hover {
     background-color: #c75344; }
+  .activity-block .activity-edit-btn {
+    background-color: #039be5;
+    float: right;
+    color: #fff;
+    font-weight: 700;
+    text-align: center;
+    padding: 28px 8px 8px; }
+  .activity-block .activity-edit-btn:hover {
+    background-color: #057db7; }
   .activity-block .activityicon {
     font-size: 32px;
     margin-top: 16px; }

@@ -84,7 +84,7 @@
         height: 70px;
         font-size: 16px;
     }
-    
+
     .activity-complete-btn {
         background-color: #39c563;
         float: right;
@@ -110,7 +110,20 @@
     .activity-delete-btn:hover {
         background-color: #c75344;
     }
-    
+
+    .activity-edit-btn {
+        background-color: #039be5;
+        float: right;
+        color: #fff;
+        font-weight: 700;
+        text-align: center;
+        padding: 28px 8px 8px;
+    }
+
+    .activity-edit-btn:hover {
+        background-color: #057db7;
+    }
+
     .activityicon {
         font-size: 32px;
         margin-top: 16px;
