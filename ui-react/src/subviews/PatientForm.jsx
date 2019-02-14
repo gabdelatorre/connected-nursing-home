@@ -22,16 +22,32 @@ export class PatientForm extends Component{
 
     handleSubmit () {
 
-        var latestStats = {
-            bloodPressure: this.bloodPressure.value,
-            heartRate: this.heartRate.value,
-            temperature: this.temperature.value,
-            height: this.height.value,
-            weight: this.weight.value,
-            medications: this.medications.value,
-            remarks: this.remarks.value,
-            medications: this.medications.value,
-            timestamp: new Date(),
+      var latestStats = {
+        bloodPressure: this.bloodPressure.value,
+        heartRate: this.heartRate.value,
+        temperature: this.temperature.value,
+        height: this.height.value,
+        weight: this.weight.value,
+        medications: this.medications.value,
+        remarks: this.remarks.value,
+        medications: this.medications.value,
+        timestamp: new Date(),
+      }
+
+        var editPatient = this.props.editPatient;
+        if(editPatient) {
+          console.log(this.birthDate.value)
+          // this.props.firebase.db
+          //     .collection("patients")
+          //     .doc(editPatient.id)
+          //     .set({
+          //       birthdate: this.birthDate.value,
+          //       firstName: this.firstName.value,
+          //       lastName: this.lastName.value
+          //     })
+          //     .then(docRef => {});
+          //
+          // this.props.closePatientForm();
         }
 
         this.props.firebase.db
@@ -44,7 +60,7 @@ export class PatientForm extends Component{
               role: "Patient"
             })
             .then(docRef => {});
-        
+
         this.props.closePatientForm();
     }
 
@@ -53,6 +69,73 @@ export class PatientForm extends Component{
     }
 
     render(){
+        var editPatient = this.props.editPatient;
+        if(editPatient) {
+          return (
+            <div className="health-records-form">
+                <Modal show={this.props.showPatientForm} onHide={this.closeModal.bind(this)} bsSize="large">
+
+                <Modal.Header closeButton>
+                    <Modal.Title className="modal-title">Edit Patient Form </Modal.Title>
+                </Modal.Header>
+
+                <Modal.Body className="modal-cont">
+                    <div className="health-records-form-content">
+                        <Grid fluid>
+                            <Row className="field-row-entry">
+                                <Col lg={4} md={4} sm={4} xs={4}>
+                                    <h4 className="labelform"> First Name </h4>
+                                </Col>
+                                <Col  lg={8} md={8} sm={8} xs={8}>
+                                    <FormControl
+                                        componentClass="textarea"
+                                        placeholder=""
+                                        inputRef={firstName => this.firstName = firstName}
+                                        defaultValue={editPatient.firstName}
+                                    />
+                                </Col>
+                            </Row>
+                            <Row className="field-row-entry">
+                                <Col lg={4} md={4} sm={4} xs={4}>
+                                    <h4 className="labelform"> Last Name </h4>
+                                </Col>
+                                <Col  lg={8} md={8} sm={8} xs={8}>
+                                    <FormControl
+                                        componentClass="textarea"
+                                        placeholder=""
+                                        inputRef={lastName => this.lastName = lastName}
+                                        defaultValue={editPatient.lastName}
+                                    />
+                                </Col>
+                            </Row>
+                            <Row className="field-row-entry">
+                                <Col lg={4} md={4} sm={4} xs={4}>
+                                    <h4 className="labelform"> Birth Date </h4>
+                                </Col>
+                                <Col lg={8} md={8} sm={8} xs={8}>
+                                    <input
+                                      className="forminput"
+                                      type="date"
+                                      ref={(birthDate) => this.birthDate = birthDate}
+                                      defaultValue={editPatient.birthdate} />
+                                </Col>
+                            </Row>
+                            <hr/>
+
+                            <Row className="field-row-entry">
+                                <Col lg={12} md={12} sm={12} xs={12}>
+                                    <Button onClick={this.handleSubmit.bind(this)} className="modal-action-btn">
+                                        Update
+                                    </Button>
+                                </Col>
+                            </Row>
+                        </Grid>
+                    </div>
+                </Modal.Body>
+                </Modal>
+            </div>
+          )
+        }
 
         return (
         <div className="health-records-form">
@@ -70,9 +153,9 @@ export class PatientForm extends Component{
                                 <h4 className="labelform"> First Name </h4>
                             </Col>
                             <Col  lg={8} md={8} sm={8} xs={8}>
-                                <FormControl 
+                                <FormControl
                                     componentClass="textarea"
-                                    placeholder="" 
+                                    placeholder=""
                                     inputRef={firstName => this.firstName = firstName}
                                     defaultValue=""
                                 />
@@ -83,9 +166,9 @@ export class PatientForm extends Component{
                                 <h4 className="labelform"> Last Name </h4>
                             </Col>
                             <Col  lg={8} md={8} sm={8} xs={8}>
-                                <FormControl 
+                                <FormControl
                                     componentClass="textarea"
-                                    placeholder="" 
+                                    placeholder=""
                                     inputRef={lastName => this.lastName = lastName}
                                     defaultValue=""
                                 />
@@ -100,43 +183,43 @@ export class PatientForm extends Component{
                             </Col>
                         </Row>
                         <hr/>
-                        
+
                         <Row className="field-row-entry">
                             <Col  lg={4} md={4} sm={4} xs={4}>
                                 <h4 className="labelform"> Height </h4>
                             </Col>
                             <Col lg={8} md={8} sm={8} xs={8}>
-                                <FormControl 
+                                <FormControl
                                     componentClass="textarea"
-                                    placeholder="" 
+                                    placeholder=""
                                     inputRef={height => this.height = height}
                                     defaultValue=""
                                 />
                             </Col>
                         </Row>
-                        
+
                         <Row className="field-row-entry">
                             <Col  lg={4} md={4} sm={4} xs={4}>
                                 <h4 className="labelform"> Weight </h4>
                             </Col>
                             <Col lg={8} md={8} sm={8} xs={8}>
-                                <FormControl 
+                                <FormControl
                                     componentClass="textarea"
-                                    placeholder="" 
+                                    placeholder=""
                                     inputRef={weight => this.weight = weight}
                                     defaultValue=""
                                 />
                             </Col>
                         </Row>
-                        
+
                         <Row className="field-row-entry">
                             <Col  lg={4} md={4} sm={4} xs={4}>
                                 <h4 className="labelform"> Blood Pressure </h4>
                             </Col>
                             <Col lg={8} md={8} sm={8} xs={8}>
-                                <FormControl 
+                                <FormControl
                                     componentClass="textarea"
-                                    placeholder="" 
+                                    placeholder=""
                                     inputRef={bloodPressure => this.bloodPressure = bloodPressure}
                                     defaultValue=""
                                 />
@@ -147,9 +230,9 @@ export class PatientForm extends Component{
                                 <h4 className="labelform"> Heart Rate </h4>
                             </Col>
                             <Col lg={8} md={8} sm={8} xs={8}>
-                                <FormControl 
+                                <FormControl
                                     componentClass="textarea"
-                                    placeholder="" 
+                                    placeholder=""
                                     inputRef={heartRate => this.heartRate = heartRate}
                                     defaultValue=""
                                 />
@@ -160,9 +243,9 @@ export class PatientForm extends Component{
                                 <h4 className="labelform"> Temperature </h4>
                             </Col>
                             <Col lg={8} md={8} sm={8} xs={8}>
-                                <FormControl 
+                                <FormControl
                                     componentClass="textarea"
-                                    placeholder="" 
+                                    placeholder=""
                                     inputRef={temperature => this.temperature = temperature}
                                     defaultValue=""
                                 />
@@ -176,9 +259,9 @@ export class PatientForm extends Component{
                                 <h4 className="labelform"> Medications </h4>
                             </Col>
                             <Col  lg={8} md={8} sm={8} xs={8}>
-                                <FormControl 
+                                <FormControl
                                     componentClass="textarea"
-                                    placeholder="" 
+                                    placeholder=""
                                     defaultValue=""
                                     inputRef={medications => this.medications = medications}
                                 />
@@ -189,9 +272,9 @@ export class PatientForm extends Component{
                                 <h4 className="labelform"> Remarks </h4>
                             </Col>
                             <Col lg={8} md={8} sm={8} xs={8}>
-                                <FormControl 
+                                <FormControl
                                     componentClass="textarea"
-                                    placeholder="" 
+                                    placeholder=""
                                     defaultValue=""
                                     inputRef={remarks => this.remarks = remarks}
                                 />
@@ -203,7 +286,7 @@ export class PatientForm extends Component{
                                 <Button onClick={this.handleSubmit.bind(this)} className="modal-action-btn">
                                     Submit
                                 </Button>
-                            </Col> 
+                            </Col>
                         </Row>
                     </Grid>
                 </div>
@@ -215,5 +298,3 @@ export class PatientForm extends Component{
 }
 
 export default withFirebase(PatientForm);
-
-

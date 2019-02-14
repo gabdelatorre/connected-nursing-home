@@ -5,7 +5,10 @@ import {
   Row,
   Button,
   Grid,
-  Glyphicon
+  Glyphicon,
+  Dropdown,
+  DropdownButton,
+  MenuItem,
 } from "react-bootstrap";
 import { withFirebase } from "./../firebase/context";
 import { withRouter } from "react-router-dom";
@@ -23,6 +26,30 @@ import NurseAssignedListOfAvailable from "../subviews/NurseAssignedListOfAvailab
 import ActivityView from "../subviews/ActivityView";
 import RelativeView from "../subviews/RelativeView";
 import VisitationView from "../subviews/VisitationView";
+import PatientForm from "../subviews/PatientForm";
+
+const Ball = posed.div({
+  visible: { opcaity: 1 },
+  hidden: { opacity: 0 }
+});
+
+const Square = posed.div({
+  idle: { scale: 1 },
+  hovered: {
+    scale: 1.3,
+    transition: {
+      type: "spring",
+      stiffness: 200,
+      damping: 0
+    }
+  }
+});
+
+const StyledSquare = styled(Square)`
+  width: 100px;
+  height: 100px;
+  background: red;
+`;
 
 class PatientDashboard extends Component {
   constructor(props) {
@@ -35,7 +62,8 @@ class PatientDashboard extends Component {
       activityFeed: [],
       plannedActivities: [],
       nextActivity: "",
-      arrayOfVisitors: []
+      arrayOfVisitors: [],
+      showPatientForm: false,
     };
 
   }
@@ -101,7 +129,7 @@ class PatientDashboard extends Component {
 
           console.log(tempHealthStatsData);
 
-          this.setState({ 
+          this.setState({
             patientWearableStats:tempHealthStatsData,
           }, () => this.healthStatsSort());
 
@@ -125,7 +153,7 @@ class PatientDashboard extends Component {
               var tempTimestamp = e.data().timestamp.toDate();
 
               var dateTimestamp = this.timestampFormatter(tempTimestamp);
-           
+
               this.setState({
                 patientHealthExaminationRecords: this.state.patientHealthExaminationRecords.concat([
                   {
@@ -199,7 +227,7 @@ class PatientDashboard extends Component {
             "patientId": this.props.selectedPatient.id
           }
             if (e.data().status === "Completed") {
-                tempActivityFeed.push(tempActivity) 
+                tempActivityFeed.push(tempActivity)
             } else {
                 tempPlannedActivity.push(tempActivity)
             }
@@ -213,7 +241,7 @@ class PatientDashboard extends Component {
             if(keyA > keyB) return -1;
             return 0;
         });
-        
+
         tempPlannedActivity.sort((a, b)=>{
           var keyA = new Date(a.data.activityDate.seconds),
               keyB = new Date(b.data.activityDate.seconds);
@@ -223,7 +251,7 @@ class PatientDashboard extends Component {
             return 0;
         });
 
-        this.setState({ 
+        this.setState({
             activityFeed:tempActivityFeed,
             plannedActivities:tempPlannedActivity
         })
@@ -234,7 +262,7 @@ class PatientDashboard extends Component {
     console.log("healthStatsSorts");
     var tempWearableStatsSort = this.state.patientWearableStats.slice();
     var tempHealthRecordsStatsSort = this.state.patientHealthExaminationRecords.slice();
-    
+
     var combinedStats = tempWearableStatsSort.concat(tempHealthRecordsStatsSort);
 
     console.log(tempWearableStatsSort);
@@ -255,6 +283,20 @@ class PatientDashboard extends Component {
     //var lastFiveStats = combinedStats.slice(Math.max(combinedStats.length - 5, 1))
 
     this.setState({statsHistoryForGraph:combinedStats})
+  }
+
+  togglePatientForm () {
+
+    if (this.state.showPatientForm) {
+        this.setState({
+            showPatientForm: false
+        })
+    }
+    else {
+        this.setState({
+            showPatientForm: true
+        })
+    }
   }
 
   render() {
@@ -464,11 +506,11 @@ class PatientDashboard extends Component {
               onClick={this.switchDashboardView.bind(
                 this,
                 "LIST_OF_NURSE_ASSIGNED",
-              )} 
+              )}
             >
               {" "}
               Nurses{" "}
-            </Button>             
+            </Button>
             <Button
               className={
                 "profile-action-btn " +
@@ -491,11 +533,34 @@ class PatientDashboard extends Component {
       selectedPatientVitalStats: this.props.selectedPatientVitalStats,
       switchDashboardView: this.switchDashboardView.bind(this),
       userRole: this.props.userRole,
-      
+
     };
 
+    const moreDtlsBtn = () => {
+      var userRole = this.props.userRole;
+      if(userRole != "Relative") {
+        return (
+          <Dropdown id="dropdown-custom-1">
+            <Dropdown.Toggle noCaret className="patient-option-btn">
+              <Glyphicon glyph="option-vertical" />
+            </Dropdown.Toggle>
+            <Dropdown.Menu className="super-colors">
+              <MenuItem
+                eventKey="1"
+                onClick={this.togglePatientForm.bind(this)}
+                >
+                Edit
+              </MenuItem>
+              <MenuItem eventKey="2">Delete</MenuItem>
+            </Dropdown.Menu>
+          </Dropdown>
+        )
+      }
+      return (null);
+    }
+
     console.log(this.props.selectedPatientVitalStats);
-    
+
     var heartAnimation = {
       animation:
         "anim-heart-beat " +
@@ -513,7 +578,7 @@ class PatientDashboard extends Component {
     if (this.state.plannedActivities.length != 0) {
         nextActivity = this.state.plannedActivities[0]
     }
-    
+
     var pdViewComponent = () => {
       if (this.state.currentView === "PROFILE") {
         console.log("CURRENT VIEW IS PROFILE");
@@ -546,7 +611,7 @@ class PatientDashboard extends Component {
                       </Row>
                     </div>
                   </div>
-                  
+
                   <div className="patient-nextact-card">
                     <div className="card-header">
                         <div className="card-label">Up Next</div>
@@ -556,12 +621,12 @@ class PatientDashboard extends Component {
                         nextActivity !== ""
                         ?
                         <div className="upnext-content">
-                            <Col lg={3} md={3} sm={3} xs={3}> 
+                            <Col lg={3} md={3} sm={3} xs={3}>
                                 <p className="upnextdate">{moment.unix(nextActivity.data.activityDate.seconds)
                                 .format("ddd, h:mmA")}
                                 </p>
                             </Col>
-                            <Col lg={9} md={9} sm={9} xs={9}> 
+                            <Col lg={9} md={9} sm={9} xs={9}>
                                 <p><b>{this.props.selectedPatient.firstName}</b>'s next activity is &nbsp; <b>{nextActivity.data.activityName}</b>.</p>
                             </Col>
                         </div>
@@ -718,7 +783,7 @@ class PatientDashboard extends Component {
       <div className="patient-data-dashboard-view">
         <div className="header-section">
             <div className="header-s"><h3>Patient's Dashboard</h3></div>
-          
+
             <div className="breadcrumbs-view">
               <h3 className="breadcrumbs">
                 <span
@@ -737,10 +802,8 @@ class PatientDashboard extends Component {
           <Row>
             <Col lg={3} md={3} sm={12} xs={12} >
               <div className="patient-pic-card">
-                <div className="options-section">
-                  <Button className="patient-option-btn">
-                    <Glyphicon glyph="option-vertical" />
-                  </Button>
+                <div className="options-section pull-right">
+                {moreDtlsBtn()}
                 </div>
                 <Grid fluid className="nopads">
                   <Row>
@@ -766,6 +829,12 @@ class PatientDashboard extends Component {
           </Row>
         </Grid>
         </div>
+
+        <PatientForm
+            editPatient={this.props.selectedPatient}
+            showPatientForm={this.state.showPatientForm}
+            closePatientForm={this.togglePatientForm.bind(this)}
+        />
       </div>
     );
   }
