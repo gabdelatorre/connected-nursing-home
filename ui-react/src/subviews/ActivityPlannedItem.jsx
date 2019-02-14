@@ -43,13 +43,13 @@ class ActivityPlannedItem extends Component {
     }
 
     render() {
-        
+
         return (
-            <div className={"activity-info-block "  + (this.state.activityClicked ? "activity-info-block-clicked" : "")} 
+            <div className={"activity-info-block "  + (this.state.activityClicked ? "activity-info-block-clicked" : "")}
                  onClick={this.setActivityClicked.bind(this)}>
                 <Grid fluid>
                     <Row>
-                        <Col lg={8} md={8} sm={8} xs={8}>
+                        <Col lg={7} md={7} sm={7} xs={7}>
                             <div className="activity-block-info">
                                 <h4 className="activity-header-2">{moment.unix(this.props.activity.data.activityDate.seconds).format("lll")}</h4>
                                 <h4 className="activity-header">{this.props.activity.data.activityName}</h4>
@@ -61,6 +61,11 @@ class ActivityPlannedItem extends Component {
                         <div className="activity-delete-btn act-btn" onClick={this.setAction.bind(this, "REMOVE", this.props.activity)}>
                             <Glyphicon glyph="remove-sign"/>
                         </div>
+                        {/* WIP
+                        <div className="activity-edit-btn act-btn" onClick={this.setAction.bind(this, "COMPLETE", this.props.activity)}>
+                            <Glyphicon glyph="pencil"/>
+                        </div>
+                        */}
                     </Row>
                 </Grid>
             </div>
