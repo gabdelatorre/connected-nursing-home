@@ -27,6 +27,7 @@ import ActivityView from "../subviews/ActivityView";
 import RelativeView from "../subviews/RelativeView";
 import VisitationView from "../subviews/VisitationView";
 import PatientForm from "../subviews/PatientForm";
+import ConfirmModal from "../subviews/ConfirmationModal";
 
 const Ball = posed.div({
   visible: { opcaity: 1 },
@@ -64,6 +65,7 @@ class PatientDashboard extends Component {
       nextActivity: "",
       arrayOfVisitors: [],
       showPatientForm: false,
+      showConfirm: false
     };
 
   }
@@ -297,6 +299,29 @@ class PatientDashboard extends Component {
             showPatientForm: true
         })
     }
+  }
+
+  toggleConfirm(status) {
+    if(status){
+      this.setState({showConfirm:status});
+    } else {
+      this.setState({showConfirm:!this.state.showConfirm});
+    }
+  }
+
+  getConfimAction(action) {
+    switch (action) {
+      case "CONFIRMED":
+        deletePatient(this.props.selectedPatient.id, this.props.firebase.db, () =>
+        {
+          //Do something after delete from firestore DB
+          this.goBack("EMPLOYEE_DASHBOARD");
+        });
+        break;
+      default:
+        this.toggleConfirm(false);
+    }
+    this.toggleConfirm(false);
   }
 
   render() {
@@ -551,7 +576,12 @@ class PatientDashboard extends Component {
                 >
                 Edit
               </MenuItem>
-              <MenuItem eventKey="2">Delete</MenuItem>
+              <MenuItem
+                eventKey="2"
+                onClick={this.toggleConfirm.bind(this)}
+                >
+                  Delete
+              </MenuItem>
             </Dropdown.Menu>
           </Dropdown>
         )
@@ -835,9 +865,77 @@ class PatientDashboard extends Component {
             showPatientForm={this.state.showPatientForm}
             closePatientForm={this.togglePatientForm.bind(this)}
         />
+
+        <ConfirmModal
+            header={'Confirm Delete Patient'}
+            message={'Are you sure you want to delete this patient?'}
+            show={this.state.showConfirm}
+            onHide={this.toggleConfirm.bind(this)}
+            onAction={this.getConfimAction.bind(this)}
+        />
       </div>
     );
   }
 }
 
 export default withFirebase(PatientDashboard);
+
+function deletePatient(patientId, dbinstance, callback) {
+  console.log("DELETING PATIENT: "+patientId);
+  var patientsRef = dbinstance.collection("patients");
+
+  //Delete sub collections of patients and relatives first first
+  deleteSubCollection(dbinstance, `patients/${patientId}/nurse_Assigned`, 25);
+  deleteSubCollection(dbinstance, `patients/${patientId}/relatives`, 25);
+
+  //Finally delete document
+  patientsRef
+    .doc(patientId)
+    .delete()
+    .then(() => {
+      callback();
+    });
+}
+
+//Delete Collection and Delete query batch for removing documents and its
+//subcollections as per firestore specifications
+function deleteSubCollection(db, collectionPath, batchSize) {
+     var collectionRef = db.collection(collectionPath);
+     var query = collectionRef.orderBy('__name__').limit(batchSize);
+
+    return new Promise((resolve, reject) => {
+        deleteQueryBatch(db, query, batchSize, resolve, reject);
+    });
+}
+
+function deleteQueryBatch(db, query, batchSize, resolve, reject) {
+query.get()
+    .then((snapshot) => {
+        // When there are no documents left, we are done
+        if (snapshot.size == 0) {
+            return 0;
+        }
+
+        // Delete documents in a batch
+        var batch = db.batch();
+        snapshot.docs.forEach((doc) => {
+            batch.delete(doc.ref);
+        });
+
+        return batch.commit().then(() => {
+            return snapshot.size;
+        });
+    }).then((numDeleted) => {
+        if (numDeleted === 0) {
+            resolve();
+            return;
+        }
+
+        // Recurse on the next process tick, to avoid
+        // exploding the stack.
+        process.nextTick(() => {
+            deleteQueryBatch(db, query, batchSize, resolve, reject);
+        });
+    })
+    .catch(reject);
+}
