@@ -47,16 +47,24 @@ class ActivityView extends Component {
         }
     }
 
+    toggleConfirm(status) {
+      if(status){
+        // this.setState({showModal:status});
+      } else {
+        // this.setState({showModal:!this.state.showModal});
+      }
+    }
+
     render() {
 
         const buttonRole = () => {
             if(this.props.userRole == "Relative") {
-                
+
             } else {
            return <Button className="header-option-btn" onClick={this.toggleActivityForm.bind(this)}><Glyphicon glyph="plus"/></Button>
             }
         }
-        
+
         var tempActivityMap = this.props.activityFeed.map((activity) => {
             console.log("ActivityFeed: ");
             console.log(activity);
@@ -74,7 +82,7 @@ class ActivityView extends Component {
                 </div>
             )
         })
-        
+
         return (
             <div className="activity-view">
                 <Grid fluid className="nopads">
