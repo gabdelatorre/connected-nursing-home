@@ -51,7 +51,7 @@ class ActivityPlannedItem extends Component {
                     <Row>
                         <Col lg={7} md={7} sm={7} xs={7}>
                             <div className="activity-block-info">
-                                <h4 className="activity-header-2">{moment.unix(this.props.activity.data.activityDate.seconds).format("lll")}</h4>
+                                <h4 className="activity-header-2">{moment.unix(this.props.activity.data.activityDate.seconds).format("lll")} - {moment.unix(this.props.activity.data.activityEndDate.seconds).format("lll")}</h4>
                                 <h4 className="activity-header">{this.props.activity.data.activityName}</h4>
                             </div>
                         </Col>

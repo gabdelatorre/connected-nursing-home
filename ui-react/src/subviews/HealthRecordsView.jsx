@@ -131,32 +131,23 @@ class HealthRecordsView extends Component {
     }
 
     searchCheckUp(){
-        var patientId = "KEr41uK5SZOmwy5Fd1CZ";
-        var date = document.querySelector('#dateTxt').value;
+        var patientId = this.props.selectedPatient.id;
+        var date = document.querySelector('#dateSearch').value;
         var newDate = new Date(date);
+        var day = newDate.getDate()+1;
         var finalDate = newDate.getMonth()+1 + "-" + newDate.getDate() + "-" + newDate.getFullYear();
-        console.log(finalDate);
-
-        this.props.firebase.db.collection("patients").doc(patientId).collection("vital_statistics").where("timestamps", "==", finalDate).get().then( data =>{
+        var finalDate2 = newDate.getMonth()+1 + "-" + day + "-" + newDate.getFullYear();        
+        var newDate2 = new Date(finalDate2);
+        this.setState({
+            patientHealthExaminationRecords: []
+          })
+        this.props.firebase.db.collection("patients").doc(patientId).collection("health_records").where("timestamp", ">=", newDate).where("timestamp", "<", newDate2).get().then( data =>{
             data.docs.forEach(data=>{
-                this.setVal("bloodPressure", data.data().bloodPressure);
-                this.setVal("height", data.data().height);
-                this.setVal("weight", data.data().weight);
-                this.setVal("temperature", data.data().temperature);
-                this.setVal("remarks", data.data().remarks);
-            }) 
-        });
 
-        this.props.firebase.db.collection("patients").onSnapshot(e=>{
-            e.docs.forEach(e=>{
-                this.props.firebase.db.collection("patients").doc(e.id).collection("vital_statistics").where("timestamps", "==", finalDate).get().then( data =>{
-                    data.docs.forEach(data=>{
-                        //console.log(data.data())
-                    }) 
-                });
-            })
-        })
-    } 
+                console.log(data.data().timestamp);
+            });
+        });
+    }
 
     goBack () {        
         this.props.switchDashboardView("DASHBOARD")

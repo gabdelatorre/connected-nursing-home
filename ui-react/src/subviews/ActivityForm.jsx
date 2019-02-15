@@ -27,10 +27,17 @@ export class ActivityForm extends Component{
         var tm_hour = this.activityTime.value.split(':')[0];
         var tm_sec = this.activityTime.value.split(':')[1];
 
+        var Etm_year = this.activityEndDate.value.split('-')[0];
+        var Etm_month = this.activityEndDate.value.split('-')[1];
+        var Etm_day = this.activityEndDate.value.split('-')[2];
+        var Etm_hour = this.activityEndTime.value.split(':')[0];
+        var Etm_sec = this.activityEndTime.value.split(':')[1];
+
         console.log(tm_year);
         console.log(tm_month);
         console.log(tm_day);
         var timestamp = new Date(tm_year, tm_month-1, tm_day, tm_hour, tm_sec);
+        var Etimestamp = new Date(Etm_year, Etm_month-1, Etm_day, Etm_hour, Etm_sec);
         console.log(timestamp);
 
         this.props.firebase.db
@@ -41,6 +48,7 @@ export class ActivityForm extends Component{
         .set({
             "status": "Planned",
             "activityDate": timestamp,
+            "activityEndDate": Etimestamp,
             "activityName": this.activityName.value,
             "activityDesc": this.activityDesc.value,
             "activityDateCompleted": "",
@@ -104,6 +112,22 @@ export class ActivityForm extends Component{
                                     componentClass="textarea"
                                     placeholder="" 
                                     inputRef={activityTime => this.activityTime = activityTime}
+                                    defaultValue=""
+                                />
+                            </Col>
+                        </Row>
+                        <Row className="field-row-entry">
+                            <Col lg={4} md={4} sm={4} xs={4}>
+                                <h4>End Date</h4>
+                            </Col>
+                            <Col lg={8} md={8} sm={8} xs={8}>
+                                <input className="forminput" type="date" ref={(activityEndDate) => this.activityEndDate = activityEndDate} />
+                                <br/>
+                                Time
+                                <FormControl 
+                                    componentClass="textarea"
+                                    placeholder="" 
+                                    inputRef={activityEndTime => this.activityEndTime = activityEndTime}
                                     defaultValue=""
                                 />
                             </Col>
